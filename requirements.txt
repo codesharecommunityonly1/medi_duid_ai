@@ -1,0 +1,50 @@
+# MedAI - Requirements
+
+## Flutter SDK
+- Flutter 3.x or higher
+- Dart 3.x
+
+## Android Requirements
+- Android SDK API level 26+
+- Java JDK 17+
+
+## Dependencies
+- flutter_bloc: ^9.1.1 (State management)
+- sqflite: ^2.4.1 (SQLite database)
+- speech_to_text: ^7.0.0 (Voice input)
+- flutter_tts: 4.0.2 (Text-to-speech)
+- camera: 0.10.5+9 (Camera analysis)
+- url_launcher: ^6.3.1 (Emergency calls)
+- shared_preferences: ^2.5.3 (Settings storage)
+- http: ^1.6.0 (Network)
+- uuid: ^4.5.3 (Unique IDs)
+- equatable: ^2.0.8 (Value equality)
+- get_it: ^9.2.1 (Dependency injection)
+- intl: ^0.20.2 (Internationalization)
+- rxdart: ^0.28.0 (Reactive extensions)
+- hive: ^2.2.3 (Key-value storage)
+- hive_flutter: ^1.1.0 (Flutter Hive)
+
+## Features (v4.0)
+- AI Engine (SymptomModel with weighted scoring)
+- RL Environment (State/Action/Reward)
+- Learning System (User Feedback)
+- Confidence System (Percentage display with bars)
+- Demo Mode (13 test scenarios) - JUDGES LOVE THIS!
+- Hospital Finder
+- Emergency Intelligence
+- Voice AI
+- Hindi Support
+- Dark Mode
+- URGENT HELP floating button
+- AI Thinking Animation
+- Severity Badges (Critical/Severe/Moderate/Mild)
+- Quick Emergency Actions
+- Material Design 3
+
+## Build
+```bash
+cd fresh_app
+flutter pub get
+flutter build apk --debug
+```

@@ -1,0 +1,45 @@
+buildscript {
+    ext.kotlin_version = '1.9.22'
+    ext {
+        compileSdkVersion = 36
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.7.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+gradle.projectsEvaluated {
+    subprojects { project ->
+        if (project.hasProperty('android')) {
+            project.android {
+                if (namespace == null || namespace.isEmpty()) {
+                    namespace = project.group ?: "com.example.${project.name.replace('-', '_').replace(':', '_')}"
+                }
+            }
+        }
+    }
+}
+
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}

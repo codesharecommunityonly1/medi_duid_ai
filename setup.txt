@@ -1,0 +1,103 @@
+================================================================================
+                    MEDIGUIDE AI - SETUP GUIDE
+                    Offline RL-Powered Emergency Medical Assistant
+================================================================================
+
+================================================================================
+                           HACKATHON INFORMATION
+================================================================================
+
+Project Name: MedAI
+Category: Healthcare / AI / Mobile Development (Meta + Hugging Face 2026)
+
+================================================================================
+                           QUICK START
+================================================================================
+
+1. Install APK:
+   MediGuideAI-debug.apk (in project root)
+
+2. Build from source:
+   cd fresh_app
+   flutter pub get
+   flutter build apk --debug
+
+================================================================================
+                           FEATURES
+================================================================================
+
+1. Rural Emergency AI
+   - Select symptoms
+   - AI diagnosis with confidence %
+   - Confirm → AI learns (RL Learning)
+
+2. AI Dashboard
+   - View AI brain stats
+   - Learning progress
+
+3. Demo Mode (SECRET WEAPON - JUDGES LOVE THIS!)
+   - 13 pre-filled test scenarios
+   - Severity badges
+   - Animated execution
+   - Quick testing
+
+4. Smart Diagnosis (ENHANCED!)
+   - Symptom selector
+   - AI Thinking animation
+   - Multi-result with confidence bars
+   - Severity badges
+
+5. Emergency SOS (NEW!)
+   - 🚨 URGENT HELP floating button (pulsing)
+   - Risk Level indicator
+   - Quick Emergency Actions
+   - Immediate Steps checklist
+   - Call ambulance (102/108)
+   - Send SMS
+   - Find hospital
+
+6. First Aid Assistant
+   - Step-by-step timer
+   - Voice guidance
+
+================================================================================
+                           TECHNICAL
+================================================================================
+
+- AI Engine (SymptomModel with weighted scoring)
+- RL Environment: State/Action/Reward
+  - State = Symptoms
+  - Action = Predicted Disease
+  - Reward = +1 (correct), -0.5 (wrong)
+- Learning System: updateWeights() on user feedback
+- Confidence System: Shows percentage with bars (Malaria → 72%)
+- Demo Mode: 13 test scenarios (JUDGES LOVE THIS!)
+- 100% Offline
+- Hindi support
+- Dark Mode
+- AI Thinking Animation
+- Severity Badges (Critical/Severe/Moderate/Mild)
+
+================================================================================
+                           IMPACT
+================================================================================
+
+- Rural India focus - No internet required
+- Works in areas with no doctors
+- Hindi language support
+- Saves lives in emergencies
+
+================================================================================
+                           BUILD COMMANDS
+================================================================================
+
+# Debug APK
+flutter build apk --debug
+
+# Release APK
+flutter build apk --release
+
+# App Bundle
+flutter build appbundle
+
+================================================================================

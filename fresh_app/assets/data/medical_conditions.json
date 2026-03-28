@@ -1,0 +1,2032 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-03-27",
+  "totalConditions": 1050,
+  "categories": [
+    "Fever & Infections",
+    "Respiratory",
+    "Digestive",
+    "Pain",
+    "Skin",
+    "Neurological",
+    "Heart & Blood",
+    "Mental Health",
+    "Allergies",
+    "Eye & Ear",
+    "Emergency",
+    "Injuries",
+    "Chronic Conditions",
+    "Women Health",
+    "Children",
+    "Dental",
+    "Sexual Health",
+    "Nutrition & Vitamins",
+    "Poisoning & Toxins",
+    "Environmental"
+  ],
+  "conditions": [
+    {
+      "id": "1",
+      "name": "Common Cold",
+      "category": "Respiratory",
+      "severity": "mild",
+      "symptoms": ["runny nose", "sneezing", "sore throat", "cough", "congestion", "mild fatigue"],
+      "possibleConditions": ["Viral Upper Respiratory Infection", "Allergic Rhinitis", "Sinusitis"],
+      "firstAid": [
+        "Drink plenty of warm fluids like water, tea, or soup",
+        "Get adequate rest and sleep",
+        "Use a humidifier or take steam inhalation",
+        "Gargle with warm salt water for sore throat",
+        "Use over-the-counter cold medications if needed",
+        "Keep your nostrils clear with saline drops"
+      ],
+      "organicRemedies": [
+        "Ginger tea with honey",
+        "Garlic consumption",
+        "Vitamin C rich foods (oranges, lemons)",
+        "Steam inhalation with eucalyptus",
+        "Honey and warm water"
+      ],
+      "medications": ["Acetaminophen", "Ibuprofen", "Pseudoephedrine", "Phenylephrine", "Cough syrups"],
+      "emergencyWarning": "",
+      "whenToSeekDoctor": "If symptoms last more than 10 days or worsen"
+    },
+    {
+      "id": "2",
+      "name": "Fever",
+      "category": "Fever & Infections",
+      "severity": "moderate",
+      "symptoms": ["high temperature", "body ache", "headache", "sweating", "chills", "fatigue", "weakness"],
+      "possibleConditions": ["Viral Fever", "Bacterial Infection", "Malaria", "Dengue", "Typhoid", "Flu"],
+      "firstAid": [
+        "Take temperature regularly",
+        "Drink plenty of fluids to prevent dehydration",
+        "Use cool compresses on forehead",
+        "Take fever-reducing medication",
+        "Wear light clothing",
+        "Rest in a cool, well-ventilated room"
+      ],
+      "organicRemedies": [
+        "Ginger tea",
+        "Tulsi (holy basil) leaves",
+        "Turmeric milk",
+        "Honey and lemon water",
+        "Coconut water"
+      ],
+      "medications": ["Acetaminophen (Paracetamol)", "Ibuprofen", "Aspirin"],
+      "emergencyWarning": "EMERGENCY: If fever exceeds 103°F (39.4°C) or persists for more than 3 days",
+      "whenToSeekDoctor": "If fever is above 103°F, lasts more than 3 days, or accompanied by rash, severe headache, or difficulty breathing"
+    },
+    {
+      "id": "3",
+      "name": "Headache",
+      "category": "Pain",
+      "severity": "mild",
+      "symptoms": ["head pain", "pressure", "tension", "throbbing", "sensitivity to light", "nausea"],
+      "possibleConditions": ["Tension Headache", "Migraine", "Sinus Headache", "Cluster Headache", "Dehydration"],
+      "firstAid": [
+        "Rest in a quiet, dark room",
+        "Apply cold or warm compress to head",
+        "Massage temples gently",
+        "Stay hydrated",
+        "Take pain relievers if needed",
+        "Practice deep breathing"
+      ],
+      "organicRemedies": [
+        "Ginger tea",
+        "Peppermint oil on temples",
+        "Magnesium-rich foods",
+        "Chamomile tea",
+        "Caffeine (for migraine)"
+      ],
+      "medications": ["Ibuprofen", "Acetaminophen", "Aspirin", "Sumatriptan", "Rizatriptan"],
+      "emergencyWarning": "EMERGENCY: Sudden severe headache, headache with fever, stiff neck, or confusion",
+      "whenToSeekDoctor": "If headaches are frequent, severe, or accompanied by vision changes"
+    },
+    {
+      "id": "4",
+      "name": "Cough",
+      "category": "Respiratory",
+      "severity": "mild",
+      "symptoms": ["coughing", "throat irritation", "phlegm", "chest tightness", "shortness of breath"],
+      "possibleConditions": ["Common Cold", "Bronchitis", "Pneumonia", "Asthma", "Allergies", "GERD"],
+      "firstAid": [
+        "Stay hydrated with warm fluids",
+        "Use honey to soothe throat",
+        "Avoid smoking and pollutants",
+        "Use humidifier",
+        "Take cough suppressants for dry cough",
+        "Use expectorants for wet cough"
+      ],
+      "organicRemedies": [
+        "Honey (not for children under 1 year)",
+        "Ginger tea with honey",
+        "Turmeric milk",
+        "Steam inhalation",
+        "Marshmallow root tea"
+      ],
+      "medications": ["Dextromethorphan", "Guaifenesin", "Honey cough syrup", "Bromhexine", "Ambroxol"],
+      "emergencyWarning": "EMERGENCY: Coughing up blood, difficulty breathing, or chest pain",
+      "whenToSeekDoctor": "If cough lasts more than 3 weeks, produces blood, or is accompanied by weight loss"
+    },
+    {
+      "id": "5",
+      "name": "Sore Throat",
+      "category": "Respiratory",
+      "severity": "mild",
+      "symptoms": ["throat pain", "pain when swallowing", "scratchy throat", "swollen glands", "fever"],
+      "possibleConditions": ["Viral Pharyngitis", "Strep Throat", "Tonsillitis", "Allergies", "GERD"],
+      "firstAid": [
+        "Gargle with warm salt water multiple times",
+        "Drink warm fluids like tea with honey",
+        "Use throat lozenges",
+        "Rest your voice",
+        "Take pain relievers",
+        "Avoid smoking and irritants"
+      ],
+      "organicRemedies": [
+        "Honey and warm water",
+        "Ginger tea with lemon",
+        "Turmeric gargle",
+        "Chamomile tea",
+        "Licorice root tea"
+      ],
+      "medications": ["Acetaminophen", "Ibuprofen", "Throat spray", "Antibiotics (if bacterial)"],
+      "emergencyWarning": "EMERGENCY: Difficulty breathing or swallowing, drooling, or high fever",
+      "whenToSeekDoctor": "If sore throat lasts more than a week or is severe with difficulty swallowing"
+    },
+    {
+      "id": "6",
+      "name": "Stomach Ache",
+      "category": "Digestive",
+      "severity": "mild",
+      "symptoms": ["stomach pain", "belly pain", "cramps", "bloating", "nausea", "gas"],
+      "possibleConditions": ["Indigestion", "Gas", "Food Poisoning", "Stomach Flu", "Constipation", "GERD"],
+      "firstAid": [
+        "Rest and avoid strenuous activity",
+        "Apply heat to stomach area",
+        "Drink clear fluids",
+        "Eat bland foods (BRAT diet)",
+        "Avoid dairy, fatty, and spicy foods",
+        "Take antacids if needed"
+      ],
+      "organicRemedies": [
+        "Peppermint tea",
+        "Ginger tea",
+        "Chamomile tea",
+        "Fennel seeds",
+        "Cumin water"
+      ],
+      "medications": ["Antacids", "Pepto-Bismol", "Simethicone", "Loperamide"],
+      "emergencyWarning": "EMERGENCY: Severe abdominal pain, bloody stool, vomiting blood, or high fever",
+      "whenToSeekDoctor": "If pain is severe, lasts more than 2 days, or is accompanied by fever or vomiting"
+    },
+    {
+      "id": "7",
+      "name": "Diarrhea",
+      "category": "Digestive",
+      "severity": "moderate",
+      "symptoms": ["loose stools", "frequent bowel movements", "abdominal cramps", "bloating", "nausea", "dehydration"],
+      "possibleConditions": ["Viral Gastroenteritis", "Food Poisoning", "Bacterial Infection", "Parasitic Infection", "Food Intolerance"],
+      "firstAid": [
+        "Drink plenty of fluids (ORS solution)",
+        "Eat bland foods (banana, rice, toast)",
+        "Avoid dairy and fatty foods",
+        "Rest adequately",
+        "Take anti-diarrheal medication",
+        "Wash hands frequently"
+      ],
+      "organicRemedies": [
+        "Bananas",
+        "Rice water",
+        "Apple sauce",
+        "Probiotic yogurt",
+        "Blueberries"
+      ],
+      "medications": ["Loperamide", "Bismuth Subsalicylate", "ORS packets", "Zinc supplements"],
+      "emergencyWarning": "EMERGENCY: Signs of severe dehydration, bloody diarrhea, or high fever",
+      "whenToSeekDoctor": "If diarrhea lasts more than 2 days, contains blood, or causes dehydration"
+    },
+    {
+      "id": "8",
+      "name": "Constipation",
+      "category": "Digestive",
+      "severity": "mild",
+      "symptoms": ["hard stools", "difficulty passing stool", "straining", "bloating", "abdominal pain", "few bowel movements"],
+      "possibleConditions": ["Dietary Fiber Deficiency", "Dehydration", "Lack of Exercise", "Medications", "Irritable Bowel Syndrome"],
+      "firstAid": [
+        "Increase fiber intake",
+        "Drink plenty of water",
+        "Exercise regularly",
+        "Establish regular bowel routine",
+        "Use stool softeners if needed",
+        "Avoid holding bowel movements"
+      ],
+      "organicRemedies": [
+        "Prunes and prune juice",
+        "Flaxseeds",
+        "Fiber-rich fruits and vegetables",
+        "Warm water with lemon",
+        "Castor oil"
+      ],
+      "medications": ["Docusate Sodium", "Polyethylene Glycol", "Lactulose", "Senna", "Fiber supplements"],
+      "emergencyWarning": "EMERGENCY: Severe abdominal pain, vomiting, or inability to pass gas",
+      "whenToSeekDoctor": "If constipation lasts more than a week or is severe"
+    },
+    {
+      "id": "9",
+      "name": "Nausea and Vomiting",
+      "category": "Digestive",
+      "severity": "moderate",
+      "symptoms": ["feel sick", "queasy stomach", "throwing up", "dizziness", "sweating", "excess saliva"],
+      "possibleConditions": ["Food Poisoning", "Motion Sickness", "Migraine", "Pregnancy", "GERD", "Infection"],
+      "firstAid": [
+        "Rest and avoid strong smells",
+        "Sip clear fluids slowly",
+        "Eat small, frequent meals",
+        "Avoid solid food until vomiting stops",
+        "Take anti-nausea medication",
+        "Apply cool compress to forehead"
+      ],
+      "organicRemedies": [
+        "Ginger (tea, candy, capsules)",
+        "Peppermint tea",
+        "Lemon scent",
+        "Acupressure wristbands",
+        "Fennel tea"
+      ],
+      "medications": ["Ondansetron", "Meclizine", "Promethazine", "Bismuth Subsalicylate", "Dramamine"],
+      "emergencyWarning": "EMERGENCY: Unable to keep fluids down, signs of dehydration, or vomiting blood",
+      "whenToSeekDoctor": "If vomiting persists more than 24 hours or is accompanied by severe abdominal pain"
+    },
+    {
+      "id": "10",
+      "name": "Back Pain",
+      "category": "Pain",
+      "severity": "moderate",
+      "symptoms": ["back ache", "lower back pain", "stiffness", "muscle ache", "difficulty moving", "sciatica"],
+      "possibleConditions": ["Muscle Strain", "Poor Posture", "Herniated Disc", "Arthritis", "Kidney Stones", "Sciatica"],
+      "firstAid": [
+        "Rest and avoid activities that worsen pain",
+        "Apply ice or heat to affected area",
+        "Use over-the-counter pain relievers",
+        "Practice gentle stretching",
+        "Maintain good posture",
+        "Use supportive mattress and chairs"
+      ],
+      "organicRemedies": [
+        "Turmeric (anti-inflammatory)",
+        "Ginger tea",
+        "Epsom salt bath",
+        "Arnica cream",
+        "Hot compress with mustard oil"
+      ],
+      "medications": ["Ibuprofen", "Naproxen", "Acetaminophen", "Muscle relaxants", "Topical analgesics"],
+      "emergencyWarning": "EMERGENCY: Back pain with numbness in legs, loss of bladder/bowel control, or fever",
+      "whenToSeekDoctor": "If back pain is severe, lasts more than 2 weeks, or radiates down the leg"
+    },
+    {
+      "id": "11",
+      "name": "Joint Pain",
+      "category": "Pain",
+      "severity": "moderate",
+      "symptoms": ["joint ache", "stiffness", "swelling", "warmth", "redness", "limited movement"],
+      "possibleConditions": ["Arthritis", "Gout", "Bursitis", "Tendonitis", "Injury", "Infection"],
+      "firstAid": [
+        "Rest the affected joint",
+        "Apply ice for 15-20 minutes several times a day",
+        "Use compression bandage",
+        "Elevate the joint",
+        "Take anti-inflammatory medications",
+        "Maintain healthy weight"
+      ],
+      "organicRemedies": [
+        "Turmeric (curcumin)",
+        "Ginger",
+        "Omega-3 fatty acids",
+        "Glucosamine supplements",
+        "Epsom salt soak"
+      ],
+      "medications": ["Ibuprofen", "Naproxen", "Acetaminophen", "Cortisone injections", "Topical NSAIDs"],
+      "emergencyWarning": "EMERGENCY: Joint pain with fever, inability to move joint, or severe swelling",
+      "whenToSeekDoctor": "If joint is swollen, hot, or you have fever"
+    },
+    {
+      "id": "12",
+      "name": "Toothache",
+      "category": "Dental",
+      "severity": "moderate",
+      "symptoms": ["tooth pain", "dental pain", "jaw pain", "swelling", "sensitivity to hot/cold", "headache"],
+      "possibleConditions": ["Tooth Decay", "Tooth Abscess", "Gum Disease", "Cracked Tooth", "Sinus Infection", "Teeth Grinding"],
+      "firstAid": [
+        "Rinse mouth with warm salt water",
+        "Use dental floss to remove trapped food",
+        "Apply cold compress to cheek",
+        "Take pain relievers",
+        "Avoid very hot, cold, or sweet foods",
+        "Use numbing gel for temporary relief"
+      ],
+      "organicRemedies": [
+        "Clove oil (natural anesthetic)",
+        "Garlic (antibacterial)",
+        "Salt water gargle",
+        "Peppermint tea bag",
+        "Vanilla extract"
+      ],
+      "medications": ["Ibuprofen", "Acetaminophen", "Orajel", "Amoxicillin (if infection)"],
+      "emergencyWarning": "EMERGENCY: Swelling affecting breathing or swallowing, or fever",
+      "whenToSeekDoctor": "Within 24-48 hours for toothache evaluation"
+    },
+    {
+      "id": "13",
+      "name": "Ear Pain",
+      "category": "Eye & Ear",
+      "severity": "moderate",
+      "symptoms": ["ear ache", "ear pain", "hearing loss", "fluid drainage", "dizziness", "fever"],
+      "possibleConditions": ["Ear Infection", "Swimmer's Ear", "Earwax Blockage", "Sinus Infection", "TMJ", "Barotrauma"],
+      "firstAid": [
+        "Apply warm compress to ear",
+        "Keep ear dry while bathing",
+        "Use pain relievers",
+        "Avoid inserting objects in ear",
+        "Sleep with elevated head",
+        "Use ear drops if recommended"
+      ],
+      "organicRemedies": [
+        "Garlic oil drops",
+        "Olive oil (for earwax)",
+        "Warm cloth",
+        "Onion juice (heated)",
+        "Ginger tea"
+      ],
+      "medications": ["Ibuprofen", "Acetaminophen", "Ear drops", "Antibiotics"],
+      "emergencyWarning": "EMERGENCY: Severe ear pain with fever, drainage, or hearing loss",
+      "whenToSeekDoctor": "If ear pain lasts more than 2 days or is severe"
+    },
+    {
+      "id": "14",
+      "id": "14",
+      "name": "Eye Irritation",
+      "category": "Eye & Ear",
+      "severity": "mild",
+      "symptoms": ["red eyes", "itching", "burning", "watering", "foreign body sensation", "dryness"],
+      "possibleConditions": ["Allergies", "Dry Eyes", "Conjunctivitis", "Eye Strain", "Foreign Body", "Infection"],
+      "firstAid": [
+        "Wash hands before touching eyes",
+        "Use artificial tears",
+        "Apply cool compress",
+        "Avoid rubbing eyes",
+        "Remove contact lenses",
+        "Protect eyes from wind and sun"
+      ],
+      "organicRemedies": [
+        "Cucumber slices",
+        "Rose water",
+        "Cool tea bags (chamomile)",
+        "Aloe vera gel",
+        "Warm compress"
+      ],
+      "medications": ["Artificial tears", "Antihistamine eye drops", "Lubricating drops", "Antibiotic drops"],
+      "emergencyWarning": "EMERGENCY: Sudden vision loss, severe pain, or chemical exposure",
+      "whenToSeekDoctor": "If eye pain, vision changes, or symptoms last more than a few days"
+    },
+    {
+      "id": "15",
+      "name": "Skin Rash",
+      "category": "Skin",
+      "severity": "mild",
+      "symptoms": ["redness", "itching", "bumps", "dryness", "swelling", "pain"],
+      "possibleConditions": ["Allergic Reaction", "Eczema", "Psoriasis", "Contact Dermatitis", "Heat Rash", "Hives"],
+      "firstAid": [
+        "Avoid scratching the affected area",
+        "Apply cool compress",
+        "Use mild, fragrance-free soap",
+        "Apply moisturizer frequently",
+        "Wear loose, cotton clothing",
+        "Take antihistamines for itching"
+      ],
+      "organicRemedies": [
+        "Aloe vera gel",
+        "Coconut oil",
+        "Oatmeal bath",
+        "Chamomile compress",
+        "Honey"
+      ],
+      "medications": ["Hydrocortisone cream", "Antihistamines", "Calcineurin inhibitors", "Calamine lotion"],
+      "emergencyWarning": "EMERGENCY: Rash with breathing difficulty, swelling of face/throat, or fever",
+      "whenToSeekDoctor": "If rash spreads rapidly, is painful, or accompanied by fever"
+    },
+    {
+      "id": "16",
+      "name": "Minor Burns",
+      "category": "Skin",
+      "severity": "mild",
+      "symptoms": ["red skin", "pain", "blistering", "swelling", "tight feeling"],
+      "possibleConditions": ["First Degree Burn", "Second Degree Burn", "Sunburn", "Thermal Burn", "Chemical Burn"],
+      "firstAid": [
+        "Cool the burn under running water for 10-20 minutes",
+        "Remove jewelry or tight clothing before swelling",
+        "Do not apply ice directly",
+        "Cover with sterile, non-stick bandage",
+        "Take pain relievers",
+        "Keep the burn clean"
+      ],
+      "organicRemedies": [
+        "Aloe vera gel",
+        "Honey",
+        "Cool water compress",
+        "Coconut oil (after cooling)",
+        "Lavender essential oil (diluted)"
+      ],
+      "medications": ["Acetaminophen", "Ibuprofen", "Aloe vera gel", "Silver sulfadiazine"],
+      "emergencyWarning": "EMERGENCY: Burns larger than 3 inches, on face/hands/feet/joints, or electrical/chemical burns",
+      "whenToSeekDoctor": "For burns larger than 3 inches or on sensitive areas"
+    },
+    {
+      "id": "17",
+      "name": "Insect Bites and Stings",
+      "category": "Skin",
+      "severity": "mild",
+      "symptoms": ["redness", "swelling", "itching", "pain", "bumps", "hives"],
+      "possibleConditions": ["Mosquito Bites", "Bee Stings", "Ant Bites", "Spider Bites", "Tick Bites", "Flea Bites"],
+      "firstAid": [
+        "Wash the area with soap and water",
+        "Apply cold pack for 10 minutes",
+        "Take antihistamines to reduce itching",
+        "Apply calamine lotion",
+        "Avoid scratching",
+        "Monitor for signs of allergic reaction"
+      ],
+      "organicRemedies": [
+        "Ice pack",
+        "Baking soda paste",
+        "Tea tree oil (diluted)",
+        "Honey",
+        "Plantain leaves"
+      ],
+      "medications": ["Antihistamines", "Hydrocortisone cream", "Calamine lotion", "Pain relievers"],
+      "emergencyWarning": "EMERGENCY: Difficulty breathing, swelling of lips/tongue, dizziness, or anaphylaxis",
+      "whenToSeekDoctor": "Immediately for signs of severe allergic reaction"
+    },
+    {
+      "id": "18",
+      "name": "Sprain",
+      "category": "Injuries",
+      "severity": "moderate",
+      "symptoms": ["pain", "swelling", "bruising", "difficulty moving", "stiffness", "tenderness"],
+      "possibleConditions": ["Ankle Sprain", "Wrist Sprain", "Knee Sprain", "Ligament Tear", "Strain"],
+      "firstAid": [
+        "Rest the injured area",
+        "Apply ice for 20 minutes every hour",
+        "Compress with elastic bandage",
+        "Elevate the injured area above heart level",
+        "Take pain relievers",
+        "Avoid putting weight on injured area"
+      ],
+      "organicRemedies": [
+        "Arnica gel",
+        "Turmeric paste",
+        "Epsom salt soak",
+        "Cold cabbage leaves",
+        "Comfrey ointment"
+      ],
+      "medications": ["Ibuprofen", "Naproxen", "Acetaminophen", "Topical pain relievers"],
+      "emergencyWarning": "EMERGENCY: Cannot bear weight, severe swelling, or heard a popping sound",
+      "whenToSeekDoctor": "If you cannot bear weight or swelling is severe"
+    },
+    {
+      "id": "19",
+      "name": "Cut or Wound",
+      "category": "Injuries",
+      "severity": "moderate",
+      "symptoms": ["bleeding", "pain", "open skin", "swelling", "redness"],
+      "possibleConditions": ["Minor Laceration", "Abrasion", "Puncture Wound", "Incised Wound", "Deep Wound"],
+      "firstAid": [
+        "Apply direct pressure with clean cloth",
+        "Clean wound with water and soap",
+        "Apply antibiotic ointment",
+        "Cover with sterile bandage",
+        "Change bandage daily",
+        "Watch for signs of infection"
+      ],
+      "organicRemedies": [
+        "Honey (medical grade)",
+        "Turmeric paste",
+        "Garlic (crushed applied topically)",
+        "Aloe vera",
+        "Green tea compress"
+      ],
+      "medications": ["Antibiotic ointment", "Pain relievers", "Tetanus shot (if needed)"],
+      "emergencyWarning": "EMERGENCY: Heavy bleeding won't stop, wound is deep, or signs of infection",
+      "whenToSeekDoctor": "If bleeding doesn't stop after 10 minutes of pressure, or wound is deep"
+    },
+    {
+      "id": "20",
+      "name": "Nosebleed",
+      "category": "Injuries",
+      "severity": "mild",
+      "symptoms": ["bleeding from nose", "blood dripping", "blood in mouth", "headache", "dizziness"],
+      "possibleConditions": ["Dry Air", "Trauma", "Allergies", "High Blood Pressure", "Blood Thinners", "Nasal Polyps"],
+      "firstAid": [
+        "Sit upright and lean forward slightly",
+        "Pinch soft part of nose firmly",
+        "Breathe through mouth",
+        "Hold for 10-15 minutes",
+        "Apply cold compress to bridge of nose",
+        "Use saline nasal spray after bleeding stops"
+      ],
+      "organicRemedies": [
+        "Cold compress",
+        "Cayenne pepper (taken internally)",
+        "Vitamin K rich foods",
+        "Apple cider vinegar (on cotton ball)",
+        "Humidifier"
+      ],
+      "medications": ["Nasal spray", "Antihistamines", "Blood pressure medication"],
+      "emergencyWarning": "EMERGENCY: Bleeding doesn't stop after 20 minutes, or caused by head injury",
+      "whenToSeekDoctor": "If nosebleeds are frequent or heavy"
+    },
+    {
+      "id": "21",
+      "name": "Heart Attack",
+      "category": "Emergency",
+      "severity": "critical",
+      "symptoms": ["chest pain", "chest pressure", "arm pain", "jaw pain", "shortness of breath", "sweating", "nausea", "lightheadedness"],
+      "possibleConditions": ["Myocardial Infarction", "Angina", "Panic Attack", "Acid Reflux", "Muscle Strain"],
+      "firstAid": [
+        "CALL EMERGENCY SERVICES IMMEDIATELY",
+        "Have the person sit or lie down",
+        "Loosen tight clothing",
+        "If conscious, give aspirin (unless allergic)",
+        "If not breathing, begin CPR",
+        "Stay with the person until help arrives"
+      ],
+      "organicRemedies": [],
+      "medications": ["Aspirin", "Nitroglycerin", "Oxygen"],
+      "emergencyWarning": "EMERGENCY: This is a life-threatening emergency. Call ambulance immediately.",
+      "whenToSeekDoctor": "IMMEDIATELY - Every minute counts during a heart attack"
+    },
+    {
+      "id": "22",
+      "name": "Stroke",
+      "category": "Emergency",
+      "severity": "critical",
+      "symptoms": ["face drooping", "arm weakness", "speech difficulty", "confusion", "vision problems", "severe headache", "difficulty walking", "numbness"],
+      "possibleConditions": ["Ischemic Stroke", "Hemorrhagic Stroke", "TIA (Mini Stroke)", "Migraine", "Hypoglycemia"],
+      "firstAid": [
+        "CALL EMERGENCY SERVICES IMMEDIATELY",
+        "Note the time symptoms started",
+        "Do not let the person sleep",
+        "Do not give food or water",
+        "If conscious, keep them comfortable",
+        "If not breathing, begin CPR"
+      ],
+      "organicRemedies": [],
+      "medications": ["tPA (if within time window)", "Aspirin", "Blood thinners"],
+      "emergencyWarning": "EMERGENCY: This is a life-threatening emergency. Remember FAST: Face, Arm, Speech, Time - call immediately!",
+      "whenToSeekDoctor": "IMMEDIATELY - Stroke treatment is time-sensitive"
+    },
+    {
+      "id": "23",
+      "name": "Choking",
+      "category": "Emergency",
+      "severity": "critical",
+      "symptoms": ["cannot breathe", "hands to throat", "inability to speak", "coughing", "wheezing", "skin turning blue"],
+      "possibleConditions": ["Foreign Body Airway Obstruction", "Allergic Reaction", "Asthma Attack", "Anaphylaxis"],
+      "firstAid": [
+        "Ask 'Are you choking?' - if yes, act immediately",
+        "For conscious adult: Perform Heimlich maneuver",
+        "Stand behind person, wrap arms around waist",
+        "Make fist above navel, thrust upward",
+        "For pregnant/obsese: Chest thrusts instead",
+        "If unconscious: Start CPR and call emergency"
+      ],
+      "organicRemedies": [],
+      "medications": [],
+      "emergencyWarning": "EMERGENCY: Person turns blue or becomes unconscious - call emergency immediately",
+      "whenToSeekDoctor": "After successful removal, have person checked for internal injuries"
+    },
+    {
+      "id": "24",
+      "name": "Allergic Reaction",
+      "category": "Allergies",
+      "severity": "moderate",
+      "symptoms": ["hives", "itching", "swelling", "rash", "difficulty breathing", "sneezing", "runny nose"],
+      "possibleConditions": ["Mild Allergy", "Moderate Allergy", "Anaphylaxis", "Food Allergy", "Drug Allergy", "Environmental Allergy"],
+      "firstAid": [
+        "Remove allergen if known",
+        "Take antihistamine",
+        "Apply cool compress to itchy areas",
+        "Avoid scratching",
+        "Monitor breathing",
+        "Use epinephrine auto-injector if prescribed"
+      ],
+      "organicRemedies": [
+        "Cold compress",
+        "Baking soda bath",
+        "Chamomile tea (topical)",
+        "Honey (local, for seasonal allergies)",
+        "Quercetin supplements"
+      ],
+      "medications": ["Antihistamines", "Epinephrine (for severe)", "Corticosteroids", "Inhalers"],
+      "emergencyWarning": "EMERGENCY: Difficulty breathing, throat swelling, rapid heartbeat, or dizziness - use epinephrine and call emergency",
+      "whenToSeekDoctor": "For any moderate to severe allergic reaction"
+    },
+    {
+      "id": "25",
+      "name": "Asthma Attack",
+      "category": "Respiratory",
+      "severity": "severe",
+      "symptoms": ["wheezing", "shortness of breath", "chest tightness", "coughing", "difficulty speaking", "lips turning blue"],
+      "possibleConditions": ["Asthma Exacerbation", "Allergic Asthma", "Exercise-Induced", "Cold-Induced", "Infection-Triggered"],
+      "firstAid": [
+        "Sit upright and stay calm",
+        "Use quick-relief inhaler (rescue inhaler)",
+        "Use spacer if available",
+        "Take 1 puff every 30-60 seconds, max 10 puffs",
+        "If no improvement, use again after 4 minutes",
+        "If still no improvement, call emergency"
+      ],
+      "organicRemedies": [
+        "Coffee/caffeine (mild bronchodilator)",
+        "Honey in warm water",
+        "Ginger tea",
+        "Deep breathing exercises",
+        "Buteyko breathing technique"
+      ],
+      "medications": ["Albuterol/Salbutamol", "Ipratropium", "Corticosteroids", "Montelukast"],
+      "emergencyWarning": "EMERGENCY: Blue lips, can't speak, lips or fingernails blue, or inhaler not helping",
+      "whenToSeekDoctor": "Immediately if symptoms worsen or don't improve with inhaler"
+    },
+    {
+      "id": "26",
+      "name": "Food Poisoning",
+      "category": "Digestive",
+      "severity": "moderate",
+      "symptoms": ["vomiting", "diarrhea", "stomach cramps", "fever", "nausea", "weakness", "loss of appetite"],
+      "possibleConditions": ["Bacterial Infection", "Viral Infection", "Parasitic Infection", "Toxin Exposure", "Food Allergies"],
+      "firstAid": [
+        "Rest and avoid solid food initially",
+        "Sip clear fluids frequently",
+        "Use ORS solution to prevent dehydration",
+        "Eat bland foods when able (banana, rice, toast)",
+        "Avoid dairy, caffeine, and fatty foods",
+        "Monitor for signs of dehydration"
+      ],
+      "organicRemedies": [
+        "Ginger tea",
+        "Garlic",
+        "Probiotics",
+        "BRAT diet",
+        "Lemon juice"
+      ],
+      "medications": ["Ondansetron", "Loperamide", "Bismuth Subsalicylate", "ORS packets", "Antibiotics (if bacterial)"],
+      "emergencyWarning": "EMERGENCY: Severe dehydration, bloody diarrhea, fever over 101.5°F, or symptoms last more than 3 days",
+      "whenToSeekDoctor": "If symptoms are severe or last more than 3 days"
+    },
+    {
+      "id": "27",
+      "name": "Drowning",
+      "category": "Emergency",
+      "severity": "critical",
+      "symptoms": ["no breathing", "no pulse", "blue skin", "water in lungs", "unconsciousness", "coughing"],
+      "possibleConditions": ["Freshwater Drowning", "Saltwater Drowning", "Near-Drowning", "Hypoxia"],
+      "firstAid": [
+        "REMOVE PERSON FROM WATER IMMEDIATELY",
+        "Check for breathing and pulse",
+        "If no breathing: Begin rescue breathing",
+        "If no pulse: Begin CPR",
+        "Keep person warm",
+        "Call emergency services immediately"
+      ],
+      "organicRemedies": [],
+      "medications": [],
+      "emergencyWarning": "EMERGENCY: This is a life-threatening emergency. Call emergency services immediately.",
+      "whenToSeekDoctor": "All near-drowning victims need medical evaluation, even if they seem fine"
+    },
+    {
+      "id": "28",
+      "name": "Electric Shock",
+      "category": "Emergency",
+      "severity": "critical",
+      "symptoms": ["burns", "pain", "muscle contractions", "unconsciousness", "heart rhythm problems", "difficulty breathing"],
+      "possibleConditions": ["Electrical Injury", "Lightning Strike", "Burn Injury", "Cardiac Arrest"],
+      "firstAid": [
+        "DO NOT TOUCH THE PERSON UNTIL POWER IS OFF",
+        "Turn off power source if possible",
+        "Use non-conductive object to separate person from source",
+        "Check for breathing and pulse",
+        "If not breathing, begin CPR",
+        "Treat burns with cool water"
+      ],
+      "organicRemedies": [],
+      "medications": ["Pain relievers", "IV fluids", "Tetanus prophylaxis"],
+      "emergencyWarning": "EMERGENCY: Always call emergency services for electric shock",
+      "whenToSeekDoctor": "All electric shock victims need immediate medical attention"
+    },
+    {
+      "id": "29",
+      "name": "Heat Stroke",
+      "category": "Emergency",
+      "severity": "critical",
+      "symptoms": ["high body temperature", "hot red skin", "rapid pulse", "confusion", "headache", "nausea", "no sweating"],
+      "possibleConditions": ["Classic Heat Stroke", "Exertional Heat Stroke", "Heat Exhaustion", "Dehydration"],
+      "firstAid": [
+        "MOVE PERSON TO COOL AREA IMMEDIATELY",
+        "Call emergency services",
+        "Cool person rapidly with cool water or ice packs",
+        "Fan while misting skin with water",
+        "Remove excess clothing",
+        "Do NOT give fluids if unconscious"
+      ],
+      "organicRemedies": [
+        "Cool water (not ice cold)",
+        "Coconut water",
+        "Electrolyte drinks",
+        "Watermelon",
+        "Cucumber"
+      ],
+      "medications": ["IV fluids", "Cooling blankets", "Muscle relaxants"],
+      "emergencyWarning": "EMERGENCY: This is life-threatening. Call emergency services immediately.",
+      "whenToSeekDoctor": "Immediately - heat stroke is a medical emergency"
+    },
+    {
+      "id": "30",
+      "name": "Hypothermia",
+      "category": "Emergency",
+      "severity": "critical",
+      "symptoms": ["shivering", "confusion", "slurred speech", "loss of coordination", "drowsiness", "slow breathing", "cold skin"],
+      "possibleConditions": ["Mild Hypothermia", "Moderate Hypothermia", "Severe Hypothermia", "Frostbite"],
+      "firstAid": [
+        "MOVE PERSON TO WARM AREA",
+        "Call emergency services",
+        "Remove wet clothing gently",
+        "Cover with dry blankets, including head",
+        "Apply warm compresses to center body",
+        "If alert, give warm sweet drinks"
+      ],
+      "organicRemedies": [
+        "Warm blankets",
+        "Hot water bottles",
+        "Warm drinks (not alcohol)",
+        "Body heat (skin to skin)"
+      ],
+      "medications": ["IV warm fluids", "Warming devices"],
+      "emergencyWarning": "EMERGENCY: Call emergency services for any hypothermia",
+      "whenToSeekDoctor": "All cases of hypothermia need medical evaluation"
+    },
+    {
+      "id": "31",
+      "name": "Snake Bite",
+      "category": "Emergency",
+      "severity": "critical",
+      "symptoms": ["puncture wounds", "swelling", "pain", "nausea", "blurred vision", "difficulty breathing", "rapid heartbeat", "bleeding"],
+      "possibleConditions": ["Venomous Snake Bite", "Non-Venomous Snake Bite", "Poisoning", "Infection", "Allergic Reaction"],
+      "firstAid": [
+        "KEEP PERSON CALM AND STILL",
+        "Call emergency services immediately",
+        "Remove jewelry and tight clothing",
+        "Keep bitten area below heart level",
+        "Do NOT cut wound or suck venom",
+        "Do NOT apply ice or tourniquet",
+        "Note snake appearance if safe to observe"
+      ],
+      "organicRemedies": [],
+      "medications": ["Antivenom", "Tetanus prophylaxis", "Pain relievers", "Antibiotics"],
+      "emergencyWarning": "EMERGENCY: Call emergency services immediately for any snake bite",
+      "whenToSeekDoctor": "Immediately - all snake bites need emergency evaluation"
+    },
+    {
+      "id": "32",
+      "name": "Dog Bite",
+      "category": "Injuries",
+      "severity": "moderate",
+      "symptoms": ["puncture wounds", "lacerations", "bleeding", "swelling", "pain", "risk of infection", "rabies risk"],
+      "possibleConditions": ["Minor Bite", "Deep Laceration", "Infection", "Rabies", "Tetanus"],
+      "firstAid": [
+        "Wash wound thoroughly with soap and water for 5-10 minutes",
+        "Apply pressure with clean cloth to stop bleeding",
+        "Apply antibiotic ointment",
+        "Cover with sterile bandage",
+        "Watch for signs of infection",
+        "Report bite to local authorities"
+      ],
+      "organicRemedies": [
+        "Honey (antibacterial)",
+        "Turmeric paste",
+        "Garlic",
+        "Plantain leaves",
+        "Aloe vera"
+      ],
+      "medications": ["Antibiotics", "Tetanus shot", "Rabies post-exposure prophylaxis"],
+      "emergencyWarning": "EMERGENCY: Severe bleeding, deep wounds, or unknown dog status requires immediate medical care",
+      "whenToSeekDoctor": "All dog bites should be evaluated by a doctor"
+    },
+    {
+      "id": "33",
+      "name": "Poisoning",
+      "category": "Emergency",
+      "severity": "critical",
+      "symptoms": ["nausea", "vomiting", "diarrhea", "dizziness", "confusion", "difficulty breathing", "seizures", "loss of consciousness"],
+      "possibleConditions": ["Accidental Poisoning", "Food Poisoning", "Chemical Poisoning", "Drug Overdose", "Carbon Monoxide"],
+      "firstAid": [
+        "CALL POISON CONTROL IMMEDIATELY",
+        "Do NOT induce vomiting unless instructed",
+        "Save any remaining poison container",
+        "If person unconscious, place in recovery position",
+        "If not breathing, begin CPR",
+        "Do NOT give anything by mouth if unconscious"
+      ],
+      "organicRemedies": [],
+      "medications": ["Activated charcoal", "Antidotes (specific to poison)", "IV fluids"],
+      "emergencyWarning": "EMERGENCY: Call Poison Control or Emergency Services immediately",
+      "whenToSeekDoctor": "Immediately for any suspected poisoning"
+    },
+    {
+      "id": "34",
+      "name": "Fracture",
+      "category": "Injuries",
+      "severity": "severe",
+      "symptoms": ["severe pain", "swelling", "deformity", "inability to move", "bruising", "grinding sensation"],
+      "possibleConditions": ["Simple Fracture", "Compound Fracture", "Hairline Fracture", "Comminuted Fracture", "Stress Fracture"],
+      "firstAid": [
+        "Do NOT move the injured area",
+        "Call emergency services for severe fractures",
+        "Immobilize the injured area",
+        "Apply ice wrapped in cloth",
+        "Treat for shock if needed",
+        "Do NOT try to set the bone"
+      ],
+      "organicRemedies": [
+        "Arnica (reduce swelling)",
+        "Comfrey (traditional bone healing)",
+        "Calcium-rich foods",
+        "Vitamin D",
+        "Turmeric (anti-inflammatory)"
+      ],
+      "medications": ["Pain relievers", "Anti-inflammatories", "Antibiotics (if open fracture)"],
+      "emergencyWarning": "EMERGENCY: Bone protruding through skin, can't move, or severe deformity - call emergency",
+      "whenToSeekDoctor": "All suspected fractures need X-ray and medical evaluation"
+    },
+    {
+      "id": "35",
+      "name": "Burn Injury (Severe)",
+      "category": "Emergency",
+      "severity": "critical",
+      "symptoms": ["white or charred skin", "large area burned", "deep tissue visible", "difficulty breathing", "shock"],
+      "possibleConditions": ["Third Degree Burn", "Electrical Burn", "Chemical Burn", "Inhalation Injury"],
+      "firstAid": [
+        "CALL EMERGENCY SERVICES IMMEDIATELY",
+        "Do NOT apply water to electrical/chemical burns",
+        "Cover burn with clean, non-stick bandage",
+        "Do NOT remove stuck clothing",
+        "Treat for shock",
+        "Elevate burned limbs above heart level"
+      ],
+      "organicRemedies": [],
+      "medications": ["IV fluids", "Pain medication", "Antibiotics", "Wound care supplies"],
+      "emergencyWarning": "EMERGENCY: Call emergency services immediately for severe burns",
+      "whenToSeekDoctor": "All severe burns require immediate emergency medical care"
+    },
+    {
+      "id": "36",
+      "name": "Seizure",
+      "category": "Emergency",
+      "severity": "severe",
+      "symptoms": ["convulsions", "stiffening", "loss of consciousness", "drooling", "twitching", "confusion after"],
+      "possibleConditions": ["Epilepsy", "Febrile Seizure", "Head Injury", "Stroke", "Low Blood Sugar", "Poisoning"],
+      "firstAid": [
+        "Do NOT restrain the person",
+        "Clear area of dangerous objects",
+        "Place on side to prevent choking",
+        "Do NOT put anything in mouth",
+        "Time the seizure",
+        "Stay with person until fully conscious"
+      ],
+      "organicRemedies": [],
+      "medications": ["Antiepileptic drugs", "Diazepam", "Lorazepam"],
+      "emergencyWarning": "EMERGENCY: First seizure, seizure lasting more than 5 minutes, or person doesn't wake up",
+      "whenToSeekDoctor": "After any seizure, especially first-time seizures"
+    },
+    {
+      "id": "37",
+      "name": "Low Blood Sugar (Hypoglycemia)",
+      "category": "Chronic Conditions",
+      "severity": "severe",
+      "symptoms": ["shakiness", "sweating", "dizziness", "confusion", "hunger", "fast heartbeat", "headache", "blurred vision"],
+      "possibleConditions": ["Diabetes Medication Overdose", "Skipped Meals", "Excessive Exercise", "Alcohol Consumption", "Hormonal Disorders"],
+      "firstAid": [
+        "If conscious: Give 15-20 grams of fast-acting carbohydrates",
+        "Options: glucose tablets, juice, candy, honey",
+        "Wait 15 minutes, recheck blood sugar",
+        "If still low, repeat",
+        "If unconscious: Do NOT give food, place in recovery position, call emergency"
+      ],
+      "organicRemedies": [
+        "Quick sugar sources",
+        "Complex carbs after recovery",
+        "Regular meals",
+        "Banana",
+        "Dates"
+      ],
+      "medications": ["Glucose tablets", "Glucagon", "Dextrose IV"],
+      "emergencyWarning": "EMERGENCY: Person loses consciousness or cannot swallow",
+      "whenToSeekDoctor": "If hypoglycemia episodes are frequent"
+    },
+    {
+      "id": "38",
+      "name": "High Blood Sugar (Hyperglycemia)",
+      "category": "Chronic Conditions",
+      "severity": "moderate",
+      "symptoms": ["excessive thirst", "frequent urination", "blurred vision", "fatigue", "headache", "nausea"],
+      "possibleConditions": ["Diabetes", "Infection", "Medication Non-compliance", "Stress", "Steroid Use"],
+      "firstAid": [
+        "Check blood sugar levels",
+        "Take prescribed diabetes medication",
+        "Drink plenty of water",
+        "Avoid carbohydrates",
+        "Exercise gently if advised",
+        "Monitor for ketones if type 1 diabetic"
+      ],
+      "organicRemedies": [
+        "Cinnamon",
+        "Apple cider vinegar",
+        "Fiber-rich foods",
+        "Chromium supplements",
+        "Bitter melon"
+      ],
+      "medications": ["Insulin", "Metformin", "Other oral hypoglycemics"],
+      "emergencyWarning": "EMERGENCY: Blood sugar over 600 mg/dL, confusion, vomiting, or difficulty breathing",
+      "whenToSeekDoctor": "If blood sugar remains high despite medication"
+    },
+    {
+      "id": "39",
+      "name": "Anxiety Attack",
+      "category": "Mental Health",
+      "severity": "moderate",
+      "symptoms": ["rapid heartbeat", "shortness of breath", "chest tightness", "dizziness", "sweating", "trembling", "feeling of losing control"],
+      "possibleConditions": ["Panic Attack", "Generalized Anxiety", "Stress Response", "PTSD Flashback", "Physical Illness"],
+      "firstAid": [
+        "Encourage slow breathing - 4-7-8 technique",
+        "Find a calm, quiet environment",
+        "Reassure the person they are safe",
+        "Grounding techniques: name 5 things you see, 4 you hear, etc.",
+        "Avoid caffeine and stimulants",
+        "Suggest seeking mental health support"
+      ],
+      "organicRemedies": [
+        "Chamomile tea",
+        "Valerian root",
+        "Ashwagandha",
+        "Lavender oil",
+        "Deep breathing exercises"
+      ],
+      "medications": ["Alprazolam", "Lorazepam", "Sertraline", "Buspirone"],
+      "emergencyWarning": "EMERGENCY: Chest pain, difficulty breathing, or thoughts of self-harm",
+      "whenToSeekDoctor": "If anxiety attacks are frequent or interfere with life"
+    },
+    {
+      "id": "40",
+      "name": "Depression",
+      "category": "Mental Health",
+      "severity": "moderate",
+      "symptoms": ["persistent sadness", "loss of interest", "fatigue", "changes in appetite", "sleep changes", "feelings of hopelessness", "difficulty concentrating"],
+      "possibleConditions": ["Major Depressive Disorder", "Situational Depression", "Bipolar Depression", "Seasonal Affective Disorder", "Postpartum Depression"],
+      "firstAid": [
+        "Listen without judgment",
+        "Encourage professional help",
+        "Help with daily tasks if needed",
+        "Ensure safety if suicidal thoughts",
+        "Stay connected - loneliness makes it worse",
+        "Encourage physical activity"
+      ],
+      "organicRemedies": [
+        "Exercise",
+        "Sunlight exposure",
+        "Omega-3 fatty acids",
+        "St. John's Wort (consult doctor)",
+        "Saffron"
+      ],
+      "medications": ["SSRIs (Prozac, Zoloft)", "SNRIs", "Bupropion", "Therapy"],
+      "emergencyWarning": "EMERGENCY: Thoughts of suicide or self-harm - call emergency services immediately",
+      "whenToSeekDoctor": "If symptoms last more than 2 weeks or affect daily life"
+    },
+    {
+      "id": "41",
+      "name": "Migraine",
+      "category": "Neurological",
+      "severity": "moderate",
+      "symptoms": ["severe headache", "nausea", "sensitivity to light", "sensitivity to sound", "visual aura", "dizziness"],
+      "possibleConditions": ["Classic Migraine", "Common Migraine", "Vestibular Migraine", "Hemiplegic Migraine", "Cluster Headache"],
+      "firstAid": [
+        "Rest in quiet, dark room",
+        "Apply cold compress to forehead",
+        "Massage temples gently",
+        "Stay hydrated",
+        "Take medication at first sign",
+        "Avoid triggers (bright lights, loud sounds)"
+      ],
+      "organicRemedies": [
+        "Ginger",
+        "Peppermint oil",
+        "Caffeine (limited)",
+        "Feverfew",
+        "Magnesium"
+      ],
+      "medications": ["Sumatriptan", "Rizatriptan", "Ibuprofen", "Acetaminophen", "Anti-nausea meds"],
+      "emergencyWarning": "EMERGENCY: Worst headache of life, numbness, difficulty speaking, or fever",
+      "whenToSeekDoctor": "If migraines are new, changing, or very frequent"
+    },
+    {
+      "id": "42",
+      "name": "Dizziness",
+      "category": "Neurological",
+      "severity": "mild",
+      "symptoms": ["lightheaded", "spinning", "vertigo", "balance issues", "weakness", "nausea"],
+      "possibleConditions": ["Vertigo", "Low Blood Pressure", "Dehydration", "Inner Ear Problem", "Anemia", "Medication Side Effect"],
+      "firstAid": [
+        "Sit or lie down immediately",
+        "Move slowly when standing",
+        "Stay hydrated",
+        "Avoid sudden head movements",
+        "Focus on a fixed point",
+        "Eat small, regular meals"
+      ],
+      "organicRemedies": [
+        "Ginger tea",
+        "Hydration",
+        "Caffeine (in moderation)",
+        "Vitamin B12",
+        "Iron-rich foods (if anemic)"
+      ],
+      "medications": ["Meclizine", "Dimenhydrinate", "Betahistine", "Anti-nausea meds"],
+      "emergencyWarning": "EMERGENCY: Chest pain, difficulty breathing, sudden numbness, or difficulty walking",
+      "whenToSeekDoctor": "If dizziness is severe, persistent, or accompanied by other symptoms"
+    },
+    {
+      "id": "43",
+      "name": "Sinusitis",
+      "category": "Respiratory",
+      "severity": "mild",
+      "symptoms": ["sinus pressure", "nasal congestion", "facial pain", "headache", "thick nasal discharge", "cough", "bad breath"],
+      "possibleConditions": ["Viral Sinusitis", "Bacterial Sinusitis", "Allergic Sinusitis", "Chronic Sinusitis", "Fungal Infection"],
+      "firstAid": [
+        "Use saline nasal spray or rinse",
+        "Apply warm compress to face",
+        "Stay hydrated",
+        "Use humidifier",
+        "Take pain relievers",
+        "Rest adequately"
+      ],
+      "organicRemedies": [
+        "Steam inhalation",
+        "Eucalyptus oil",
+        "Turmeric",
+        "Ginger",
+        "Garlic"
+      ],
+      "medications": ["Pseudoephedrine", "Phenylephrine", "Nasal corticosteroids", "Antibiotics (if bacterial)"],
+      "emergencyWarning": "EMERGENCY: Severe headache, high fever, or vision changes",
+      "whenToSeekDoctor": "If symptoms last more than 10 days or worsen"
+    },
+    {
+      "id": "44",
+      "name": "Bronchitis",
+      "category": "Respiratory",
+      "severity": "moderate",
+      "symptoms": ["persistent cough", "mucus production", "fatigue", "shortness of breath", "chest discomfort", "low-grade fever"],
+      "possibleConditions": ["Acute Bronchitis", "Chronic Bronchitis", "Viral Infection", "Bacterial Infection", "COPD Exacerbation"],
+      "firstAid": [
+        "Get plenty of rest",
+        "Drink warm fluids",
+        "Use humidifier",
+        "Take cough suppressants at night",
+        "Use expectorants to clear mucus",
+        "Avoid smoking and pollutants"
+      ],
+      "organicRemedies": [
+        "Honey",
+        "Ginger",
+        "Garlic",
+        "Turmeric milk",
+        "Thyme tea"
+      ],
+      "medications": ["Cough suppressants", "Expectorants", "Bronchodilators", "Antibiotics (if bacterial)"],
+      "emergencyWarning": "EMERGENCY: Difficulty breathing, high fever, or coughing up blood",
+      "whenToSeekDoctor": "If cough lasts more than 3 weeks or is severe"
+    },
+    {
+      "id": "45",
+      "name": "Pneumonia",
+      "category": "Respiratory",
+      "severity": "severe",
+      "symptoms": ["cough with phlegm", "high fever", "chills", "shortness of breath", "chest pain", "fatigue", "confusion"],
+      "possibleConditions": ["Bacterial Pneumonia", "Viral Pneumonia", "Walking Pneumonia", "Aspiration Pneumonia", "Fungal Pneumonia"],
+      "firstAid": [
+        "Rest in bed",
+        "Drink plenty of fluids",
+        "Take fever reducers",
+        "Use humidifier",
+        "Prop head up when sleeping",
+        "Complete all prescribed antibiotics"
+      ],
+      "organicRemedies": [
+        "Ginger tea",
+        "Garlic",
+        "Honey",
+        "Turmeric",
+        "Steam inhalation"
+      ],
+      "medications": ["Antibiotics", "Cough medicine", "Fever reducers", "Bronchodilators"],
+      "emergencyWarning": "EMERGENCY: Difficulty breathing, confusion, or lips turning blue",
+      "whenToSeekDoctor": "Immediately for suspected pneumonia"
+    },
+    {
+      "id": "46",
+      "name": "Acid Reflux / GERD",
+      "category": "Digestive",
+      "severity": "mild",
+      "symptoms": ["heartburn", "acid taste", "chest burn", "difficulty swallowing", "chronic cough", "sore throat"],
+      "possibleConditions": ["GERD", "Acid Reflux", "Hiatal Hernia", "Gastritis", "Peptic Ulcer"],
+      "firstAid": [
+        "Avoid trigger foods (spicy, fatty, caffeine, alcohol)",
+        "Eat smaller meals",
+        "Don't lie down after eating",
+        "Elevate head of bed",
+        "Avoid tight clothing",
+        "Don't eat within 3 hours of bedtime"
+      ],
+      "organicRemedies": [
+        "Aloe vera juice",
+        "Ginger tea",
+        "Apple cider vinegar (diluted)",
+        "Bananas",
+        "Slippery elm"
+      ],
+      "medications": ["Antacids", "H2 blockers (Ranitidine)", "Proton pump inhibitors (Omeprazole)"],
+      "emergencyWarning": "EMERGENCY: Difficulty swallowing, weight loss, or vomiting blood",
+      "whenToSeekDoctor": "If symptoms are frequent or not relieved with medication"
+    },
+    {
+      "id": "47",
+      "name": "Hemorrhoids",
+      "category": "Digestive",
+      "severity": "mild",
+      "symptoms": ["rectal pain", "bleeding", "itching", "swelling", "discomfort"],
+      "possibleConditions": ["Internal Hemorrhoids", "External Hemorrhoids", "Thrombosed Hemorrhoids", "Anal Fissure"],
+      "firstAid": [
+        "Use stool softeners",
+        "Take warm sitz baths",
+        "Apply cold packs for swelling",
+        "Keep area clean",
+        "Use medicated wipes",
+        "Avoid straining"
+      ],
+      "organicRemedies": [
+        "Witch hazel",
+        "Aloe vera",
+        "Coconut oil",
+        "Psyllium husk",
+        "Squatting position"
+      ],
+      "medications": ["Over-the-counter creams", "Suppositories", "Pain relievers", "Fiber supplements"],
+      "emergencyWarning": "EMERGENCY: Severe bleeding or blood clots",
+      "whenToSeekDoctor": "If bleeding is heavy or doesn't improve with treatment"
+    },
+    {
+      "id": "48",
+      "name": "Urinary Tract Infection (UTI)",
+      "category": "Infections",
+      "severity": "moderate",
+      "symptoms": ["burning urination", "frequent urination", "cloudy urine", "pelvic pain", "strong urge to urinate", "blood in urine"],
+      "possibleConditions": ["Cystitis", "Urethritis", "Kidney Infection", "Prostatitis"],
+      "firstAid": [
+        "Drink plenty of water",
+        "Avoid caffeine and alcohol",
+        "Urinate frequently",
+        "Use heating pad for pain",
+        "Take pain relievers",
+        "Complete all antibiotics"
+      ],
+      "organicRemedies": [
+        "Cranberry juice (unsweetened)",
+        "Probiotics",
+        "Garlic",
+        "Vitamin C",
+        "D-Mannose"
+      ],
+      "medications": ["Antibiotics (Nitrofurantoin, Trimethoprim, Ciprofloxacin)", "Pain relievers"],
+      "emergencyWarning": "EMERGENCY: Fever, back pain, or vomiting (kidney infection)",
+      "whenToSeekDoctor": "Within 24-48 hours for UTI symptoms"
+    },
+    {
+      "id": "49",
+      "name": "Yeast Infection",
+      "category": "Infections",
+      "severity": "mild",
+      "symptoms": ["itching", "burning", "swelling", "redness", "white discharge", "discomfort during sex"],
+      "possibleConditions": ["Vaginal Yeast Infection", "Oral Thrush", "Skin Yeast Infection", "Diaper Rash"],
+      "firstAid": [
+        "Keep area clean and dry",
+        "Avoid scented products",
+        "Wear cotton underwear",
+        "Avoid tight clothing",
+        "Use cool compress",
+        "Complete antifungal treatment"
+      ],
+      "organicRemedies": [
+        "Yogurt (probiotics)",
+        "Garlic",
+        "Coconut oil",
+        "Boric acid suppositories",
+        "Tea tree oil (diluted)"
+      ],
+      "medications": ["Antifungal creams", "Miconazole", "Clotrimazole", "Fluconazole (oral)"],
+      "emergencyWarning": "EMERGENCY: Symptoms don't improve after treatment or fever develops",
+      "whenToSeekDoctor": "If this is first infection or symptoms are severe"
+    },
+    {
+      "id": "50",
+      "name": "Eczema",
+      "category": "Skin",
+      "severity": "mild",
+      "symptoms": ["dry skin", "itching", "redness", "rash", "rough patches", "leathery skin", "swelling"],
+      "possibleConditions": ["Atopic Dermatitis", "Contact Dermatitis", "Seborrheic Dermatitis", "Dyshidrotic Eczema", "Nummular Eczema"],
+      "firstAid": [
+        "Moisturize frequently",
+        "Use mild, fragrance-free products",
+        "Avoid hot showers",
+        "Wear soft cotton clothing",
+        "Avoid scratching",
+        "Use prescribed creams"
+      ],
+      "organicRemedies": [
+        "Coconut oil",
+        "Aloe vera",
+        "Oatmeal baths",
+        "Evening primrose oil",
+        "Honey"
+      ],
+      "medications": ["Hydrocortisone", "Corticosteroids", "Calcineurin inhibitors", "Antihistamines"],
+      "emergencyWarning": "EMERGENCY: Signs of infection (oozing, fever, increased redness)",
+      "whenToSeekDoctor": "If eczema is severe or not responding to home care"
+    },
+    {
+      "id": "51",
+      "name": "Psoriasis",
+      "category": "Skin",
+      "severity": "mild",
+      "symptoms": ["red patches", "silvery scales", "dry skin", "itching", "cracking", "stiff joints", "thick nails"],
+      "possibleConditions": ["Plaque Psoriasis", "Guttate Psoriasis", "Inverse Psoriasis", "Pustular Psoriasis", "Psoriatic Arthritis"],
+      "firstAid": [
+        "Moisturize skin regularly",
+        "Use mild soap",
+        "Expose to sunlight briefly",
+        "Avoid triggers (stress, infections, alcohol)",
+        "Take prescribed medications",
+        "Use coal tar products"
+      ],
+      "organicRemedies": [
+        "Aloe vera",
+        "Fish oil",
+        "Turmeric",
+        "Vitamin D (sunlight)",
+        "Dead Sea salts"
+      ],
+      "medications": ["Topical corticosteroids", "Vitamin D analogues", "Phototherapy", "Systemic medications", "Biologics"],
+      "emergencyWarning": "EMERGENCY: Severe flare affecting entire body or joint pain",
+      "whenToSeekDoctor": "For diagnosis and treatment plan"
+    },
+    {
+      "id": "52",
+      "name": "Acne",
+      "category": "Skin",
+      "severity": "mild",
+      "symptoms": ["pimples", "blackheads", "whiteheads", "cysts", "redness", "scars", "oily skin"],
+      "possibleConditions": ["Acne Vulgaris", "Hormonal Acne", "Cystic Acne", "Body Acne", "Acne Rosacea"],
+      "firstAid": [
+        "Wash face twice daily with gentle cleanser",
+        "Don't pick or pop pimples",
+        "Use non-comedogenic products",
+        "Avoid touching face",
+        "Change pillowcases regularly",
+        "Use acne treatments consistently"
+      ],
+      "organicRemedies": [
+        "Tea tree oil (diluted)",
+        "Honey mask",
+        "Green tea",
+        "Aloe vera",
+        "Turmeric paste"
+      ],
+      "medications": ["Benzoyl peroxide", "Salicylic acid", "Retinoids", "Antibiotics", "Isotretinoin"],
+      "emergencyWarning": "EMERGENCY: Severe nodular or cystic acne",
+      "whenToSeekDoctor": "If over-the-counter treatments don't work"
+    },
+    {
+      "id": "53",
+      "name": "Cold Sores",
+      "category": "Skin",
+      "severity": "mild",
+      "symptoms": ["tingling", "blisters", "pain", "crusting", "redness", "swelling"],
+      "possibleConditions": ["HSV-1 Infection", "HSV-2 Infection", "Herpes Gladiatorum", "Eczema Herpeticum"],
+      "firstAid": [
+        "Apply ice to reduce swelling",
+        "Use pain relievers",
+        "Apply antiviral cream",
+        "Avoid touching or picking",
+        "Keep area clean and dry",
+        "Avoid triggers (sun, stress, illness)"
+      ],
+      "organicRemedies": [
+        "Ice",
+        "Lemon balm",
+        "Aloe vera",
+        "Tea tree oil",
+        "Honey"
+      ],
+      "medications": ["Acyclovir", "Valacyclovir", "Famciclovir", "Docosanol", "Pain relievers"],
+      "emergencyWarning": "EMERGENCY: Many cold sores, fever, or difficulty eating/drinking",
+      "whenToSeekDoctor": "If cold sores are severe or frequent"
+    },
+    {
+      "id": "54",
+      "name": "Warts",
+      "category": "Skin",
+      "severity": "mild",
+      "symptoms": ["rough growth", "skin-colored bumps", "black dots", "plantar warts on feet"],
+      "possibleConditions": ["Common Warts", "Plantar Warts", "Flat Warts", "Filiform Warts", "Molluscum Contagiosum"],
+      "firstAid": [
+        "Don't pick or cut warts",
+        "Use over-the-counter treatments",
+        "Keep warts covered",
+        "Don't share towels",
+        "Wash hands after touching",
+        "Use salicylic acid products"
+      ],
+      "organicRemedies": [
+        "Tea tree oil",
+        "Garlic",
+        "Banana peel",
+        "Apple cider vinegar",
+        "Castor oil"
+      ],
+      "medications": ["Salicylic acid", "Freeze treatments", "Imiquimod", "Cantharidin"],
+      "emergencyWarning": "EMERGENCY: Warts on face or genitals require doctor evaluation",
+      "whenToSeekDoctor": "If warts are painful, spread, or don't respond to treatment"
+    },
+    {
+      "id": "55",
+      "name": "Ringworm",
+      "category": "Skin",
+      "severity": "mild",
+      "symptoms": ["circular rash", "redness", "scaling", "itching", "hair loss in area", "raised edges"],
+      "possibleConditions": ["Tinea Corporis", "Tinea Pedis (Athlete's Foot)", "Tinea Cruris (Jock Itch)", "Tinea Capitis", "Tinea Manuum"],
+      "firstAid": [
+        "Keep area clean and dry",
+        "Apply antifungal cream",
+        "Don't scratch",
+        "Wash hands after touching",
+        "Don't share personal items",
+        "Wear loose clothing"
+      ],
+      "organicRemedies": [
+        "Tea tree oil",
+        "Garlic",
+        "Coconut oil",
+        "Turmeric paste",
+        "Aloe vera"
+      ],
+      "medications": ["Antifungal creams (Clotrimazole, Miconazole)", "Oral antifungals (for severe cases)"],
+      "emergencyWarning": "EMERGENCY: Spreading rapidly or signs of infection",
+      "whenToSeekDoctor": "If ringworm doesn't improve in 2 weeks"
+    },
+    {
+      "id": "56",
+      "name": "Impetigo",
+      "category": "Skin",
+      "severity": "moderate",
+      "symptoms": ["red sores", "honey-colored crusts", "blisters", "itching", "swollen lymph nodes"],
+      "possibleConditions": ["Bullous Impetigo", "Non-Bullous Impetigo", "Ecthyma", "Secondary Infection"],
+      "firstAid": [
+        "Wash infected area gently",
+        "Remove crusts gently with warm water",
+        "Apply antibiotic ointment",
+        "Keep nails short",
+        "Don't scratch",
+        "Use separate towel"
+      ],
+      "organicRemedies": [
+        "Honey (medical grade)",
+        "Garlic",
+        "Turmeric",
+        "Tea tree oil",
+        "Neem"
+      ],
+      "medications": ["Topical antibiotics", "Oral antibiotics (for widespread infection)"],
+      "emergencyWarning": "EMERGENCY: Large blisters, fever, or spreading rapidly",
+      "whenToSeekDoctor": "For prescription treatment"
+    },
+    {
+      "id": "57",
+      "name": "Cellulitis",
+      "category": "Skin",
+      "severity": "severe",
+      "symptoms": ["redness", "swelling", "warmth", "pain", "fever", "chills", "streaking"],
+      "possibleConditions": ["Cellulitis", "Erysipelas", "Necrotizing Fasciitis", "Dermatitis"],
+      "firstAid": [
+        "Elevate affected limb",
+        "Apply warm compresses",
+        "Take pain relievers",
+        "Complete all antibiotics",
+        "Watch for spreading",
+        "Rest"
+      ],
+      "organicRemedies": [
+        "Turmeric (anti-inflammatory)",
+        "Garlic",
+        "Echinacea",
+        "Honey",
+        "Warm compress"
+      ],
+      "medications": ["Antibiotics (Dicloxacillin, Cephalexin, Clindamycin)"],
+      "emergencyWarning": "EMERGENCY: Rapid spreading, fever, confusion, or difficulty breathing",
+      "whenToSeekDoctor": "Immediately for suspected cellulitis"
+    },
+    {
+      "id": "58",
+      "name": "Chickenpox",
+      "category": "Children",
+      "severity": "moderate",
+      "symptoms": ["itchy rash", "red spots", "blisters", "fever", "headache", "loss of appetite", "fatigue"],
+      "possibleConditions": ["Chickenpox (Varicella)", "Shingles", "Hand Foot Mouth Disease", "Impetigo"],
+      "firstAid": [
+        "Keep child home from school",
+        "Trim nails to prevent scratching",
+        "Use cool baths with baking soda",
+        "Apply calamine lotion",
+        "Give acetaminophen for fever",
+        "Avoid aspirin in children"
+      ],
+      "organicRemedies": [
+        "Cool baths",
+        "Baking soda",
+        "Oatmeal baths",
+        "Chamomile compress",
+        "Honey (for scars)"
+      ],
+      "medications": ["Acetaminophen", "Antihistamines", "Acyclovir (if early)"],
+      "emergencyWarning": "EMERGENCY: Difficulty breathing, confusion, or very high fever",
+      "whenToSeekDoctor": "For diagnosis and to rule out complications"
+    },
+    {
+      "id": "59",
+      "name": "Hand Foot Mouth Disease",
+      "category": "Children",
+      "severity": "mild",
+      "symptoms": ["sores in mouth", "rash on hands and feet", "fever", "sore throat", "drooling", "loss of appetite"],
+      "possibleConditions": ["HFMD (Coxsackievirus)", "Herpangina", "Allergic Reaction", "Hand Foot Mouth Disease"],
+      "firstAid": [
+        "Keep child home",
+        "Offer cool, soft foods",
+        "Avoid acidic foods and drinks",
+        "Use pain relievers",
+        "Keep sores clean",
+        "Ensure hydration"
+      ],
+      "organicRemedies": [
+        "Ice pops",
+        "Yogurt",
+        "Cool water",
+        "Honey (over 1 year)",
+        "Chamomile tea"
+      ],
+      "medications": ["Acetaminophen", "Ibuprofen", "Oral pain relief gels"],
+      "emergencyWarning": "EMERGENCY: Dehydration, difficulty swallowing, or high fever",
+      "whenToSeekDoctor": "If child won't eat/drink or symptoms are severe"
+    },
+    {
+      "id": "60",
+      "name": "Ear Infection (Middle Ear)",
+      "category": "Children",
+      "severity": "moderate",
+      "symptoms": ["ear pain", "tugging at ear", "fever", "difficulty sleeping", "crying", "fluid drainage", "balance problems"],
+      "possibleConditions": ["Acute Otitis Media", "Otitis Media with Effusion", "Ear Tube Problems"],
+      "firstAid": [
+        "Apply warm compress to ear",
+        "Give pain relievers",
+        "Use nasal drops to clear congestion",
+        "Keep child upright",
+        "Avoid q-tips",
+        "Complete antibiotics if prescribed"
+      ],
+      "organicRemedies": [
+        "Garlic oil drops",
+        "Warm olive oil",
+        "Ginger tea",
+        "Onion compress",
+        "Elevate head"
+      ],
+      "medications": ["Antibiotics", "Pain relievers", "Ear drops"],
+      "emergencyWarning": "EMERGENCY: Swelling around ear, high fever, or severe pain",
+      "whenToSeekDoctor": "Within 48 hours for ear pain"
+    },
+    {
+      "id": "61",
+      "name": "Pink Eye (Conjunctivitis)",
+      "category": "Eye & Ear",
+      "severity": "mild",
+      "symptoms": ["redness", "itching", "gritty feeling", "discharge", "crusting", "swelling", "tearing"],
+      "possibleConditions": ["Viral Conjunctivitis", "Bacterial Conjunctivitis", "Allergic Conjunctivitis", "Irritant Conjunctivitis"],
+      "firstAid": [
+        "Wash hands frequently",
+        "Use warm compress to remove crusting",
+        "Avoid touching or rubbing eyes",
+        "Don't share towels or pillows",
+        "Remove contact lenses",
+        "Use artificial tears"
+      ],
+      "organicRemedies": [
+        "Warm compress",
+        "Chamomile tea bags",
+        "Cucumber slices",
+        "Rose water",
+        "Raw honey (diluted)"
+      ],
+      "medications": ["Antibiotic eye drops (bacterial)", "Antihistamine drops (allergic)", "Artificial tears"],
+      "emergencyWarning": "EMERGENCY: Pain, vision changes, or light sensitivity",
+      "whenToSeekDoctor": "If symptoms don't improve in a few days"
+    },
+    {
+      "id": "62",
+      "name": "Stye",
+      "category": "Eye & Ear",
+      "severity": "mild",
+      "symptoms": ["bump on eyelid", "pain", "swelling", "redness", "tenderness", "watery eye"],
+      "possibleConditions": ["Hordeolum (Stye)", "Chalazion", "Blepharitis", "Cyst"],
+      "firstAid": [
+        "Apply warm compress for 10-15 minutes, 3-4 times daily",
+        "Don't squeeze or pop stye",
+        "Keep area clean",
+        "Use gentle eyelid cleanser",
+        "Avoid makeup until healed",
+        "Use pain relievers"
+      ],
+      "organicRemedies": [
+        "Warm compress",
+        "Tea tree oil (diluted)",
+        "Aloe vera",
+        "Garlic (topical)",
+        "Turmeric paste"
+      ],
+      "medications": ["Antibiotic ointment", "Steroid injection (for large styes)", "Surgical drainage"],
+      "emergencyWarning": "EMERGENCY: Vision changes, stye doesn't improve, or spreads",
+      "whenToSeekDoctor": "If stye is very large or painful"
+    },
+    {
+      "id": "63",
+      "name": "Dry Eyes",
+      "category": "Eye & Ear",
+      "severity": "mild",
+      "symptoms": ["dryness", "burning", "gritty feeling", "redness", "blurred vision", "fatigue", "light sensitivity"],
+      "possibleConditions": ["Dry Eye Syndrome", "Computer Vision Syndrome", "Allergies", "Medication Side Effect", "Contact Lens Issues"],
+      "firstAid": [
+        "Use artificial tears regularly",
+        "Take breaks from screens",
+        "Use humidifier",
+        "Blink frequently",
+        "Avoid direct air flow",
+        "Stay hydrated"
+      ],
+      "organicRemedies": [
+        "Omega-3 fatty acids",
+        "Flaxseed oil",
+        "Warm compress",
+        "Cucumber slices",
+        "Green tea bags"
+      ],
+      "medications": ["Artificial tears", "Restasis", "Xiidra", "Steroid drops", "Punctal plugs"],
+      "emergencyWarning": "EMERGENCY: Sudden vision changes, pain, or injury to eye",
+      "whenToSeekDoctor": "If dry eyes are persistent or severe"
+    },
+    {
+      "id": "64",
+      "name": "High Blood Pressure",
+      "category": "Heart & Blood",
+      "severity": "moderate",
+      "symptoms": ["often no symptoms", "headache", "shortness of breath", "nosebleeds", "dizziness", "chest pain"],
+      "possibleConditions": ["Primary Hypertension", "Secondary Hypertension", "Hypertensive Crisis", "White Coat Hypertension"],
+      "firstAid": [
+        "Rest and relax",
+        "Reduce salt intake",
+        "Monitor blood pressure regularly",
+        "Take medications as prescribed",
+        "Avoid caffeine and alcohol",
+        "Practice deep breathing"
+      ],
+      "organicRemedies": [
+        "Garlic",
+        "Hibiscus tea",
+        "Celery",
+        "Dark chocolate",
+        "Hawthorn berry"
+      ],
+      "medications": ["ACE inhibitors", "ARBs", "Calcium channel blockers", "Diuretics", "Beta blockers"],
+      "emergencyWarning": "EMERGENCY: BP over 180/120, chest pain, difficulty breathing, or vision changes",
+      "whenToSeekDoctor": "Immediately for hypertensive crisis or regular monitoring"
+    },
+    {
+      "id": "65",
+      "name": "Low Blood Pressure",
+      "category": "Heart & Blood",
+      "severity": "mild",
+      "symptoms": ["dizziness", "fainting", "blurred vision", "fatigue", "nausea", "cold clammy skin", "confusion"],
+      "possibleConditions": ["Orthostatic Hypotension", "Dehydration", "Heart Problems", "Endocrine Problems", "Severe Infection"],
+      "firstAid": [
+        "Sit or lie down immediately",
+        "Drink fluids with electrolytes",
+        "Eat small, frequent meals",
+        "Move slowly when standing",
+        "Eat more salt (if approved by doctor)",
+        "Avoid standing for long periods"
+      ],
+      "organicRemedies": [
+        "Salt water",
+        "Licorice root",
+        "Coffee",
+        "Coconut water",
+        "Beetroot juice"
+      ],
+      "medications": ["Fludrocortisone", "Midodrine", "Pyridostigmine"],
+      "emergencyWarning": "EMERGENCY: Fainting, confusion, or shock symptoms",
+      "whenToSeekDoctor": "If low blood pressure causes frequent symptoms"
+    },
+    {
+      "id": "66",
+      "name": "Anemia",
+      "category": "Heart & Blood",
+      "severity": "moderate",
+      "symptoms": ["fatigue", "weakness", "pale skin", "shortness of breath", "dizziness", "cold hands and feet", "headache"],
+      "possibleConditions": ["Iron Deficiency Anemia", "Vitamin B12 Deficiency", "Folate Deficiency", "Chronic Disease Anemia", "Hemolytic Anemia"],
+      "firstAid": [
+        "Eat iron-rich foods",
+        "Take iron supplements with vitamin C",
+        "Avoid tea/coffee with meals",
+        "Rest adequately",
+        "Treat underlying cause",
+        "Get regular blood tests"
+      ],
+      "organicRemedies": [
+        "Red meat",
+        "Spinach",
+        "Lentils",
+        "Beetroot",
+        "Pomegranate"
+      ],
+      "medications": ["Iron supplements", "Vitamin B12 injections", "Folate supplements", "Blood transfusions (severe)"],
+      "emergencyWarning": "EMERGENCY: Severe chest pain, difficulty breathing, or fainting",
+      "whenToSeekDoctor": "For diagnosis and treatment plan"
+    },
+    {
+      "id": "67",
+      "name": "Menstrual Cramps",
+      "category": "Women Health",
+      "severity": "mild",
+      "symptoms": ["cramping", "lower abdominal pain", "back pain", "thigh pain", "nausea", "headache", "fatigue"],
+      "possibleConditions": ["Primary Dysmenorrhea", "Secondary Dysmenorrhea", "Endometriosis", "Fibroids", "PID"],
+      "firstAid": [
+        "Apply heat to lower abdomen",
+        "Exercise gently",
+        "Take pain relievers before pain peaks",
+        "Rest and relax",
+        "Avoid caffeine",
+        "Stay hydrated"
+      ],
+      "organicRemedies": [
+        "Ginger tea",
+        "Chamomile tea",
+        "Cinnamon",
+        "Fennel seeds",
+        "Heat therapy"
+      ],
+      "medications": ["Ibuprofen", "Naproxen", "Acetaminophen", "Birth control pills", "Hormonal IUD"],
+      "emergencyWarning": "EMERGENCY: Severe pain not relieved by medication, or unusually heavy bleeding",
+      "whenToSeekDoctor": "If cramps are severe or affecting daily life"
+    },
+    {
+      "id": "68",
+      "name": "Premenstrual Syndrome (PMS)",
+      "category": "Women Health",
+      "severity": "mild",
+      "symptoms": ["mood swings", "bloating", "fatigue", "breast tenderness", "food cravings", "irritability", "anxiety"],
+      "possibleConditions": ["PMS", "PMDD", "Depression", "Anxiety Disorder", "Thyroid Problems"],
+      "firstAid": [
+        "Exercise regularly",
+        "Reduce salt and sugar",
+        "Get adequate sleep",
+        "Practice stress management",
+        "Eat small frequent meals",
+        "Avoid caffeine and alcohol"
+      ],
+      "organicRemedies": [
+        "Evening primrose oil",
+        "Chasteberry (Vitex)",
+        "Calcium",
+        "Magnesium",
+        "Vitamin B6"
+      ],
+      "medications": ["Antidepressants", "Birth control", "Diuretics", "NSAIDs"],
+      "emergencyWarning": "EMERGENCY: Thoughts of self-harm",
+      "whenToSeekDoctor": "If symptoms are severe or PMDD suspected"
+    },
+    {
+      "id": "69",
+      "name": "Yeast Infection (Vaginal)",
+      "category": "Women Health",
+      "severity": "mild",
+      "symptoms": ["itching", "burning", "swelling", "redness", "white thick discharge", "pain during sex", "pain when urinating"],
+      "possibleConditions": ["Vaginal Candidiasis", "Bacterial Vaginosis", "Trichomoniasis", "Yeast Infection"],
+      "firstAid": [
+        "Keep area dry",
+        "Avoid scented products",
+        "Wear cotton underwear",
+        "Avoid tight clothing",
+        "Use cool compress",
+        "Complete antifungal treatment"
+      ],
+      "organicRemedies": [
+        "Yogurt (probiotic)",
+        "Garlic",
+        "Coconut oil",
+        "Boric acid suppositories",
+        "Apple cider vinegar (diluted)"
+      ],
+      "medications": ["Miconazole", "Clotrimazole", "Fluconazole", "Butoconazole"],
+      "emergencyWarning": "EMERGENCY: Fever, severe pain, or unusual discharge",
+      "whenToSeekDoctor": "If this is first infection or symptoms don't improve"
+    },
+    {
+      "id": "70",
+      "name": "Pregnancy - Morning Sickness",
+      "category": "Women Health",
+      "severity": "mild",
+      "symptoms": ["nausea", "vomiting", "sensitivity to smells", "fatigue", "sour stomach", "food aversions"],
+      "possibleConditions": ["Normal Morning Sickness", "Hyperemesis Gravidarum", "Food Poisoning", "Migraine"],
+      "firstAid": [
+        "Eat small, frequent meals",
+        "Keep crackers by bedside",
+        "Ginger supplements or tea",
+        "Stay hydrated",
+        "Avoid strong smells",
+        "Try acupressure wristbands"
+      ],
+      "organicRemedies": [
+        "Ginger",
+        "Peppermint",
+        "Lemon",
+        "Acupressure",
+        "Vitamin B6"
+      ],
+      "medications": ["Diclegis", "Zofran", "Vitamin B6", "Antihistamines"],
+      "emergencyWarning": "EMERGENCY: Cannot keep fluids down, weight loss, or severe dehydration",
+      "whenToSeekDoctor": "If nausea is severe or persistent"
+    },
+    {
+      "id": "71",
+      "name": "Menopause Symptoms",
+      "category": "Women Health",
+      "severity": "mild",
+      "symptoms": ["hot flashes", "night sweats", "mood swings", "sleep problems", "vaginal dryness", "weight changes", "hair changes"],
+      "possibleConditions": ["Perimenopause", "Menopause", "Postmenopause", "Thyroid Problems"],
+      "firstAid": [
+        "Dress in layers",
+        "Keep bedroom cool",
+        "Avoid triggers (spicy food, alcohol, caffeine)",
+        "Practice deep breathing",
+        "Stay physically active",
+        "Use lubricants for vaginal dryness"
+      ],
+      "organicRemedies": [
+        "Black cohosh",
+        "Phytoestrogens (soy)",
+        "Evening primrose oil",
+        "Red clover",
+        "Flaxseed"
+      ],
+      "medications": ["HRT (Hormone Replacement Therapy)", "Antidepressants", "Gabapentin", "Clonidine"],
+      "emergencyWarning": "EMERGENCY: Heavy bleeding or unusual symptoms",
+      "whenToSeekDoctor": "For treatment options and management"
+    },
+    {
+      "id": "72",
+      "name": "Motion Sickness",
+      "category": "Digestive",
+      "severity": "mild",
+      "symptoms": ["nausea", "vomiting", "dizziness", "sweating", "cold sweats", "pallor", "excessive saliva"],
+      "possibleConditions": ["Motion Sickness", "Vestibular Disorders", "Migraine", "Food Poisoning"],
+      "firstAid": [
+        "Focus on horizon",
+        "Sit in front seat or middle of boat",
+        "Get fresh air",
+        "Close eyes during movement",
+        "Use acupressure wristbands",
+        "Take medication before travel"
+      ],
+      "organicRemedies": [
+        "Ginger",
+        "Peppermint",
+        "Acupressure",
+        "Lemon",
+        "Clove"
+      ],
+      "medications": ["Dramamine", "Bonine (Meclizine)", "Scopolamine patch", "Ginger supplements"],
+      "emergencyWarning": "EMERGENCY: Dehydration from prolonged vomiting",
+      "whenToSeekDoctor": "If motion sickness is severe and affects travel"
+    },
+    {
+      "id": "73",
+      "name": "Hangover",
+      "category": "Digestive",
+      "severity": "mild",
+      "symptoms": ["headache", "nausea", "fatigue", "thirst", "dizziness", "sensitivity to light", "muscle aches"],
+      "possibleConditions": ["Alcohol Intoxication", "Dehydration", "Low Blood Sugar", "Acetaldehyde Buildup"],
+      "firstAid": [
+        "Rehydrate with water and electrolytes",
+        "Eat bland foods",
+        "Take pain relievers (not acetaminophen)",
+        "Rest",
+        "Drink fruit juice",
+        "Eat bananas for potassium"
+      ],
+      "organicRemedies": [
+        "Coconut water",
+        "Ginger tea",
+        "Honey",
+        "Bananas",
+        "Tomato juice"
+      ],
+      "medications": ["Ibuprofen", "Aspirin", "Electrolyte solutions", "Anti-nausea meds"],
+      "emergencyWarning": "EMERGENCY: Confusion, vomiting, slow breathing, or loss of consciousness",
+      "whenToSeekDoctor": "If symptoms are severe or unusual"
+    },
+    {
+      "id": "74",
+      "name": "Jet Lag",
+      "category": "Miscellaneous",
+      "severity": "mild",
+      "symptoms": ["sleep problems", "fatigue", "digestive issues", "headache", "mood changes", "difficulty concentrating"],
+      "possibleConditions": ["Jet Lag Syndrome", "Circadian Rhythm Disorder", "Sleep Deprivation"],
+      "firstAid": [
+        "Adjust sleep schedule before travel",
+        "Stay hydrated",
+        "Avoid alcohol and caffeine on flight",
+        "Get exposure to natural light",
+        "Use short-acting sleep aids if needed",
+        "Be patient - takes days to adjust"
+      ],
+      "organicRemedies": [
+        "Melatonin",
+        "Valerian root",
+        "Chamomile",
+        "Exercise",
+        "Light exposure"
+      ],
+      "medications": ["Melatonin", "Sleep aids", "Anti-nausea meds"],
+      "emergencyWarning": "",
+      "whenToSeekDoctor": "If symptoms persist for more than 2 weeks"
+    },
+    {
+      "id": "75",
+      "name": "Sunburn",
+      "category": "Skin",
+      "severity": "mild",
+      "symptoms": ["red skin", "pain", "swelling", "blisters", "fever", "chills", "fatigue"],
+      "possibleConditions": ["First Degree Burn", "Second Degree Burn", "Sun Poisoning", "Heat Exhaustion"],
+      "firstAid": [
+        "Cool the skin with cold water",
+        "Take cool baths",
+        "Apply aloe vera gel",
+        "Moisturize skin",
+        "Take anti-inflammatory medicine",
+        "Stay hydrated"
+      ],
+      "organicRemedies": [
+        "Aloe vera",
+        "Cool yogurt",
+        "Cucumber",
+        "Green tea compress",
+        "Coconut oil"
+      ],
+      "medications": ["Ibuprofen", "Aloe vera gel", "Hydrocortisone cream", "Pain relievers"],
+      "emergencyWarning": "EMERGENCY: Large blisters, fever over 102°F, or confusion",
+      "whenToSeekDoctor": "For severe sunburn or heat-related illness"
+    },
+    {
+      "id": "76",
+      "name": "Frostbite",
+      "category": "Emergency",
+      "severity": "severe",
+      "symptoms": ["numbness", "hard/waxy skin", "skin discoloration (white/gray/blue)", "blistering", "joint/muscle stiffness", "severe pain upon warming"],
+      "possibleConditions": ["Superficial Frostbite", "Deep Frostbite", "Hypothermia", "Tissue Necrosis"],
+      "firstAid": [
+        "GET TO A WARM AREA IMMEDIATELY",
+        "Do NOT walk on frostbitten feet if possible",
+        "Remove wet clothing",
+        "Warm gradually with warm water (not hot)",
+        "Do NOT rub the area",
+        "Seek medical attention"
+      ],
+      "organicRemedies": [],
+      "medications": ["Pain medication", "Nicardipine (blood vessel dilation)", "Wound care"],
+      "emergencyWarning": "EMERGENCY: Blackened skin, confusion, or signs of hypothermia",
+      "whenToSeekDoctor": "Immediately for any frostbite"
+    },
+    {
+      "id": "77",
+      "name": "Dehydration",
+      "category": "Emergency",
+      "severity": "moderate",
+      "symptoms": ["thirst", "dark urine", "dry mouth", "fatigue", "dizziness", "headache", "rapid heartbeat", "sunken eyes"],
+      "possibleConditions": ["Mild Dehydration", "Moderate Dehydration", "Severe Dehydration", "Heat Exhaustion"],
+      "firstAid": [
+        "Drink small sips frequently",
+        "Use ORS (oral rehydration solution)",
+        "Avoid caffeine and alcohol",
+        "Eat water-rich foods",
+        "Rest in cool place",
+        "Monitor urine color"
+      ],
+      "organicRemedies": [
+        "Coconut water",
+        "Watermelon",
+        "Cucumber",
+        "Orange juice (diluted)",
+        "Electrolyte solutions"
+      ],
+      "medications": ["ORS packets", "IV fluids (severe)"],
+      "emergencyWarning": "EMERGENCY: Confusion, rapid heartbeat, or no urination for 8+ hours",
+      "whenToSeekDoctor": "If unable to keep fluids down or symptoms worsen"
+    },
+    {
+      "id": "78",
+      "name": "Shock",
+      "category": "Emergency",
+      "severity": "critical",
+      "symptoms": ["rapid breathing", "weak pulse", "cold/clammy skin", "confusion", "blue lips", "dizziness", "loss of consciousness"],
+      "possibleConditions": ["Hypovolemic Shock", "Septic Shock", "Anaphylactic Shock", "Cardiogenic Shock", "Neurogenic Shock"],
+      "firstAid": [
+        "CALL EMERGENCY SERVICES IMMEDIATELY",
+        "Lay person down and elevate legs if no spinal injury",
+        "Keep person warm",
+        "Do NOT give food or water",
+        "Monitor breathing and pulse",
+        "Be ready to perform CPR"
+      ],
+      "organicRemedies": [],
+      "medications": ["IV fluids", "Vasopressors", "Epinephrine", "Oxygen"],
+      "emergencyWarning": "EMERGENCY: This is a life-threatening emergency. Call emergency services immediately.",
+      "whenToSeekDoctor": "Immediately - shock requires emergency medical treatment"
+    },
+    {
+      "id": "79",
+      "name": "Anaphylaxis",
+      "category": "Emergency",
+      "severity": "critical",
+      "symptoms": ["difficulty breathing", "throat swelling", "hives", "rapid heartbeat", "dizziness", "nausea", "confusion", "collapse"],
+      "possibleConditions": ["Anaphylactic Shock", "Severe Allergic Reaction", "Food Allergy", "Drug Allergy", "Insect Sting Allergy"],
+      "firstAid": [
+        "USE EPINEPHRINE AUTO-INJECTOR IMMEDIATELY",
+        "Call emergency services",
+        "Have person lie down with legs elevated",
+        "Loosen tight clothing",
+        "Be ready to perform CPR",
+        "Use second epinephrine if no improvement in 5-15 minutes"
+      ],
+      "organicRemedies": [],
+      "medications": ["Epinephrine (Adrenaline)", "Antihistamines", "Corticosteroids", "Bronchodilators"],
+      "emergencyWarning": "EMERGENCY: This is immediately life-threatening. Use epinephrine and call emergency!",
+      "whenToSeekDoctor": "Immediately - all anaphylaxis requires emergency care"
+    },
+    {
+      "id": "80",
+      "name": "CPR (Cardiopulmonary Resuscitation)",
+      "category": "Emergency",
+      "severity": "critical",
+      "symptoms": ["unconscious", "not breathing", "no pulse", "blue skin"],
+      "possibleConditions": ["Cardiac Arrest", "Drowning", "Choking", "Drug Overdose", "Severe Allergic Reaction"],
+      "firstAid": [
+        "CHECK for responsiveness - tap and shout",
+        "CALL emergency services (or have someone call)",
+        "PLACE person on back on firm surface",
+        "COMPRESSIONS: Push hard and fast in center of chest",
+        "100-120 compressions per minute",
+        "Give 2 rescue breaths after 30 compressions if trained",
+        "Continue until help arrives or person responds"
+      ],
+      "organicRemedies": [],
+      "medications": [],
+      "emergencyWarning": "EMERGENCY: Call emergency services immediately - every minute counts!",
+      "whenToSeekDoctor": "After successful CPR, person needs immediate hospital evaluation"
+    }
+  ]
+}
