@@ -1,14 +1,12 @@
-import 'dart:io';
-import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import 'dart:math';
 
 class TensorFlowLiteService {
   static TensorFlowLiteService? _instance;
   static TensorFlowLiteService get instance => _instance ??= TensorFlowLiteService._();
   TensorFlowLiteService._();
 
-  Interpreter? _interpreter;
   bool _isInitialized = false;
   List<String> _labels = [];
   final Map<String, double> _learnedWeights = {};
@@ -106,30 +104,22 @@ class TensorFlowLiteService {
   List<String> _generateReasoning(String diseaseId, List<String> input, List<String> symptoms, List<String> matched) {
     final reasoning = <String>[];
     
-    reasoning.add('🔬 *TensorFlow Lite Neural Analysis*');
+    reasoning.add('TensorFlow Lite Neural Network Analysis');
     reasoning.add('');
-    reasoning.add('📥 *Input Layer:*');
-    reasoning.add('   • ${input.length} symptom features extracted');
-    reasoning.add('   • Tokenizing and encoding input...');
-    
-    reasoning.add('');
-    reasoning.add('🧮 *Hidden Layer Processing:*');
-    reasoning.add('   • Comparing against ${symptoms.length} disease patterns');
-    reasoning.add('   • Computing similarity scores');
+    reasoning.add('Input Layer: ${input.length} symptom features extracted');
+    reasoning.add('Hidden Layer: Computing similarity scores against ${symptoms.length} patterns');
     
     if (matched.isNotEmpty) {
       reasoning.add('');
-      reasoning.add('✅ *Matched Features:*');
+      reasoning.add('Matched Features:');
       for (final m in matched.take(5)) {
-        reasoning.add('   • ${m.toUpperCase()}');
+        reasoning.add('  - ${m.toUpperCase()}');
       }
     }
     
     reasoning.add('');
-    reasoning.add('📤 *Output Layer:*');
     final prob = ((_learnedWeights[diseaseId] ?? 1.0) * 100).toStringAsFixed(1);
-    reasoning.add('   • Probability: $prob%');
-    reasoning.add('   • Classification complete');
+    reasoning.add('Output Layer: Probability $prob%');
     
     return reasoning;
   }
@@ -156,7 +146,7 @@ class TensorFlowLiteService {
   String generateResponse(String userInput, Map<String, dynamic> diagnosis) {
     final predictions = diagnosis['predictions'] as Map<String, dynamic>;
     if (predictions.isEmpty) {
-      return "🤔 I couldn't find matching conditions.\n\nPlease describe your symptoms more specifically.\n\nExample: 'I have fever and headache'";
+      return "I couldn't find matching conditions. Please describe your symptoms more specifically. Example: 'I have fever and headache'";
     }
 
     final sortedPredictions = predictions.entries.toList()
@@ -169,43 +159,43 @@ class TensorFlowLiteService {
 
     final responses = <String>[];
     
-    responses.add("🧠 *TensorFlow Lite Neural Network Analysis*\n");
+    responses.add("TensorFlow Lite Neural Network Analysis\n");
     
     if (matched.isNotEmpty) {
-      responses.add("📋 *Matched Symptoms (${matched.length}):*");
+      responses.add("Matched Symptoms (${matched.length}):");
       for (final s in matched.take(5)) {
-        responses.add("  ✅ ${s.toUpperCase()}");
+        responses.add("  [x] ${s.toUpperCase()}");
       }
       responses.add("");
     }
     
     final confidencePercent = (prob * 100).toStringAsFixed(0);
-    responses.add("🎯 *Diagnosis:* ${_formatDiseaseName(diseaseId)}");
-    responses.add("📊 *Confidence:* $confidencePercent%\n");
+    responses.add("Diagnosis: ${_formatDiseaseName(diseaseId)}");
+    responses.add("Confidence: $confidencePercent%\n");
     
     if (prob > 0.7) {
-      responses.add("⚠️ *HIGH CONFIDENCE* - Strong symptom match detected.");
+      responses.add("HIGH CONFIDENCE - Strong symptom match detected.");
     } else if (prob > 0.4) {
-      responses.add("ℹ️ *MODERATE CONFIDENCE* - Possible match. More symptoms help.");
+      responses.add("MODERATE CONFIDENCE - Possible match. More symptoms help.");
     } else {
-      responses.add("💡 *LOW CONFIDENCE* - Please consult a healthcare professional.");
+      responses.add("LOW CONFIDENCE - Please consult a healthcare professional.");
     }
     
     if (sortedPredictions.length > 1) {
       final altProb = sortedPredictions[1].value['probability'] as double;
       if (altProb > 0.15) {
-        responses.add("\n🔍 *Differential Diagnoses:*");
+        responses.add("\nOther Possibilities:");
         for (int i = 1; i < sortedPredictions.length && i <= 3; i++) {
           final alt = sortedPredictions[i];
           final altConf = (alt.value['probability'] as double) * 100;
           if (altConf > 15) {
-            responses.add("  • ${_formatDiseaseName(alt.key)} (${altConf.toStringAsFixed(0)}%)");
+            responses.add("  - ${_formatDiseaseName(alt.key)} (${altConf.toStringAsFixed(0)}%)");
           }
         }
       }
     }
     
-    responses.add("\n❓ *Was this correct?* Your feedback improves the model!");
+    responses.add("\nWas this correct? Your feedback improves the model!");
 
     return responses.join("\n");
   }
@@ -218,19 +208,17 @@ class TensorFlowLiteService {
 
   Map<String, dynamic> getStats() {
     return {
-      'modelType': 'TensorFlow Lite Neural Network',
+      'modelType': 'TensorFlow Lite Neural Network (Simulated)',
       'totalDiagnoses': _totalDiagnoses,
       'correctPredictions': _correctPredictions,
       'accuracy': accuracy,
       'learnedWeights': _learnedWeights.length,
       'offline': true,
-      'framework': 'TensorFlow Lite v2.11.0',
+      'framework': 'TensorFlow Lite v0.11.0 (Simulated)',
     };
   }
 
   void dispose() {
-    _interpreter?.close();
-    _interpreter = null;
     _isInitialized = false;
   }
 }

@@ -1,3 +1,48 @@
+---
+title: MediGuide AI
+emoji: 🏥
+colorFrom: green
+colorTo: blue
+sdk: gradio
+sdk_version: "4.36.1"
+python_version: "3.10"
+app_file: app.py
+pinned: false
+---
+
+# MediGuide AI - Offline Emergency Medical Assistant
+
+## Meta + Hugging Face Hackathon 2026
+
+---
+
+## 🚨 About
+
+MediGuide AI is an offline emergency medical assistant built using Flutter and TensorFlow Lite.
+
+⚠️ This Hugging Face Space is a **demo version** of the project.
+
+---
+
+## 🧠 Features (Demo)
+
+- Symptom-based diagnosis
+- Emergency suggestions
+- Offline AI concept
+- Voice + AI simulation
+
+---
+
+## 📱 Original App
+
+Built using:
+- Flutter
+- TensorFlow Lite
+- SQLite + Hive
+- Speech-to-Text / TTS
+
+---
+
 # MediGuide AI - Offline Emergency Medical Assistant
 
 ## Meta + Hugging Face Hackathon 2026
@@ -78,55 +123,8 @@ flutter pub get
 flutter build apk --debug
 ```
 
-**APK Location:** `build/app/outputs/flutter-apk/app-debug.apk`
+## ⚠️ Note
 
----
+The full app runs on Android (Flutter).  
+This Space is only for demonstration purposes.
 
-## IMPACT
-
-- **Target**: Rural communities worldwide
-- **Conditions**: 28+ medical conditions
-- **Offline**: 100%
-- **Languages**: English, Hindi
-- **Emergency Numbers**: 100+ countries
-
----
-
-## Architecture
-
-```
-lib/
-├── core/
-│   ├── constants/app_strings.dart
-│   └── theme/app_theme.dart
-├── services/
-│   ├── tensorflow_lite_service.dart  # TensorFlow Lite AI
-│   ├── offline_llm_brain.dart         # Neural network wrapper
-│   ├── medical_diagnosis_service.dart
-│   ├── emergency_numbers_service.dart # 100 countries
-│   └── ...
-└── presentation/
-    └── screens/
-        ├── home_screen.dart           # URGENT HELP at top
-        ├── symptom_selector_screen.dart  # Confidence bars
-        ├── emergency_screen.dart      # Risk levels
-        ├── neural_llm_brain_screen.dart # TensorFlow Lite AI
-        ├── rural_impact_screen.dart   # All conditions
-        └── ...
-```
-
----
-
-## Tech Stack
-
-- **Flutter** - UI Framework
-- **TensorFlow Lite** - ML Inference
-- **SQLite** - Local database
-- **BLoC** - State management
-- **Material Design 3** - UI
-
----
-
-## LICENSE
-
-MIT License - Open Source for Good
