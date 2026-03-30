@@ -740,7 +740,7 @@ def load_demo(label: str) -> str:
 
 
 # Build Gradio UI
-with gr.Blocks(title="MediGuide AI", css=CUSTOM_CSS) as demo:
+with gr.Blocks(title="MediGuide AI") as demo:
     gr.HTML(HEADER_HTML)
 
     with gr.Tabs():
@@ -802,7 +802,9 @@ if __name__ == "__main__":
     import threading
 
     def run_gradio():
-        demo.launch(server_name="0.0.0.0", server_port=7861, share=False)
+        demo.launch(
+            server_name="0.0.0.0", server_port=7861, share=False, css=CUSTOM_CSS
+        )
 
     t = threading.Thread(target=run_gradio, daemon=True)
     t.start()
