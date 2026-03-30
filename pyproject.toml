@@ -1,25 +1,30 @@
+# Copyright (c) Vinayak Kumar
+# All rights reserved.
+
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "mediguide_ai"
 version = "1.0.0"
 description = "OpenEnv-Compatible RL Medical Diagnosis Environment"
-authors = [{name = "Vinayak Kumar", email = "codesharecommunityonly1@gmail.com"}]
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 dependencies = [
-    "fastapi>=0.110.0",
-    "uvicorn>=0.29.0",
+    "openenv-core @ git+https://github.com/meta-pytorch/OpenEnv.git@v0.2.1",
+    "fastapi>=0.115.0",
     "pydantic>=2.0.0",
-    "gradio>=4.0.0",
+    "uvicorn>=0.24.0",
     "requests>=2.31.0",
-    "openenv-core>=0.2.0",
+    "gradio>=4.0.0",
 ]
 
 [project.optional-dependencies]
-dev = ["pytest"]
+dev = ["pytest>=8.0.0"]
 
 [project.scripts]
-mediguide = "server.app:main"
-mediguide-server = "server.app:main"
+server = "server.app:main"
 
-[build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
+[tool.setuptools]
+packages = ["server"]
+package-dir = {"server" = "server"}
