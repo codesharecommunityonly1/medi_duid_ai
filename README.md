@@ -3,7 +3,7 @@ title: MediGuide AI
 emoji: 🏥
 colorFrom: red
 colorTo: blue
-sdk: gradio
+sdk: docker
 app_port: 7860
 short_description: Offline RL Emergency Medical Assistant for rural India
 tags:
@@ -13,6 +13,7 @@ tags:
   - emergency
   - hindi
   - hackathon
+  - rl-environment
 pinned: false
 ---
 
