@@ -1155,3 +1155,10 @@ async def state():
 @openenv_app.get("/health")
 async def health():
     return {"status": "healthy", "openenv": True, "diseases": len(DISEASES)}
+
+
+# Mount FastAPI with Gradio for OpenEnv endpoints
+app = gr.mount_gradio_app(openenv_app, demo, path="/")
+app.launch(
+    server_name="0.0.0.0", server_port=7860, css=CUSTOM_CSS, theme=gr.themes.Base()
+)
