@@ -20,7 +20,16 @@ import os
 DISEASES = {
     "malaria": {
         "hindi": "मलेरिया",
-        "symptoms": ["fever", "chills", "headache", "sweating", "nausea", "vomiting", "muscle pain", "fatigue"],
+        "symptoms": [
+            "fever",
+            "chills",
+            "headache",
+            "sweating",
+            "nausea",
+            "vomiting",
+            "muscle pain",
+            "fatigue",
+        ],
         "severity": "HIGH",
         "badge_color": "#FF4444",
         "emergency_steps": [
@@ -41,7 +50,16 @@ DISEASES = {
     },
     "dengue": {
         "hindi": "डेंगू",
-        "symptoms": ["high fever", "severe headache", "eye pain", "joint pain", "rash", "bleeding", "fatigue", "nausea"],
+        "symptoms": [
+            "high fever",
+            "severe headache",
+            "eye pain",
+            "joint pain",
+            "rash",
+            "bleeding",
+            "fatigue",
+            "nausea",
+        ],
         "severity": "HIGH",
         "badge_color": "#FF6600",
         "emergency_steps": [
@@ -62,7 +80,19 @@ DISEASES = {
     },
     "typhoid": {
         "hindi": "टाइफाइड",
-        "symptoms": ["prolonged fever", "stomach pain", "headache", "diarrhea", "constipation", "weakness", "loss of appetite", "continuous fever", "gut fever", "persistent fever", "typhoid"],
+        "symptoms": [
+            "prolonged fever",
+            "stomach pain",
+            "headache",
+            "diarrhea",
+            "constipation",
+            "weakness",
+            "loss of appetite",
+            "continuous fever",
+            "gut fever",
+            "persistent fever",
+            "typhoid",
+        ],
         "severity": "MODERATE",
         "badge_color": "#FF9900",
         "emergency_steps": [
@@ -83,7 +113,14 @@ DISEASES = {
     },
     "cholera": {
         "hindi": "हैजा",
-        "symptoms": ["severe diarrhea", "vomiting", "dehydration", "leg cramps", "weakness", "watery stool"],
+        "symptoms": [
+            "severe diarrhea",
+            "vomiting",
+            "dehydration",
+            "leg cramps",
+            "weakness",
+            "watery stool",
+        ],
         "severity": "CRITICAL",
         "badge_color": "#CC0000",
         "emergency_steps": [
@@ -104,7 +141,15 @@ DISEASES = {
     },
     "pneumonia": {
         "hindi": "निमोनिया",
-        "symptoms": ["high fever", "cough", "chest pain", "difficulty breathing", "chills", "fatigue", "shortness of breath"],
+        "symptoms": [
+            "high fever",
+            "cough",
+            "chest pain",
+            "difficulty breathing",
+            "chills",
+            "fatigue",
+            "shortness of breath",
+        ],
         "severity": "HIGH",
         "badge_color": "#FF4444",
         "emergency_steps": [
@@ -125,7 +170,16 @@ DISEASES = {
     },
     "heart_attack": {
         "hindi": "दिल का दौरा",
-        "symptoms": ["chest pain", "chest pressure", "arm pain", "jaw pain", "shortness of breath", "sweating", "nausea", "dizziness"],
+        "symptoms": [
+            "chest pain",
+            "chest pressure",
+            "arm pain",
+            "jaw pain",
+            "shortness of breath",
+            "sweating",
+            "nausea",
+            "dizziness",
+        ],
         "severity": "CRITICAL",
         "badge_color": "#CC0000",
         "emergency_steps": [
@@ -147,7 +201,16 @@ DISEASES = {
     },
     "snake_bite": {
         "hindi": "सांप का काटना",
-        "symptoms": ["bite marks", "swelling", "pain", "numbness", "nausea", "dizziness", "difficulty breathing", "bleeding"],
+        "symptoms": [
+            "bite marks",
+            "swelling",
+            "pain",
+            "numbness",
+            "nausea",
+            "dizziness",
+            "difficulty breathing",
+            "bleeding",
+        ],
         "severity": "CRITICAL",
         "badge_color": "#CC0000",
         "emergency_steps": [
@@ -169,7 +232,20 @@ DISEASES = {
     },
     "heatstroke": {
         "hindi": "लू लगना / हीट स्ट्रोक",
-        "symptoms": ["very high fever", "hot dry skin", "confusion", "dizziness", "no sweating", "rapid heartbeat", "unconsciousness", "collapsed", "hot skin", "not sweating", "heatstroke", "heat stroke"],
+        "symptoms": [
+            "very high fever",
+            "hot dry skin",
+            "confusion",
+            "dizziness",
+            "no sweating",
+            "rapid heartbeat",
+            "unconsciousness",
+            "collapsed",
+            "hot skin",
+            "not sweating",
+            "heatstroke",
+            "heat stroke",
+        ],
         "severity": "CRITICAL",
         "badge_color": "#CC0000",
         "emergency_steps": [
@@ -195,11 +271,13 @@ DISEASES = {
 # 2. RL ENGINE  (Reinforcement Learning)
 # ─────────────────────────────────────────────
 
+
 class RLMedicalEngine:
     """
     Simple RL engine: State=Symptoms, Action=Diagnosis, Reward=User Feedback
     Implements Q-learning style weight updates
     """
+
     def __init__(self):
         self.weights: Dict[str, Dict[str, float]] = {}
         self.learning_rate = 0.15
@@ -247,12 +325,14 @@ class RLMedicalEngine:
         for disease, data in sorted(scores.items(), key=lambda x: -x[1]["score"])[:3]:
             base = DISEASES[disease]["base_confidence"]
             confidence = min(95, int((data["score"] / total) * 100 * 1.5 + base * 0.3))
-            results.append({
-                "disease": disease,
-                "confidence": confidence,
-                "matched_symptoms": data["matched"],
-                **DISEASES[disease],
-            })
+            results.append(
+                {
+                    "disease": disease,
+                    "confidence": confidence,
+                    "matched_symptoms": data["matched"],
+                    **DISEASES[disease],
+                }
+            )
         return results
 
     def update_weights(self, disease: str, correct: bool):
@@ -269,7 +349,8 @@ class RLMedicalEngine:
                     self.weights[disease][symptom] += self.learning_rate * reward
                 else:
                     self.weights[disease][symptom] = max(
-                        0.1, self.weights[disease][symptom] + self.learning_rate * reward
+                        0.1,
+                        self.weights[disease][symptom] + self.learning_rate * reward,
                     )
 
     def get_stats(self) -> Dict:
@@ -291,15 +372,64 @@ rl_engine = RLMedicalEngine()
 # ─────────────────────────────────────────────
 
 ASSESSMENT_CASES = [
-    {"id": "chest_pain",   "scenario": "Severe chest pain, left arm pain, sweating, feel like heart attack",     "disease": "heart_attack", "critical": True,  "weight": 20},
-    {"id": "snake_bite",   "scenario": "Snake bit my hand, swelling spreading, numbness in arm",                 "disease": "snake_bite",   "critical": True,  "weight": 20},
-    {"id": "heatstroke",   "scenario": "Collapsed outside in summer, very hot skin, confused, not sweating",     "disease": "heatstroke",   "critical": True,  "weight": 15},
-    {"id": "cholera",      "scenario": "Rice-water diarrhea 20 times, vomiting, severe weakness, leg cramps",    "disease": "cholera",      "critical": True,  "weight": 15},
-    {"id": "malaria",      "scenario": "Cyclical fever every 2 days, chills then sweating, headache, nausea",    "disease": "malaria",      "critical": False, "weight": 10},
-    {"id": "dengue",       "scenario": "High fever 5 days, severe joint pain, rash on body, bleeding gums",     "disease": "dengue",       "critical": False, "weight": 10},
-    {"id": "pneumonia",    "scenario": "High fever, productive cough, chest pain when breathing, chills",        "disease": "pneumonia",    "critical": False, "weight": 10},
-    {"id": "typhoid",      "scenario": "Continuous fever 7 days, stomach pain, headache, lost appetite, weak",  "disease": "typhoid",      "critical": False, "weight": 10},
+    {
+        "id": "chest_pain",
+        "scenario": "Severe chest pain, left arm pain, sweating, feel like heart attack",
+        "disease": "heart_attack",
+        "critical": True,
+        "weight": 20,
+    },
+    {
+        "id": "snake_bite",
+        "scenario": "Snake bit my hand, swelling spreading, numbness in arm",
+        "disease": "snake_bite",
+        "critical": True,
+        "weight": 20,
+    },
+    {
+        "id": "heatstroke",
+        "scenario": "Collapsed outside in summer, very hot skin, confused, not sweating",
+        "disease": "heatstroke",
+        "critical": True,
+        "weight": 15,
+    },
+    {
+        "id": "cholera",
+        "scenario": "Rice-water diarrhea 20 times, vomiting, severe weakness, leg cramps",
+        "disease": "cholera",
+        "critical": True,
+        "weight": 15,
+    },
+    {
+        "id": "malaria",
+        "scenario": "Cyclical fever every 2 days, chills then sweating, headache, nausea",
+        "disease": "malaria",
+        "critical": False,
+        "weight": 10,
+    },
+    {
+        "id": "dengue",
+        "scenario": "High fever 5 days, severe joint pain, rash on body, bleeding gums",
+        "disease": "dengue",
+        "critical": False,
+        "weight": 10,
+    },
+    {
+        "id": "pneumonia",
+        "scenario": "High fever, productive cough, chest pain when breathing, chills",
+        "disease": "pneumonia",
+        "critical": False,
+        "weight": 10,
+    },
+    {
+        "id": "typhoid",
+        "scenario": "Continuous fever 7 days, stomach pain, headache, lost appetite, weak",
+        "disease": "typhoid",
+        "critical": False,
+        "weight": 10,
+    },
 ]
+
 
 def run_assessment() -> Tuple[str, str]:
     """Run full assessment and return (summary_html, detailed_html)"""
@@ -315,7 +445,11 @@ def run_assessment() -> Tuple[str, str]:
             score = case["weight"]
             status = "✅ PASS"
             color = "#00C851"
-        elif top and DISEASES.get(top["disease"], {}).get("severity") in ["CRITICAL", "HIGH"] and case["critical"]:
+        elif (
+            top
+            and DISEASES.get(top["disease"], {}).get("severity") in ["CRITICAL", "HIGH"]
+            and case["critical"]
+        ):
             score = case["weight"] * 0.5
             status = "⚠️ PARTIAL"
             color = "#FF8800"
@@ -325,14 +459,16 @@ def run_assessment() -> Tuple[str, str]:
             color = "#FF4444"
 
         total_score += score
-        results.append({
-            "case": case,
-            "top_diagnosis": top["disease"] if top else "None",
-            "confidence": top["confidence"] if top else 0,
-            "score": score,
-            "status": status,
-            "color": color,
-        })
+        results.append(
+            {
+                "case": case,
+                "top_diagnosis": top["disease"] if top else "None",
+                "confidence": top["confidence"] if top else 0,
+                "score": score,
+                "status": status,
+                "color": color,
+            }
+        )
 
     accuracy = (total_score / max_score) * 100
     passed = sum(1 for r in results if "PASS" in r["status"])
@@ -382,11 +518,11 @@ def run_assessment() -> Tuple[str, str]:
     for r in results:
         rows += f"""
 <tr style="border-bottom:1px solid rgba(255,255,255,0.08)">
-  <td style="padding:10px 8px;color:#eee">{r['case']['id'].replace('_',' ').title()}</td>
-  <td style="padding:10px 8px;color:#aaa;font-size:.85em">{r['case']['scenario'][:60]}…</td>
-  <td style="padding:10px 8px;color:#33B5E5">{r['top_diagnosis'].replace('_',' ').title()} ({r['confidence']}%)</td>
-  <td style="padding:10px 8px;font-weight:bold;color:{r['color']}">{r['status']}</td>
-  <td style="padding:10px 8px;color:#FFBB33">{r['score']:.0f}/{r['case']['weight']}</td>
+  <td style="padding:10px 8px;color:#eee">{r["case"]["id"].replace("_", " ").title()}</td>
+  <td style="padding:10px 8px;color:#aaa;font-size:.85em">{r["case"]["scenario"][:60]}…</td>
+  <td style="padding:10px 8px;color:#33B5E5">{r["top_diagnosis"].replace("_", " ").title()} ({r["confidence"]}%)</td>
+  <td style="padding:10px 8px;font-weight:bold;color:{r["color"]}">{r["status"]}</td>
+  <td style="padding:10px 8px;color:#FFBB33">{r["score"]:.0f}/{r["case"]["weight"]}</td>
 </tr>"""
 
     detail = f"""
@@ -413,29 +549,93 @@ def run_assessment() -> Tuple[str, str]:
 # ─────────────────────────────────────────────
 
 DEMO_SCENARIOS = [
-    {"label": "🦟 Malaria (Cyclical Fever)", "symptoms": "fever chills headache sweating nausea muscle pain fatigue", "lang": "en"},
-    {"label": "🦠 Dengue (Breakbone Fever)", "symptoms": "high fever severe headache eye pain joint pain rash fatigue", "lang": "en"},
-    {"label": "🌊 Cholera (Severe Diarrhea)", "symptoms": "severe diarrhea vomiting dehydration leg cramps weakness watery stool", "lang": "en"},
-    {"label": "❤️ Heart Attack (Critical)", "symptoms": "chest pain chest pressure arm pain jaw pain shortness of breath sweating nausea", "lang": "en"},
-    {"label": "🐍 Snake Bite (Emergency)", "symptoms": "bite marks swelling pain numbness nausea dizziness difficulty breathing", "lang": "en"},
-    {"label": "🌡️ Heatstroke (Summer Emergency)", "symptoms": "very high fever hot dry skin confusion dizziness no sweating rapid heartbeat", "lang": "en"},
-    {"label": "🫁 Pneumonia (Chest Infection)", "symptoms": "high fever cough chest pain difficulty breathing chills fatigue shortness of breath", "lang": "en"},
-    {"label": "🦠 Typhoid (Gut Fever)", "symptoms": "prolonged fever stomach pain headache diarrhea weakness loss of appetite", "lang": "en"},
-    {"label": "🤒 बुखार और सिरदर्द (Hindi)", "symptoms": "बुखार सिरदर्द उल्टी कमजोरी ठंड लगना", "lang": "hi"},
-    {"label": "💊 पेट दर्द (Hindi)", "symptoms": "पेट दर्द दस्त उल्टी कमजोरी भूख नहीं लगना बुखार", "lang": "hi"},
-    {"label": "🫀 सीने में दर्द (Hindi - Critical)", "symptoms": "सीने में दर्द बाएं हाथ में दर्द पसीना सांस लेने में तकलीफ", "lang": "hi"},
-    {"label": "🌿 Mild Headache + Fever", "symptoms": "fever headache fatigue", "lang": "en"},
-    {"label": "⚡ Multi-symptom Emergency", "symptoms": "fever headache vomiting diarrhea dehydration weakness bleeding", "lang": "en"},
+    {
+        "label": "🦟 Malaria (Cyclical Fever)",
+        "symptoms": "fever chills headache sweating nausea muscle pain fatigue",
+        "lang": "en",
+    },
+    {
+        "label": "🦠 Dengue (Breakbone Fever)",
+        "symptoms": "high fever severe headache eye pain joint pain rash fatigue",
+        "lang": "en",
+    },
+    {
+        "label": "🌊 Cholera (Severe Diarrhea)",
+        "symptoms": "severe diarrhea vomiting dehydration leg cramps weakness watery stool",
+        "lang": "en",
+    },
+    {
+        "label": "❤️ Heart Attack (Critical)",
+        "symptoms": "chest pain chest pressure arm pain jaw pain shortness of breath sweating nausea",
+        "lang": "en",
+    },
+    {
+        "label": "🐍 Snake Bite (Emergency)",
+        "symptoms": "bite marks swelling pain numbness nausea dizziness difficulty breathing",
+        "lang": "en",
+    },
+    {
+        "label": "🌡️ Heatstroke (Summer Emergency)",
+        "symptoms": "very high fever hot dry skin confusion dizziness no sweating rapid heartbeat",
+        "lang": "en",
+    },
+    {
+        "label": "🫁 Pneumonia (Chest Infection)",
+        "symptoms": "high fever cough chest pain difficulty breathing chills fatigue shortness of breath",
+        "lang": "en",
+    },
+    {
+        "label": "🦠 Typhoid (Gut Fever)",
+        "symptoms": "prolonged fever stomach pain headache diarrhea weakness loss of appetite",
+        "lang": "en",
+    },
+    {
+        "label": "🤒 बुखार और सिरदर्द (Hindi)",
+        "symptoms": "बुखार सिरदर्द उल्टी कमजोरी ठंड लगना",
+        "lang": "hi",
+    },
+    {
+        "label": "💊 पेट दर्द (Hindi)",
+        "symptoms": "पेट दर्द दस्त उल्टी कमजोरी भूख नहीं लगना बुखार",
+        "lang": "hi",
+    },
+    {
+        "label": "🫀 सीने में दर्द (Hindi - Critical)",
+        "symptoms": "सीने में दर्द बाएं हाथ में दर्द पसीना सांस लेने में तकलीफ",
+        "lang": "hi",
+    },
+    {
+        "label": "🌿 Mild Headache + Fever",
+        "symptoms": "fever headache fatigue",
+        "lang": "en",
+    },
+    {
+        "label": "⚡ Multi-symptom Emergency",
+        "symptoms": "fever headache vomiting diarrhea dehydration weakness bleeding",
+        "lang": "en",
+    },
 ]
 
 # Hindi symptom translation map
 HINDI_MAP = {
-    "बुखार": "fever", "सिरदर्द": "headache", "उल्टी": "vomiting", "कमजोरी": "fatigue",
-    "ठंड": "chills", "पेट दर्द": "stomach pain", "दस्त": "diarrhea", "खांसी": "cough",
-    "सांस": "shortness of breath", "चक्कर": "dizziness", "दर्द": "pain",
-    "पसीना": "sweating", "सीने": "chest pain", "हाथ में दर्द": "arm pain",
-    "तकलीफ": "difficulty breathing", "भूख": "loss of appetite",
+    "बुखार": "fever",
+    "सिरदर्द": "headache",
+    "उल्टी": "vomiting",
+    "कमजोरी": "fatigue",
+    "ठंड": "chills",
+    "पेट दर्द": "stomach pain",
+    "दस्त": "diarrhea",
+    "खांसी": "cough",
+    "सांस": "shortness of breath",
+    "चक्कर": "dizziness",
+    "दर्द": "pain",
+    "पसीना": "sweating",
+    "सीने": "chest pain",
+    "हाथ में दर्द": "arm pain",
+    "तकलीफ": "difficulty breathing",
+    "भूख": "loss of appetite",
 }
+
 
 def translate_hindi(text: str) -> str:
     for hindi, english in HINDI_MAP.items():
@@ -447,12 +647,13 @@ def translate_hindi(text: str) -> str:
 # 5. GRADIO HANDLER FUNCTIONS
 # ─────────────────────────────────────────────
 
+
 def diagnose_symptoms(symptoms: str, language: str) -> Tuple[str, str]:
     """Main diagnosis function → returns (result_html, first_aid_html)"""
     if not symptoms or len(symptoms.strip()) < 3:
         return (
             '<div style="color:#FF4444;padding:20px;text-align:center">⚠️ Please enter at least one symptom</div>',
-            ""
+            "",
         )
 
     # Translate Hindi if needed
@@ -463,7 +664,7 @@ def diagnose_symptoms(symptoms: str, language: str) -> Tuple[str, str]:
     if not diagnoses:
         return (
             '<div style="color:#FFBB33;padding:20px;text-align:center">🔍 No matching conditions found. Please describe your symptoms in more detail.</div>',
-            ""
+            "",
         )
 
     # Build result HTML
@@ -473,7 +674,11 @@ def diagnose_symptoms(symptoms: str, language: str) -> Tuple[str, str]:
         badge_color = d["badge_color"]
         bar_width = d["confidence"]
         hindi_name = d.get("hindi", "")
-        matched = ", ".join(d["matched_symptoms"]) if d["matched_symptoms"] else "General match"
+        matched = (
+            ", ".join(d["matched_symptoms"])
+            if d["matched_symptoms"]
+            else "General match"
+        )
 
         rank_label = ["🥇 Most Likely", "🥈 Possible", "🥉 Less Likely"][i]
 
@@ -483,14 +688,14 @@ def diagnose_symptoms(symptoms: str, language: str) -> Tuple[str, str]:
   <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
     <div>
       <span style="color:#aaa;font-size:.8em">{rank_label}</span>
-      <h3 style="margin:4px 0;color:white;font-size:1.2em">{d['disease'].replace('_',' ').title()}</h3>
+      <h3 style="margin:4px 0;color:white;font-size:1.2em">{d["disease"].replace("_", " ").title()}</h3>
       <div style="color:#aaa;font-size:.85em">{hindi_name}</div>
     </div>
     <div style="text-align:right">
       <span style="background:{badge_color};color:white;padding:3px 10px;border-radius:20px;font-size:.75em;font-weight:bold">
         ⚠️ {severity}
       </span>
-      <div style="color:#FFBB33;font-size:1.3em;font-weight:bold;margin-top:4px">{d['confidence']}%</div>
+      <div style="color:#FFBB33;font-size:1.3em;font-weight:bold;margin-top:4px">{d["confidence"]}%</div>
     </div>
   </div>
   <div style="margin-top:10px">
@@ -516,10 +721,10 @@ def diagnose_symptoms(symptoms: str, language: str) -> Tuple[str, str]:
   <h2 style="margin:0 0 16px;color:#33B5E5">🧠 AI Diagnosis Report</h2>
   {cards}
   <div style="margin-top:20px;padding:16px;background:rgba(255,68,68,0.1);border:1px solid rgba(255,68,68,0.3);border-radius:12px">
-    <h3 style="margin:0 0 12px;color:#FF4444">🚨 Emergency Steps – {top['disease'].replace('_',' ').title()}</h3>
+    <h3 style="margin:0 0 12px;color:#FF4444">🚨 Emergency Steps – {top["disease"].replace("_", " ").title()}</h3>
     {steps_html}
     <div style="margin-top:12px;padding:10px;background:rgba(0,0,0,0.3);border-radius:8px;color:#FFBB33;font-size:.9em">
-      📞 Emergency Helpline: <b>{top['emergency_number']}</b>
+      📞 Emergency Helpline: <b>{top["emergency_number"]}</b>
     </div>
   </div>
   <div style="margin-top:12px;color:#666;font-size:.75em;text-align:center">
@@ -530,14 +735,16 @@ def diagnose_symptoms(symptoms: str, language: str) -> Tuple[str, str]:
     # First aid card
     first_aid_steps = ""
     for step in top["first_aid"]:
-        first_aid_steps += f'<li style="padding:6px 0;color:#ccc;font-size:.9em">{step}</li>'
+        first_aid_steps += (
+            f'<li style="padding:6px 0;color:#ccc;font-size:.9em">{step}</li>'
+        )
 
     first_aid_html = f"""
 <div style="background:linear-gradient(135deg,#0d2818,#0a1a10);padding:20px;border-radius:16px;font-family:system-ui;color:white;border:1px solid rgba(0,200,81,0.2)">
   <h3 style="margin:0 0 12px;color:#00C851">🩹 First Aid Guide</h3>
   <ul style="margin:0;padding-left:20px">{first_aid_steps}</ul>
   <div style="margin-top:16px;padding:12px;background:rgba(51,181,229,0.1);border-radius:8px;color:#33B5E5;font-size:.85em">
-    💡 RL Engine has processed <b>{rl_engine.total_diagnoses}</b> diagnoses with <b>{rl_engine.get_stats()['accuracy']}%</b> accuracy
+    💡 RL Engine has processed <b>{rl_engine.total_diagnoses}</b> diagnoses with <b>{rl_engine.get_stats()["accuracy"]}%</b> accuracy
   </div>
 </div>"""
 
@@ -552,7 +759,9 @@ def load_demo(scenario_label: str) -> str:
     return ""
 
 
-def submit_feedback(symptoms: str, language: str, feedback: str, last_diagnosis: str) -> str:
+def submit_feedback(
+    symptoms: str, language: str, feedback: str, last_diagnosis: str
+) -> str:
     """Handle RL feedback submission"""
     if not last_diagnosis:
         return '<div style="color:#FF4444;padding:12px">⚠️ Please run a diagnosis first, then submit feedback.</div>'
@@ -567,12 +776,12 @@ def submit_feedback(symptoms: str, language: str, feedback: str, last_diagnosis:
 
     return f"""
 <div style="background:linear-gradient(135deg,#0d1117,#161b22);padding:16px;border-radius:12px;font-family:system-ui;color:white;border:1px solid {color}40">
-  <h4 style="margin:0 0 8px;color:{color}">{'🧠 AI Learning Complete!' if is_correct else '📚 Learning from mistake!'}</h4>
+  <h4 style="margin:0 0 8px;color:{color}">{"🧠 AI Learning Complete!" if is_correct else "📚 Learning from mistake!"}</h4>
   <div style="color:#ccc;font-size:.9em">Feedback: <span style="color:{color};font-weight:bold">{feedback}</span></div>
   <div style="color:#ccc;font-size:.9em">RL Reward: <span style="color:#FFBB33">{reward_text}</span></div>
   <div style="margin-top:10px;padding:10px;background:rgba(255,255,255,0.05);border-radius:8px">
     <div style="color:#aaa;font-size:.8em">Updated Stats</div>
-    <div style="color:#33B5E5;font-size:.9em">Total: {stats['total_diagnoses']} | Accuracy: {stats['accuracy']}% | Reward: {stats['total_reward']}</div>
+    <div style="color:#33B5E5;font-size:.9em">Total: {stats["total_diagnoses"]} | Accuracy: {stats["accuracy"]}% | Reward: {stats["total_reward"]}</div>
   </div>
 </div>"""
 
@@ -590,15 +799,15 @@ def get_emergency_guide():
     for disease_id, d in DISEASES.items():
         if d["severity"] == "CRITICAL":
             html += f"""
-  <div style="background:rgba(255,255,255,0.04);border-left:4px solid {d['badge_color']};border-radius:8px;padding:14px;margin-bottom:10px">
+  <div style="background:rgba(255,255,255,0.04);border-left:4px solid {d["badge_color"]};border-radius:8px;padding:14px;margin-bottom:10px">
     <div style="display:flex;justify-content:space-between">
       <div>
-        <b style="color:white">{disease_id.replace('_',' ').title()}</b>
-        <span style="color:#aaa;font-size:.85em;margin-left:8px">{d['hindi']}</span>
+        <b style="color:white">{disease_id.replace("_", " ").title()}</b>
+        <span style="color:#aaa;font-size:.85em;margin-left:8px">{d["hindi"]}</span>
       </div>
       <span style="background:#FF4444;color:white;padding:2px 8px;border-radius:10px;font-size:.75em">CRITICAL</span>
     </div>
-    <div style="color:#FFBB33;margin-top:6px;font-size:.85em">📞 Call: {d['emergency_number']} | First step: {d['emergency_steps'][0]}</div>
+    <div style="color:#FFBB33;margin-top:6px;font-size:.85em">📞 Call: {d["emergency_number"]} | First step: {d["emergency_steps"][0]}</div>
   </div>"""
 
     html += """
@@ -617,26 +826,26 @@ def get_ai_stats():
   <h3 style="margin:0 0 16px;color:#33B5E5">🤖 AI Brain Dashboard</h3>
   <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
     <div style="background:rgba(51,181,229,0.1);border:1px solid #33B5E564;border-radius:10px;padding:14px;text-align:center">
-      <div style="font-size:2em;font-weight:bold;color:#33B5E5">{stats['total_diagnoses']}</div>
+      <div style="font-size:2em;font-weight:bold;color:#33B5E5">{stats["total_diagnoses"]}</div>
       <div style="color:#aaa;font-size:.85em">Total Diagnoses</div>
     </div>
     <div style="background:rgba(0,200,81,0.1);border:1px solid #00C85164;border-radius:10px;padding:14px;text-align:center">
-      <div style="font-size:2em;font-weight:bold;color:#00C851">{stats['accuracy']}%</div>
+      <div style="font-size:2em;font-weight:bold;color:#00C851">{stats["accuracy"]}%</div>
       <div style="color:#aaa;font-size:.85em">Accuracy</div>
     </div>
     <div style="background:rgba(255,187,51,0.1);border:1px solid #FFBB3364;border-radius:10px;padding:14px;text-align:center">
-      <div style="font-size:2em;font-weight:bold;color:#FFBB33">{stats['total_reward']}</div>
+      <div style="font-size:2em;font-weight:bold;color:#FFBB33">{stats["total_reward"]}</div>
       <div style="color:#aaa;font-size:.85em">Total Reward</div>
     </div>
     <div style="background:rgba(255,68,68,0.1);border:1px solid #FF444464;border-radius:10px;padding:14px;text-align:center">
-      <div style="font-size:2em;font-weight:bold;color:#FF4444">{stats['learning_rate']}</div>
+      <div style="font-size:2em;font-weight:bold;color:#FF4444">{stats["learning_rate"]}</div>
       <div style="color:#aaa;font-size:.85em">Learning Rate</div>
     </div>
   </div>
   <div style="margin-top:16px;padding:12px;background:rgba(255,255,255,0.03);border-radius:8px">
     <div style="color:#aaa;font-size:.8em;margin-bottom:6px">Diseases in Knowledge Base</div>
     <div style="display:flex;flex-wrap:wrap;gap:6px">
-      {''.join(f'<span style="background:rgba(51,181,229,0.15);border:1px solid #33B5E564;border-radius:12px;padding:3px 10px;font-size:.78em;color:#33B5E5">{k.replace("_"," ").title()}</span>' for k in DISEASES.keys())}
+      {"".join(f'<span style="background:rgba(51,181,229,0.15);border:1px solid #33B5E564;border-radius:12px;padding:3px 10px;font-size:.78em;color:#33B5E5">{k.replace("_", " ").title()}</span>' for k in DISEASES.keys())}
     </div>
   </div>
 </div>"""
@@ -674,11 +883,10 @@ HEADER_HTML = """
 </div>
 """
 
-with gr.Blocks(theme=gr.themes.Base(), css=CUSTOM_CSS, title="MediGuide AI") as demo:
+with gr.Blocks(title="MediGuide AI") as demo:
     gr.HTML(HEADER_HTML)
 
     with gr.Tabs():
-
         # ── TAB 1: DIAGNOSIS ──────────────────────────────
         with gr.TabItem("🩺 Smart Diagnosis"):
             with gr.Row():
@@ -695,7 +903,9 @@ with gr.Blocks(theme=gr.themes.Base(), css=CUSTOM_CSS, title="MediGuide AI") as 
                         lines=4,
                     )
                     with gr.Row():
-                        diagnose_btn = gr.Button("🔍 Diagnose Now", variant="primary", size="lg")
+                        diagnose_btn = gr.Button(
+                            "🔍 Diagnose Now", variant="primary", size="lg"
+                        )
                         clear_btn = gr.Button("🗑️ Clear", size="lg")
 
                     gr.Markdown("### 🎯 Demo Scenarios (13 pre-filled)")
@@ -712,23 +922,35 @@ with gr.Blocks(theme=gr.themes.Base(), css=CUSTOM_CSS, title="MediGuide AI") as 
 
             # RL Feedback
             with gr.Accordion("🧠 AI Feedback & Learning", open=False):
-                gr.Markdown("Help the AI learn by confirming or correcting the diagnosis:")
+                gr.Markdown(
+                    "Help the AI learn by confirming or correcting the diagnosis:"
+                )
                 with gr.Row():
-                    last_diag_state = gr.Textbox(label="Last diagnosed condition", interactive=False)
+                    last_diag_state = gr.Textbox(
+                        label="Last diagnosed condition", interactive=False
+                    )
                     feedback_radio = gr.Radio(
                         ["✅ Correct Diagnosis", "❌ Wrong Diagnosis"],
                         label="Was the diagnosis correct?",
                         value="✅ Correct Diagnosis",
                     )
-                feedback_btn = gr.Button("📤 Submit Feedback (Teach AI)", variant="primary")
+                feedback_btn = gr.Button(
+                    "📤 Submit Feedback (Teach AI)", variant="primary"
+                )
                 feedback_output = gr.HTML()
 
             # Wire up diagnosis
             def diagnose_and_track(symptoms, lang):
                 result, first_aid = diagnose_symptoms(symptoms, lang)
                 # Extract top disease name for feedback tracking
-                diagnoses = rl_engine.diagnose(translate_hindi(symptoms) if lang == "Hindi / हिंदी" else symptoms)
-                top_disease = diagnoses[0]["disease"].replace("_", " ").title() if diagnoses else ""
+                diagnoses = rl_engine.diagnose(
+                    translate_hindi(symptoms) if lang == "Hindi / हिंदी" else symptoms
+                )
+                top_disease = (
+                    diagnoses[0]["disease"].replace("_", " ").title()
+                    if diagnoses
+                    else ""
+                )
                 return result, first_aid, top_disease
 
             diagnose_btn.click(
@@ -738,7 +960,13 @@ with gr.Blocks(theme=gr.themes.Base(), css=CUSTOM_CSS, title="MediGuide AI") as 
             )
             clear_btn.click(
                 fn=lambda: ("", "", gr.HTML(""), gr.HTML(""), ""),
-                outputs=[symptoms_input, last_diag_state, result_output, first_aid_output, last_diag_state],
+                outputs=[
+                    symptoms_input,
+                    last_diag_state,
+                    result_output,
+                    first_aid_output,
+                    last_diag_state,
+                ],
             )
             load_demo_btn.click(
                 fn=load_demo,
@@ -776,7 +1004,9 @@ This evaluates diagnostic accuracy, emergency detection, and scoring.
   <h2 style="color:#FF4444;margin:4px 0">EMERGENCY – Call 108 / 112 Now!</h2>
   <p style="color:#ccc;margin:0;font-size:.9em">India Ambulance: 108 | National Emergency: 112 | Police: 100 | Fire: 101</p>
 </div>""")
-            emergency_btn = gr.Button("🚨 Load Emergency Quick Guide", variant="secondary", size="lg")
+            emergency_btn = gr.Button(
+                "🚨 Load Emergency Quick Guide", variant="secondary", size="lg"
+            )
             emergency_output = gr.HTML()
             emergency_btn.click(fn=get_emergency_guide, outputs=[emergency_output])
             # Auto-load on tab
@@ -831,4 +1061,6 @@ This evaluates diagnostic accuracy, emergency detection, and scoring.
   </div>
 </div>""")
 
-demo.launch(server_name="0.0.0.0", server_port=7860)
+demo.launch(
+    server_name="0.0.0.0", server_port=7860, css=CUSTOM_CSS, theme=gr.themes.Base()
+)
