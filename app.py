@@ -1067,8 +1067,12 @@ This evaluates diagnostic accuracy, emergency detection, and scoring.
   </div>
 </div>""")
 
+demo.launch(
+    server_name="0.0.0.0", server_port=7860, css=CUSTOM_CSS, theme=gr.themes.Base()
+)
+
 # ─────────────────────────────────────────────────────────────
-# 9. OPENENV API SERVER (FastAPI) - Mounted with Gradio
+# 9. OPENENV API SERVER (FastAPI)
 # ─────────────────────────────────────────────────────────────
 
 openenv_app = FastAPI(title="MediGuide AI - OpenEnv")
@@ -1116,49 +1120,6 @@ async def reset():
 async def step(action: MedicalAction):
     global _episode
     _episode["step_count"] += 1
-    reward = 0.0
-    diagnoses = []
-    message = ""
-
-    if action.query_type == "diagnose" and action.symptoms:
-        results = diagnose_symptoms(action.symptoms, "English")
-        diagnoses = results[0] if results else []
-        reward = 0.1
-        message = f"Found {len(diagnoses)} conditions"
-
-    _episode["reward"] += reward
-
-    return StepResult(
-        observation={
-            "episode_id": _episode["id"],
-            "step_count": _episode["step_count"],
-            "query": action.symptoms or "",
-            "diagnoses": diagnoses,
-            "message": message,
-        },
-        reward=reward,
-        done=False,
-        info={"rl_active": True},
-    )
-
-
-@openenv_app.get("/state")
-async def state():
-    return _episode
-
-
-@openenv_app.get("/health")
-async def health():
-    return {"status": "healthy", "openenv": True, "diseases": len(DISEASES)}
-
-
-# Mount FastAPI with Gradio
-demo = gr.mount_gradio_app(openenv_app, demo, path="/")
-
-demo.launch(
-    server_name="0.0.0.0", server_port=7860, css=CUSTOM_CSS, theme=gr.themes.Base()
-)
-
     reward = 0.0
     diagnoses = []
     message = ""
