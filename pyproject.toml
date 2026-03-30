@@ -10,10 +10,14 @@ dependencies = [
     "pydantic>=2.0.0",
     "gradio>=4.0.0",
     "requests>=2.31.0",
+    "openenv-core>=0.2.0",
 ]
 
 [project.optional-dependencies]
 dev = ["pytest"]
+
+[project.scripts]
+mediguide = "inference:app"
 
 [build-system]
 requires = ["setuptools>=61.0"]
