@@ -1,0 +1,46 @@
+# MediGuide AI - OpenEnv Configuration
+version: "1.0"
+name: mediguide_ai
+description: RL-powered Emergency Medical Assistant for Rural India
+author: Vinayak Kumar
+tags:
+  - medical
+  - healthcare
+  - emergency
+  - rl
+  - hindi
+
+# API Configuration
+api:
+  url: https://vinayakkuma-med-guid-ai.hf.space
+  endpoints:
+    reset: POST /reset
+    step: POST /step
+    state: GET /state
+    health: GET /health
+
+# Environment Specification
+environment:
+  type: medical-diagnosis
+  observation_space:
+    - episode_id
+    - step_count
+    - query
+    - diagnoses
+    - message
+  action_space:
+    - symptoms
+    - query_type
+    - feedback_disease
+    - feedback_correct
+
+# Diseases supported
+diseases:
+  - malaria
+  - dengue
+  - typhoid
+  - pneumonia
+  - heart_attack
+  - snake_bite
+  - heatstroke
+  - cholera
