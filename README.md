@@ -3,7 +3,7 @@ title: MediGuide AI
 emoji: 🏥
 colorFrom: red
 colorTo: blue
-sdk: docker
+sdk: gradio
 app_port: 7860
 short_description: OpenEnv-Compatible RL Medical Diagnosis Environment
 tags:

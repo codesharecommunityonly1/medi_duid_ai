@@ -3,14 +3,20 @@ MediGuide AI - Meta + Hugging Face Hackathon 2026
 ==================================================
 Offline-first RL-powered Emergency Medical Assistant
 Built for rural India | Hindi + English | AI Diagnosis + First Aid
+OpenEnv-Compatible: POST /reset, POST /step, GET /state
 """
 
 import gradio as gr
 import json
 import time
 import random
+import uuid
+import threading
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, Any
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 import os
 
 # ─────────────────────────────────────────────
@@ -1064,3 +1070,88 @@ This evaluates diagnostic accuracy, emergency detection, and scoring.
 demo.launch(
     server_name="0.0.0.0", server_port=7860, css=CUSTOM_CSS, theme=gr.themes.Base()
 )
+
+# ─────────────────────────────────────────────────────────────
+# 9. OPENENV API SERVER (FastAPI)
+# ─────────────────────────────────────────────────────────────
+
+openenv_app = FastAPI(title="MediGuide AI - OpenEnv")
+openenv_app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+_episode = {"id": str(uuid.uuid4()), "step_count": 0, "reward": 0.0}
+
+
+class MedicalAction(BaseModel):
+    symptoms: Optional[str] = None
+    query_type: Optional[str] = "diagnose"
+    feedback_disease: Optional[str] = None
+    feedback_correct: Optional[bool] = None
+
+
+class StepResult(BaseModel):
+    observation: Dict[str, Any]
+    reward: float
+    done: bool
+    info: Dict[str, Any] = {}
+
+
+@openenv_app.post("/reset", response_model=StepResult)
+async def reset():
+    global _episode
+    _episode = {"id": str(uuid.uuid4()), "step_count": 0, "reward": 0.0}
+    return StepResult(
+        observation={
+            "episode_id": _episode["id"],
+            "message": "MediGuide AI ready. POST /step with symptoms.",
+        },
+        reward=0.0,
+        done=False,
+        info={"diseases": list(DISEASES.keys())},
+    )
+
+
+@openenv_app.post("/step", response_model=StepResult)
+async def step(action: MedicalAction):
+    global _episode
+    _episode["step_count"] += 1
+    reward = 0.0
+    diagnoses = []
+    message = ""
+
+    if action.query_type == "diagnose" and action.symptoms:
+        diagnoses = diagnose_symptoms(action.symptoms, "English")[0]
+        reward = 0.1
+        message = f"Found {len(diagnoses)} conditions"
+        if rl_engine:
+            rl_engine.total_diagnoses += 1
+
+    _episode["reward"] += reward
+
+    return StepResult(
+        observation={
+            "episode_id": _episode["id"],
+            "step_count": _episode["step_count"],
+            "query": action.symptoms or "",
+            "diagnoses": diagnoses,
+            "message": message,
+        },
+        reward=reward,
+        done=False,
+        info={"rl_active": True},
+    )
+
+
+@openenv_app.get("/state")
+async def state():
+    return _episode
+
+
+@openenv_app.get("/health")
+async def health():
+    return {"status": "healthy", "openenv": True, "diseases": len(DISEASES)}
