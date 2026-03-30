@@ -5,16 +5,15 @@ colorFrom: red
 colorTo: blue
 sdk: docker
 app_port: 7860
+short_description: Offline RL Emergency Medical Assistant for rural India
 tags:
   - openenv
   - medical
-  - rl
   - healthcare
-  - india
-  - hindi
   - emergency
+  - hindi
   - hackathon
-short_description: Offline RL-powered Emergency Medical Assistant for rural India
+pinned: false
 ---
 
 # 🏥 MediGuide AI
