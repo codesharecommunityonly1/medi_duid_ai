@@ -14,7 +14,6 @@ tags:
   - hindi
   - hackathon
 pinned: false
-disable_guest: true
 ---
 
 # 🏥 MediGuide AI
@@ -118,7 +117,6 @@ print(r.json())
 | **OpenEnv API** | Full POST /reset, POST /step, GET /state compliance |
 | **Offline-First** | No external API calls — 100% self-contained |
 | **Confidence Bars** | Percentage confidence + severity badges per diagnosis |
-| **Flutter App** | Full mobile app in `fresh_app/` (BLoC, Hive, offline) |
 
 ---
 
