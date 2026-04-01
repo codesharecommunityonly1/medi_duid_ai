@@ -8,7 +8,7 @@ version = "1.0.0"
 description = "OpenEnv-Compatible RL Medical Diagnosis Environment"
 requires-python = ">=3.10"
 dependencies = [
-    "openenv-core @ git+https://github.com/meta-pytorch/OpenEnv.git@v0.2.1",
+    "openenv-core[core] @ git+https://github.com/meta-pytorch/OpenEnv.git@v0.2.3",
     "fastapi>=0.115.0",
     "pydantic>=2.0.0",
     "uvicorn>=0.24.0",
@@ -21,11 +21,8 @@ dependencies = [
 dev = ["pytest>=8.0.0"]
 
 [project.scripts]
-mediguide = "inference:app"
+server = "server.app:main"
 
 [tool.setuptools]
-py-modules = ["inference"]
-
-[tool.openenv]
-name = "mediguide"
-version = "1.0"
+packages = ["server"]
+package-dir = {"server" = "server"}
