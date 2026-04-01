@@ -17,14 +17,14 @@ dependencies = [
     "uvicorn>=0.24.0",
     "requests>=2.31.0",
     "gradio>=4.0.0",
+    "openai>=1.0.0",
 ]
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0.0"]
 
 [project.scripts]
-server = "server.app:main"
+mediguide = "inference:app"
 
 [tool.setuptools]
-packages = ["server"]
-package-dir = {"server" = "server"}
+py-modules = ["inference"]
