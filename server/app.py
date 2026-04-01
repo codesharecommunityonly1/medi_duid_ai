@@ -4,41 +4,40 @@ MediGuide AI - OpenEnv Server
 FastAPI app with OpenEnv endpoints
 """
 
-from fastapi import FastAPI
-from fastapi.responses import JSONResponse
-from environment import MediGuideEnvironment
+try:
+    from openenv.core.env_server import create_fastapi_app
+    from environment import MediGuideEnvironment
+    from models import MediGuideAction, MediGuideObservation
 
-env = MediGuideEnvironment()
+    app = create_fastapi_app(
+        MediGuideEnvironment, MediGuideAction, MediGuideObservation
+    )
+except ImportError:
+    from fastapi import FastAPI
+    from environment import MediGuideEnvironment
 
-app = FastAPI(title="MediGuide AI - OpenEnv")
+    env = MediGuideEnvironment()
+    app = FastAPI(title="MediGuide AI - OpenEnv")
 
+    @app.post("/reset")
+    def reset():
+        return env.reset()
 
-@app.post("/reset")
-def reset():
-    """Reset environment - OpenEnv required"""
-    return env.reset()
+    @app.post("/step")
+    def step(action: dict):
+        class Action:
+            def __init__(self, d):
+                self.symptoms = d.get("symptoms", "")
 
+        return env.step(Action(action))
 
-@app.post("/step")
-def step(action: dict):
-    """Process symptoms and return diagnosis - OpenEnv step()"""
+    @app.get("/state")
+    def state():
+        return env.state
 
-    class Action:
-        def __init__(self, d):
-            self.symptoms = d.get("symptoms", "")
-
-    return env.step(Action(action))
-
-
-@app.get("/state")
-def state():
-    """Get current episode state - OpenEnv state()"""
-    return env.state
-
-
-@app.get("/health")
-def health():
-    return {"status": "healthy", "openenv": True, "diseases": 8, "tasks": 3}
+    @app.get("/health")
+    def health():
+        return {"status": "healthy", "openenv": True}
 
 
 def main():
