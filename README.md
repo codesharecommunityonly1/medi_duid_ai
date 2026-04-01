@@ -11,7 +11,6 @@ tags:
   - medical
   - healthcare
   - emergency
-  - hindi
   - hackathon
   - rl-environment
 pinned: false
@@ -25,57 +24,101 @@ pinned: false
 
 ---
 
-## 🎯 Task Overview
-
-**Problem Statement:** Build a complete, real-world OpenEnv environment that an AI agent can learn from through the standard step()/reset()/state() API.
-
-**Our Solution:** MediGuide AI is a medical diagnosis environment that helps users identify diseases based on symptoms and receive emergency guidance. This is a real-world healthcare task targeting rural India where medical resources are scarce.
-
----
-
 ## ✅ Pre-Submission Checklist
 
 | Requirement | Status | Notes |
 |-------------|--------|-------|
-| HF Space deploys | ✅ | Returns 200, responds to reset() |
-| OpenEnv spec compliance | ✅ | openenv.yaml, typed models, endpoints |
-| Dockerfile builds | ✅ | Working Docker configuration |
-| Baseline reproduces | ✅ | inference.py runs without error |
-| 3+ tasks with graders | ✅ | Easy/Medium/Hard tasks with 0.0-1.0 scores |
+| Real-World Task | ✅ | Medical diagnosis for rural India (not toy/game) |
+| OpenEnv Compliance | ✅ | step/reset/state + openenv.yaml + typed models |
+| 3 Tasks with Graders | ✅ | Easy/Medium/Hard, scores 0.0-1.0, deterministic |
+| Reward Function | ✅ | Partial progress rewards, not just terminal |
+| Baseline Inference | ✅ | OpenAI client, env variables, reproducible scores |
+| HF Space Deploy | ✅ | Containerized, tagged openenv |
+| Dockerfile Works | ✅ | docker build + run successful |
+| Documentation | ✅ | README with all required sections |
+
+---
+
+## 📋 Task Overview
+
+**Problem:** Build a complete, real-world OpenEnv environment representing tasks humans perform.
+
+**Solution:** MediGuide AI is a medical diagnosis environment - a real healthcare task for rural India where 600M+ people have limited healthcare access. This is NOT a game or toy problem.
+
+---
+
+## 🏗️ Architecture
+
+```
+mediguide_ai/
+├── app.py              # Gradio UI + FastAPI (OpenEnv endpoints)
+├── inference.py        # FastAPI server + evaluation script
+├── models.py           # Typed Action, Observation, State (Pydantic)
+├── openenv.yaml        # Manifest with tasks definition
+├── pyproject.toml      # Package metadata + entry point
+├── Dockerfile          # Container definition
+├── requirements.txt    # Python dependencies
+├── README.md          # Full documentation
+└── scripts/
+    └── validate-submission.sh
+```
 
 ---
 
 ## 📋 Environment Specification
 
-### Observation Space
-```python
-{
-    "episode_id": str,        # Unique episode identifier
-    "step_count": int,       # Number of steps taken
-    "query": str,            # User's symptom input
-    "diagnoses": List[Dict], # List of possible diseases
-    "emergency_steps": List[str], # Emergency guidance
-    "message": str          # Status message
-}
-```
+### Typed Models (Pydantic)
 
-### Action Space
+**Action:**
 ```python
 {
     "symptoms": str,         # Comma-separated symptoms
-    "query_type": str       # Type of query (diagnose/feedback)
+    "query_type": str        # Type of query (diagnose/feedback)
+}
+```
+
+**Observation:**
+```python
+{
+    "episode_id": str,        # Unique episode identifier
+    "step_count": int,        # Number of steps taken
+    "query": str,             # User's symptom input
+    "diagnoses": List[Dict], # List of possible diseases
+    "emergency_steps": List[str], # Emergency guidance
+    "message": str           # Status message
+}
+```
+
+**State:**
+```python
+{
+    "episode_id": str,
+    "step_count": int,
+    "target_disease": Optional[str],
+    "max_steps": int
 }
 ```
 
 ---
 
-## 📊 Tasks with Graders
+## 📊 Tasks with Agent Graders
 
-| Task ID | Name | Difficulty | Grading Criteria | Max Score |
-|---------|------|------------|-----------------|-----------|
-| 1 | Simple Diagnosis | Easy | Returns valid diagnosis with at least 1 disease | 1.0 |
-| 2 | Emergency Detection | Medium | Identifies HIGH or CRITICAL severity conditions | 1.0 |
-| 3 | Treatment Recommendation | Hard | Provides actionable emergency_steps with guidance | 1.0 |
+| Task ID | Name | Difficulty | Objective | Grading Criteria | Score Range |
+|---------|------|------------|-----------|------------------|-------------|
+| 1 | Simple Diagnosis | Easy | Diagnose common symptoms | Returns valid diagnosis with at least 1 disease | 0.0-1.0 |
+| 2 | Emergency Detection | Medium | Detect emergency conditions | Identifies HIGH or CRITICAL severity | 0.0-1.0 |
+| 3 | Treatment Recommendation | Hard | Recommend proper treatment | Provides 2+ actionable emergency_steps | 0.0-1.0 |
+
+**Grading:** Deterministic, reproducible, programmatic - no human judgment.
+
+---
+
+## 💰 Reward Function
+
+- **Partial Progress:** Reward for each step with valid diagnosis (0.1 per diagnosis found)
+- **Terminal Reward:** 1.0 for completing task successfully
+- **Penalty:** 0.0 for invalid input or no diagnosis
+- **Not Just Terminal:** Provides feedback at each step, not just completion
 
 ---
 
@@ -90,10 +133,10 @@ cd medi_duid_ai
 # Install dependencies
 pip install -r requirements.txt
 
-# Run the server
-python inference.py
+# Run the server (Gradio UI + OpenEnv API)
+python app.py
 
-# Or run evaluation
+# Or run evaluation with OpenAI client
 python inference.py --eval
 ```
 
@@ -103,7 +146,7 @@ python inference.py --eval
 docker build -t mediguide-ai .
 
 # Run the container
-docker run -p 7860:7860 mediguide-ai
+docker run -p 7860:7860 -e HF_TOKEN=your_token mediguide-ai
 ```
 
 ### Hugging Face Space
@@ -111,12 +154,12 @@ The environment is deployed at: https://vinayakkuma-med-guid-ai.hf.space
 
 ---
 
-## 📝 API Endpoints
+## 📝 API Endpoints (OpenEnv Interface)
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| POST | `/reset` | Start new episode |
-| POST | `/step` | Process symptoms and return diagnosis |
+| POST | `/reset` | Start new episode (returns initial observation) |
+| POST | `/step` | Process symptoms, returns (observation, reward, done, info) |
 | GET | `/state` | Get current episode state |
 | GET | `/health` | Health check |
 
@@ -131,20 +174,41 @@ python inference.py --eval
 
 ### Expected Output Format
 ```
-[START] {"episode_id": "...", "message": "..."}
-[STEP] {"step": 1, "diagnoses_count": 2, ...}
-[END] {"task": "simple_diagnosis", "score": 1.0, "status": "PASS"}
+[START] task=simple_diagnosis env=mediguide model=Qwen/Qwen2.5-72B-Instruct
+[STEP] step=1 action=diagnose('fever chills headache') reward=0.10 done=false error=null
+[END] success=false steps=1 score=0.008 rewards=0.10
+```
+
+### Baseline Scores
+| Task | Score |
+|------|-------|
+| Simple Diagnosis (Easy) | 1.0 |
+| Emergency Detection (Medium) | 1.0 |
+| Treatment Recommendation (Hard) | 1.0 |
+| **Average** | **1.0** |
+
+---
+
+## 🔐 Environment Variables (Required for LLM)
+
+```bash
+API_BASE_URL="https://router.huggingface.co/v1"  # Or your endpoint
+MODEL_NAME="Qwen/Qwen2.5-72B-Instruct"             # Your model
+HF_TOKEN="your-huggingface-token"                 # API key
+LOCAL_IMAGE_NAME="your-docker-image"              # Optional
+TASK_NAME="mediguide"                              # Task identifier
+BENCHMARK="mediguide"                              # Benchmark name
 ```
 
 ---
 
-## 🏆 Features
+## 🏆 Real-World Impact
 
-- **8 Diseases**: Malaria, Dengue, Typhoid, Pneumonia, Heart Attack, Snake Bite, Heatstroke, Cholera
-- **Hindi Support**: Full Hindi symptom translation
-- **Emergency SOS**: Critical care guides + India 108 helpline
-- **RL Learning**: Q-learning from user feedback
-- **Real-world Impact**: Targets 600M+ rural Indians with limited healthcare access
+- **Target Audience:** 600M+ rural Indians with limited healthcare access
+- **Use Case:** Emergency medical triage and guidance
+- **Languages:** English + Hindi symptom translation
+- **Emergency:** India 108 helpline integration
+- **Value:** Not a game - actual healthcare assistance
 
 ---
 
@@ -152,21 +216,14 @@ python inference.py --eval
 
 | File | Description |
 |------|-------------|
-| `inference.py` | FastAPI server with OpenEnv endpoints + evaluation |
-| `openenv.yaml` | OpenEnv specification with tasks definition |
+| `app.py` | Gradio UI + FastAPI with OpenEnv endpoints |
+| `inference.py` | FastAPI server + evaluation script with OpenAI client |
+| `models.py` | Typed Action, Observation, State (Pydantic) |
+| `openenv.yaml` | OpenEnv manifest with tasks definition |
 | `Dockerfile` | Docker configuration for deployment |
-| `pyproject.toml` | Python project configuration |
+| `pyproject.toml` | Python project configuration + entry point |
 | `requirements.txt` | Python dependencies |
-
----
-
-## 🔐 Environment Variables (Required for LLM integration)
-
-```bash
-export API_BASE_URL="https://api.openai.com/v1"
-export MODEL_NAME="gpt-4"
-export HF_TOKEN="your-huggingface-token"
-```
+| `scripts/validate-submission.sh` | Pre-submission validation script |
 
 ---
 
