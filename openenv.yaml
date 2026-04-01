@@ -10,6 +10,33 @@ tags:
   - rl
   - hindi
 
+# Tasks Definition (3 tasks: easy, medium, hard)
+tasks:
+  - id: 1
+    name: simple_diagnosis
+    difficulty: easy
+    description: Diagnose common symptoms (fever, chills, headache)
+    grading:
+      min_score: 0.0
+      max_score: 1.0
+      criteria: Returns valid diagnosis with at least 1 disease
+  - id: 2
+    name: emergency_detection
+    difficulty: medium
+    description: Detect emergency conditions (chest pain, breathing difficulty)
+    grading:
+      min_score: 0.0
+      max_score: 1.0
+      criteria: Identifies HIGH or CRITICAL severity conditions
+  - id: 3
+    name: treatment_recommendation
+    difficulty: hard
+    description: Recommend proper treatment and emergency steps
+    grading:
+      min_score: 0.0
+      max_score: 1.0
+      criteria: Provides emergency_steps with actionable guidance
+
 # API Configuration
 api:
   url: https://vinayakkuma-med-guid-ai.hf.space
@@ -27,12 +54,16 @@ environment:
     - step_count
     - query
     - diagnoses
+    - emergency_steps
     - message
   action_space:
     - symptoms
     - query_type
-    - feedback_disease
-    - feedback_correct
+
+# Reward function
+reward:
+  partial_progress: true
+  max_episode_steps: 100
 
 # Diseases supported
 diseases:
