@@ -1,27 +1,50 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 # All rights reserved.
-#
-# This source code is licensed under the BSD-style license found in the
-# LICENSE file in the root directory of this source tree.
 
 """
-Data models for the Mediguide Environment.
+Data models for the MediGuide Environment.
 
-The mediguide environment is a simple test environment that echoes back messages.
+Medical diagnosis environment for rural India.
 """
 
-from openenv.core.env_server.types import Action, Observation
+try:
+    from openenv.core.env_server.types import Action, Observation
+except ImportError:
+    from pydantic import BaseModel
+
+    class Action(BaseModel):
+        pass
+
+    class Observation(BaseModel):
+        pass
+
+
+from typing import List, Dict, Optional
 from pydantic import Field
 
 
-class MediguideAction(Action):
-    """Action for the Mediguide environment - just a message to echo."""
+class MediGuideAction(Action):
+    """Action for the MediGuide environment - patient symptoms."""
 
-    message: str = Field(..., description="Message to echo back")
+    symptoms: str = Field(default="", description="Patient symptoms")
+    query_type: str = Field(default="diagnose", description="Type of query")
 
 
-class MediguideObservation(Observation):
-    """Observation from the Mediguide environment - the echoed message."""
+class MediGuideObservation(Observation):
+    """Observation from the MediGuide environment - diagnosis results."""
 
-    echoed_message: str = Field(default="", description="The echoed message")
-    message_length: int = Field(default=0, description="Length of the echoed message")
+    episode_id: str = Field(default="", description="Unique episode identifier")
+    step_count: int = Field(default=0, description="Number of steps taken")
+    query: str = Field(default="", description="User's symptom input")
+    diagnoses: List[Dict] = Field(
+        default_factory=list, description="List of possible diseases"
+    )
+    emergency_steps: List[str] = Field(
+        default_factory=list, description="Emergency guidance"
+    )
+    message: str = Field(default="", description="Status message")
+
+
+# Backwards compatibility aliases
+MediguideAction = MediGuideAction
+MediguideObservation = MediGuideObservation
