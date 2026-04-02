@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "med_guid_ai"
+version = "0.1.0"
+description = "MediGuide AI - OpenEnv Medical Diagnosis Environment"
+requires-python = ">=3.10"
+dependencies = [
+    "gradio>=4.0.0",
+    "huggingface_hub>=0.20.0",
+]
+
+[project.scripts]
+server = "openenv.server:main"

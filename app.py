@@ -20,12 +20,12 @@ if HF_TOKEN:
         from huggingface_hub import InferenceClient
 
         client = InferenceClient(model=MODEL_NAME, token=HF_TOKEN)
-        print(f"✓ InferenceClient initialized with model: {MODEL_NAME}")
+        print(f"[OK] InferenceClient initialized with model: {MODEL_NAME}")
     except Exception as e:
-        print(f"⚠ Could not initialize InferenceClient: {e}")
+        print(f"[WARN] Could not initialize InferenceClient: {e}")
         client = None
 else:
-    print("⚠ No HF_TOKEN provided - using rule-based diagnosis only")
+    print("[WARN] No HF_TOKEN provided - using rule-based diagnosis only")
 
 # ─────────────────────────────────────────────
 # MEDICAL KNOWLEDGE BASE (Offline RL Engine)
