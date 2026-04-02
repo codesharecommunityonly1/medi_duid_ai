@@ -1159,6 +1159,4 @@ async def health():
 
 # Mount FastAPI with Gradio for OpenEnv endpoints
 app = gr.mount_gradio_app(openenv_app, demo, path="/")
-app.launch(
-    server_name="0.0.0.0", server_port=7860, css=CUSTOM_CSS, theme=gr.themes.Base()
-)
+app.launch(server_name="0.0.0.0", server_port=7860, css=CUSTOM_CSS)

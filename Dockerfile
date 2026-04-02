@@ -1,50 +1,37 @@
-# MediGuide AI - OpenEnv Docker Space
-# Multi-stage build using openenv-base
-FROM ghcr.io/meta-pytorch/openenv-base:latest AS builder
+# MediGuide AI - Docker Configuration for HuggingFace Space
+FROM python:3.11-slim
 
 WORKDIR /app
 
-# Ensure git is available
-RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
+# Copy requirements first for better caching
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy environment code
-COPY mediguide/ /app/env/
+# Copy all application files
+COPY app.py .
+COPY inference.py .
+COPY models.py .
+COPY openenv.yaml .
 
-WORKDIR /app/env
+# Create necessary directories
+RUN mkdir -p mediguide/server
 
-# Install uv if not available
-RUN if ! command -v uv >/dev/null 2>&1; then \
-        curl -LsSf https://astral.sh/uv/install.sh | sh && \
-        mv /root/.local/bin/uv /usr/local/bin/uv; \
-    fi
+# Copy mediguide package
+COPY mediguide/__init__.py mediguide/
+COPY mediguide/models.py mediguide/
+COPY mediguide/client.py mediguide/
+COPY mediguide/openenv.yaml mediguide/
+COPY mediguide/pyproject.toml mediguide/
+COPY mediguide/uv.lock mediguide/
 
-# Install dependencies
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --no-install-project --no-editable
+# Copy server files
+COPY mediguide/server/__init__.py mediguide/server/
+COPY mediguide/server/app.py mediguide/server/
+COPY mediguide/server/mediguide_environment.py mediguide/server/
+COPY mediguide/server/__init__.py mediguide/server/
 
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --no-editable
+# Expose port
+EXPOSE 7860
 
-# Final runtime stage
-FROM ghcr.io/meta-pytorch/openenv-base:latest
-
-WORKDIR /app
-
-# Copy the virtual environment from builder
-COPY --from=builder /app/env/.venv /app/.venv
-
-# Copy the environment code
-COPY --from=builder /app/env /app/env
-
-# Set PATH to use the virtual environment
-ENV PATH="/app/.venv/bin:$PATH"
-
-# Set PYTHONPATH so imports work correctly
-ENV PYTHONPATH="/app/env:$PYTHONPATH"
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
-
-# Run the FastAPI server
-CMD ["sh", "-c", "cd /app/env && uvicorn mediguide.server.app:app --host 0.0.0.0 --port 8000"]
+# Run app.py which has Gradio UI
+CMD ["python", "app.py"]
