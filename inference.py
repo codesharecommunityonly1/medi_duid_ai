@@ -14,16 +14,18 @@ from contextlib import asynccontextmanager
 
 # Environment variables
 API_BASE_URL = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
-MODEL_NAME = os.getenv("MODEL_NAME", "MedGemma-27B-it")
+MODEL_NAME = os.getenv(
+    "MODEL_NAME", "google/gemma-2b-it"
+)  # Use smaller model for HF Spaces
 HF_TOKEN = os.getenv("HF_TOKEN", "")
 
-# Initialize OpenAI client if token provided
+# Initialize InferenceClient if token provided
 client = None
 if HF_TOKEN:
     try:
-        from openai import OpenAI
+        from huggingface_hub import InferenceClient
 
-        client = OpenAI(base_url=API_BASE_URL, api_key=HF_TOKEN)
+        client = InferenceClient(model=MODEL_NAME, token=HF_TOKEN)
     except ImportError:
         pass
 
