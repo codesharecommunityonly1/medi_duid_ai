@@ -5,7 +5,7 @@ colorFrom: red
 colorTo: blue
 sdk: docker
 app_port: 7860
-short_description: OpenEnv RL Medical Diagnosis Environment for Healthcare in Rural India
+short_description: OpenEnv medical diagnosis env for rural India healthcare
 tags:
   - openenv
   - medical
