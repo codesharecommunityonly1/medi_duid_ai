@@ -1067,11 +1067,20 @@ This evaluates diagnostic accuracy, emergency detection, and scoring.
   </div>
 </div>""")
 
-# Mount FastAPI with Gradio for OpenEnv endpoints
-app = gr.mount_gradio_app(openenv_app, demo, path="/")
+# ─────────────────────────────────────────────────────────────
+# 9. OPENENV API SERVER (FastAPI)
+# ─────────────────────────────────────────────────────────────
 
-if __name__ == "__main__":
-    app.launch(server_name="0.0.0.0", server_port=7860, css=CUSTOM_CSS)
+openenv_app = FastAPI(title="MediGuide AI - OpenEnv")
+openenv_app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+_episode = {"id": str(uuid.uuid4()), "step_count": 0, "reward": 0.0}
 
 
 class MedicalAction(BaseModel):
@@ -1146,4 +1155,6 @@ async def health():
 
 # Mount FastAPI with Gradio for OpenEnv endpoints
 app = gr.mount_gradio_app(openenv_app, demo, path="/")
-app.launch(server_name="0.0.0.0", server_port=7860, css=CUSTOM_CSS)
+
+if __name__ == "__main__":
+    app.launch(server_name="0.0.0.0", server_port=7860, css=CUSTOM_CSS)
