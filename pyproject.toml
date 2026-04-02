@@ -1,16 +1,18 @@
 [build-system]
-requires = ["setuptools>=45", "wheel"]
+requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "med_guid_ai"
+name = "medi-guide-ai"
 version = "0.1.0"
-description = "MediGuide AI - OpenEnv Medical Diagnosis Environment"
-requires-python = ">=3.10"
+description = "AI Medical Guide Deployment"
 dependencies = [
-    "gradio>=4.0.0",
-    "huggingface_hub>=0.20.0",
+    "fastapi",
+    "uvicorn",
+    "gradio",
+    "python-dotenv"
 ]
 
 [project.scripts]
-server = "openenv.server:main"
+# This line solves the "Missing [project.scripts] server entry point" error
+server = "app:app"
