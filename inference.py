@@ -14,12 +14,10 @@ import textwrap
 from typing import Optional, List
 
 # Environment variables (must be set for evaluation)
+# Use HF_TOKEN from environment - DO NOT hardcode in production
 API_BASE_URL = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
-MODEL_NAME = os.getenv("MODEL_NAME", "Qwen/Qwen2.5-72B-Instruct")
-HF_TOKEN = os.getenv("HF_TOKEN", "")
-LOCAL_IMAGE_NAME = os.getenv("LOCAL_IMAGE_NAME", "")
-TASK_NAME = os.getenv("TASK_NAME", "mediguide")
-BENCHMARK = os.getenv("BENCHMARK", "mediguide")
+MODEL_NAME = os.getenv("MODEL_NAME", "MedGemma-27B-it")
+HF_TOKEN = os.getenv("HF_TOKEN", "")  # Set via environment variable
 
 # Evaluation settings
 MAX_STEPS = 8
