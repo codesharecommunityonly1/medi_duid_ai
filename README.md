@@ -6,7 +6,7 @@ colorTo: blue
 sdk: gradio
 app_port: 7860
 python_version: "3.10"
-short_description: Offline RL-powered emergency medical assistant for rural India
+short_description: Offline RL medical assistant for rural India
 tags:
   - healthcare
   - medical
