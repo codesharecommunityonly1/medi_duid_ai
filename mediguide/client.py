@@ -1,99 +1,78 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 # All rights reserved.
-#
-# This source code is licensed under the BSD-style license found in the
-# LICENSE file in the root directory of this source tree.
 
 """Mediguide Environment Client."""
 
-from typing import Dict
+from typing import Dict, Optional
 
-from openenv.core import EnvClient
-from openenv.core.client_types import StepResult
-from openenv.core.env_server.types import State
+try:
+    from openenv.core import EnvClient
+    from openenv.core.client_types import StepResult
+    from openenv.core.env_server.types import State
+except ImportError:
+    EnvClient = object
+    from dataclasses import dataclass
 
-from .models import MediguideAction, MediguideObservation
+    @dataclass
+    class StepResult:
+        observation: any
+        reward: Optional[float] = None
+        done: bool = False
+
+    @dataclass
+    class State:
+        episode_id: str = ""
+        step_count: int = 0
+
+
+from .models import MediGuideAction, MediGuideObservation
 
 
 class MediguideEnv(
-    EnvClient[MediguideAction, MediguideObservation, State]
+    EnvClient[MediGuideAction, MediGuideObservation, State]
+    if "EnvClient" in dir()
+    else object
 ):
     """
-    Client for the Mediguide Environment.
+    Client for the MediGuide Environment.
 
-    This client maintains a persistent WebSocket connection to the environment server,
-    enabling efficient multi-step interactions with lower latency.
-    Each client instance has its own dedicated environment session on the server.
-
-    Example:
-        >>> # Connect to a running server
-        >>> with MediguideEnv(base_url="http://localhost:8000") as client:
-        ...     result = client.reset()
-        ...     print(result.observation.echoed_message)
-        ...
-        ...     result = client.step(MediguideAction(message="Hello!"))
-        ...     print(result.observation.echoed_message)
-
-    Example with Docker:
-        >>> # Automatically start container and connect
-        >>> client = MediguideEnv.from_docker_image("mediguide-env:latest")
-        >>> try:
-        ...     result = client.reset()
-        ...     result = client.step(MediguideAction(message="Test"))
-        ... finally:
-        ...     client.close()
+    Medical diagnosis environment for rural India.
     """
 
-    def _step_payload(self, action: MediguideAction) -> Dict:
-        """
-        Convert MediguideAction to JSON payload for step message.
-
-        Args:
-            action: MediguideAction instance
-
-        Returns:
-            Dictionary representation suitable for JSON encoding
-        """
+    def _step_payload(self, action: MediGuideAction) -> Dict:
+        """Convert MediGuideAction to JSON payload."""
         return {
-            "message": action.message,
+            "symptoms": action.symptoms,
+            "query_type": action.query_type,
         }
 
-    def _parse_result(self, payload: Dict) -> StepResult[MediguideObservation]:
-        """
-        Parse server response into StepResult[MediguideObservation].
-
-        Args:
-            payload: JSON response data from server
-
-        Returns:
-            StepResult with MediguideObservation
-        """
+    def _parse_result(self, payload: Dict) -> StepResult:
+        """Parse server response into StepResult[MediGuideObservation]."""
         obs_data = payload.get("observation", {})
-        observation = MediguideObservation(
-            echoed_message=obs_data.get("echoed_message", ""),
-            message_length=obs_data.get("message_length", 0),
+        observation = MediGuideObservation(
+            episode_id=obs_data.get("episode_id", ""),
+            step_count=obs_data.get("step_count", 0),
+            query=obs_data.get("query", ""),
+            diagnoses=obs_data.get("diagnoses", []),
+            emergency_steps=obs_data.get("emergency_steps", []),
+            message=obs_data.get("message", ""),
             done=payload.get("done", False),
-            reward=payload.get("reward"),
-            metadata=obs_data.get("metadata", {}),
+            reward=payload.get("reward", 0.0),
         )
 
         return StepResult(
             observation=observation,
-            reward=payload.get("reward"),
+            reward=payload.get("reward", 0.0),
             done=payload.get("done", False),
         )
 
     def _parse_state(self, payload: Dict) -> State:
-        """
-        Parse server response into State object.
-
-        Args:
-            payload: JSON response from state request
-
-        Returns:
-            State object with episode_id and step_count
-        """
+        """Parse server response into State object."""
         return State(
-            episode_id=payload.get("episode_id"),
+            episode_id=payload.get("episode_id", ""),
             step_count=payload.get("step_count", 0),
         )
+
+
+# Backwards compatibility
+MediguideEnv = MediguideEnv
