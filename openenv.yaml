@@ -1,9 +1,9 @@
 spec_version: 1
-name: mediguide_ai
+name: mediguide
 type: space
 runtime: docker
-app: mediguide.server.app:app
-port: 8000
+app: inference:app
+port: 7860
 
 tasks:
   - id: 1
@@ -30,3 +30,27 @@ tasks:
       min_score: 0.0
       max_score: 1.0
       criteria: Provides emergency_steps with actionable guidance
+
+api:
+  endpoints:
+    reset: POST /reset
+    step: POST /step
+    state: GET /state
+    health: GET /health
+
+environment:
+  type: medical-diagnosis
+  observation_space:
+    - episode_id
+    - step_count
+    - query
+    - diagnoses
+    - emergency_steps
+    - message
+  action_space:
+    - symptoms
+    - query_type
+
+reward:
+  partial_progress: true
+  max_episode_steps: 100

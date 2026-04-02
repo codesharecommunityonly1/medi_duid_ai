@@ -5,24 +5,19 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "mediguide_ai"
 version = "1.0.0"
-description = "OpenEnv-Compatible RL Medical Diagnosis Environment"
+description = "MediGuide AI - OpenEnv Medical Diagnosis Environment"
 requires-python = ">=3.10"
 dependencies = [
-    "openenv-core[core]>=0.2.3",
-    "fastapi>=0.115.0",
+    "fastapi>=0.110.0",
+    "uvicorn>=0.29.0",
     "pydantic>=2.0.0",
-    "uvicorn>=0.24.0",
-    "requests>=2.31.0",
     "gradio>=4.0.0",
+    "requests>=2.31.0",
     "openai>=1.0.0",
 ]
 
-[project.optional-dependencies]
-dev = ["pytest>=8.0.0"]
-
 [project.scripts]
-server = "mediguide.server.app:main"
+server = "inference:main"
 
 [tool.setuptools]
-packages = ["mediguide", "mediguide.server"]
-package-dir = {"mediguide" = "mediguide", "mediguide.server" = "mediguide/server"}
+py-modules = ["inference"]
