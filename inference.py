@@ -316,6 +316,7 @@ def get_model_response(symptoms: str) -> dict:
 
 # FastAPI app
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 
 app = FastAPI(title="MediGuide AI - OpenEnv")
@@ -324,6 +325,22 @@ app = FastAPI(title="MediGuide AI - OpenEnv")
 class Action(BaseModel):
     symptoms: Optional[str] = None
     query_type: Optional[str] = "diagnose"
+
+
+@app.get("/")
+def root():
+    """Redirect to API docs"""
+    return RedirectResponse(url="/docs")
+
+
+@app.get("/health")
+def health():
+    return {
+        "status": "healthy",
+        "openenv": True,
+        "diseases": len(DISEASES),
+        "tasks": len(TASKS),
+    }
 
 
 @app.post("/reset")
@@ -344,14 +361,10 @@ def state():
     return env_state()
 
 
-@app.get("/health")
-def health():
-    return {
-        "status": "healthy",
-        "openenv": True,
-        "diseases": len(DISEASES),
-        "tasks": len(TASKS),
-    }
+# Legacy health endpoint
+@app.get("/healthcheck")
+def healthcheck():
+    return {"status": "ok"}
 
 
 async def run_evaluation():
