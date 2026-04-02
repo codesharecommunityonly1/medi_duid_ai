@@ -13,19 +13,12 @@ from typing import Tuple, List, Dict, Any
 HF_TOKEN = os.getenv("HF_TOKEN", "")
 MODEL_NAME = os.getenv("MODEL_NAME", "google/gemma-2b-it")
 
-# Initialize InferenceClient if token provided (remote API - no local loading)
-client = None
-if HF_TOKEN:
-    try:
-        from huggingface_hub import InferenceClient
+# Model configuration (for future LLM integration)
+# Currently using rule-based diagnosis engine - no model needed
+MODEL_NAME = os.getenv("MODEL_NAME", "google/gemma-2b-it")
 
-        client = InferenceClient(model=MODEL_NAME, token=HF_TOKEN)
-        print(f"[OK] InferenceClient initialized with model: {MODEL_NAME}")
-    except Exception as e:
-        print(f"[WARN] Could not initialize InferenceClient: {e}")
-        client = None
-else:
-    print("[WARN] No HF_TOKEN provided - using rule-based diagnosis only")
+# Note: InferenceClient is available if HF_TOKEN is set
+# but not needed - we use rule-based diagnosis for reliability
 
 # ─────────────────────────────────────────────
 # MEDICAL KNOWLEDGE BASE (Offline RL Engine)
