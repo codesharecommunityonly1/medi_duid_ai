@@ -16,10 +16,13 @@ from typing import List, Optional
 
 from openai import OpenAI
 
-# Environment variables
+# Environment variables - Defaults only for API_BASE_URL and MODEL_NAME
 API_BASE_URL = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
 MODEL_NAME = os.getenv("MODEL_NAME", "meta-llama/Llama-3.2-11B-Vision-Instruct")
-HF_TOKEN = os.getenv("HF_TOKEN", "")
+HF_TOKEN = os.getenv("HF_TOKEN")  # No default - must be provided
+
+# Docker image (optional - for from_docker_image() method)
+LOCAL_IMAGE_NAME = os.getenv("LOCAL_IMAGE_NAME", "")
 
 # Task configuration
 TASK_NAME = os.getenv("TASK_NAME", "medical_diagnosis")
