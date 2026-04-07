@@ -1,16 +1,43 @@
 """
 MediGuide AI - Enhanced OpenEnv Medical Environment
-===================================================
+==================================================
 Advanced RL environment with:
 - Dynamic state representation
 - Symptom progression
 - Nuanced rewards
 - Complex medical logic
+- Async support for OpenEnv compliance
 """
 
-from typing import Dict, List, Tuple, Any, Optional
+import asyncio
 import uuid
 import random
+from typing import Dict, List, Tuple, Any, Optional
+from dataclasses import dataclass
+
+
+@dataclass
+class Observation:
+    """OpenEnv observation structure"""
+
+    episode_id: str
+    step_count: int
+    message: str
+    diseases: List[str]
+    conversation_history: List[Dict]
+    symptoms: Dict[str, bool]
+    visual_features: Optional[str]
+    query: Optional[str] = None
+
+
+@dataclass
+class EnvResult:
+    """OpenEnv step result structure"""
+
+    observation: Observation
+    reward: float
+    done: bool
+    info: Dict[str, Any]
 
 
 class MedicalEnv:
@@ -24,6 +51,8 @@ class MedicalEnv:
         self.conversation_history = []
         self.symptoms = {}
         self.visual_features = None
+        self._last_observation = None
+        self._done = False
         self._init_knowledge()
 
     def _init_knowledge(self):
@@ -154,7 +183,7 @@ class MedicalEnv:
             },
         }
 
-    def reset(self) -> Dict[str, Any]:
+    def reset(self) -> EnvResult:
         """Reset environment with rich state"""
         self.episode_id = str(uuid.uuid4())
         self.step_count = 0
@@ -162,63 +191,74 @@ class MedicalEnv:
         self.conversation_history = []
         self.symptoms = {}
         self.visual_features = None
+        self._done = False
 
-        return {
-            "episode_id": self.episode_id,
-            "step_count": 0,
-            "message": "MediGuide AI ready. Multi-turn conversation started.",
-            "diseases": list(self.DISEASES.keys()),
-            "conversation_history": [],
-            "symptoms": {},
-            "visual_features": None,
-        }
+        obs = Observation(
+            episode_id=self.episode_id,
+            step_count=0,
+            message="MediGuide AI ready. Multi-turn conversation started.",
+            diseases=list(self.DISEASES.keys()),
+            conversation_history=[],
+            symptoms={},
+            visual_features=None,
+        )
+        self._last_observation = obs
 
-    def step(
-        self, action: Dict[str, Any]
-    ) -> Tuple[Dict[str, Any], float, bool, Dict[str, Any]]:
+        return EnvResult(observation=obs, reward=0.0, done=False, info={})
+
+    async def async_reset(self) -> EnvResult:
+        """Async reset for OpenEnv"""
+        return self.reset()
+
+    def step(self, action: Dict[str, Any]) -> EnvResult:
         """
         Process action with dynamic state updates.
-
-        Actions:
-        - ask_clarification: Reveal new symptoms with probability
-        - provide_guidance: Give medical advice
-        - suggest_specialist: Recommend specialist
-        - trigger_emergency: Emergency response
+        Returns EnvResult for OpenEnv compliance.
         """
         self.step_count += 1
 
         user_input = action.get("symptoms", "")
         action_type = action.get("query_type", "diagnose")
 
-        # Update conversation history (as sequence of turns)
         self.conversation_history.append(
             {"turn": self.step_count, "user_input": user_input, "action": action_type}
         )
 
-        # Parse symptoms
         self._update_symptoms(user_input)
 
-        # Determine reward based on complex logic
         reward, info = self._calculate_reward(action_type)
 
         self.total_reward += reward
 
-        # Dynamic symptom progression
         self._apply_symptom_progression(action_type)
 
-        observation = {
-            "episode_id": self.episode_id,
-            "step_count": self.step_count,
-            "query": user_input,
-            "conversation_history": self.conversation_history[-5:],  # Last 5 turns
-            "symptoms": self.symptoms,
-            "visual_features": self.visual_features,
-            "diseases": list(self.DISEASES.keys()),
-        }
+        self._done = self.step_count >= self.max_steps
 
-        done = self.step_count >= self.max_steps
+        obs = Observation(
+            episode_id=self.episode_id,
+            step_count=self.step_count,
+            message=f"Step {self.step_count}: {user_input}",
+            diseases=list(self.DISEASES.keys()),
+            conversation_history=self.conversation_history[-5:],
+            symptoms=self.symptoms,
+            visual_features=self.visual_features,
+            query=user_input,
+        )
+        self._last_observation = obs
 
-        return observation, reward, done, info
+        return EnvResult(observation=obs, reward=reward, done=self._done, info=info)
+
+    async def async_step(self, action: Dict[str, Any]) -> EnvResult:
+        """Async step for OpenEnv"""
+        return self.step(action)
+
+    def close(self):
+        """Close environment"""
+        pass
+
+    async def async_close(self):
+        """Async close for OpenEnv"""
+        self.close()
 
     def _update_symptoms(self, user_input: str):
         """Parse and update symptoms from user input"""

@@ -813,11 +813,11 @@ def log_end(success: bool, steps: int, score: float, rewards: List[float]) -> No
 def main():
     """Main inference with Llama Stack"""
 
-    # Initialize components
+    from openenv.env import MedicalEnv, EnvResult
+
     agent = MedicalAgent()
     env = MedicalEnv()
 
-    # Episode tracking
     rewards = []
     steps_taken = 0
     success = False
@@ -825,9 +825,10 @@ def main():
     log_start(task=TASK_NAME, env=BENCHMARK, model=MODEL_NAME)
 
     try:
-        env.reset()
+        result = env.reset()
+        last_obs = result.observation
+        last_reward = 0.0
 
-        # Test cases
         test_cases = [
             {
                 "symptoms": "fever chills headache",
@@ -851,12 +852,10 @@ def main():
         for step in range(1, MAX_STEPS + 1):
             case = test_cases[(step - 1) % len(test_cases)]
 
-            # Process through MedicalAgent
             result = agent.process(
                 user_text=case["symptoms"], image_base64=case.get("image")
             )
 
-            # Determine reward based on action
             action_reward = 0.0
             if result.action_id == "emergency":
                 action_reward = 0.5
@@ -869,11 +868,9 @@ def main():
             elif result.action_id == "safety_blocked":
                 action_reward = 0.0
 
-            # Environment step
             env_result = env.step(case)
-            step_reward = (env_result[1] or 0.0) + action_reward
-
-            done = step >= MAX_STEPS
+            step_reward = env_result.reward + action_reward
+            done = env_result.done
 
             action_str = f"agent({result.action_id})"
             log_step(
@@ -882,11 +879,11 @@ def main():
 
             rewards.append(step_reward)
             steps_taken = step
+            last_reward = step_reward
 
             if done:
                 break
 
-        # Calculate score
         max_possible = MAX_STEPS * 0.5
         score = sum(rewards) / max_possible if max_possible > 0 else 0
         score = min(max(score, 0.0), 1.0)
@@ -900,6 +897,10 @@ def main():
         rewards = []
 
     finally:
+        try:
+            env.close()
+        except Exception as e:
+            print(f"[DEBUG] env.close() error: {e}", flush=True)
         log_end(success=success, steps=steps_taken, score=score, rewards=rewards)
 
 
