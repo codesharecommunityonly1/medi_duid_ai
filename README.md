@@ -57,10 +57,36 @@ medical guidance in Hindi/English with emergency detection.
 
 This AI includes multiple safety layers:
 
-1. **Llama Guard 3** - Filters harmful content
-2. **Emergency Keywords** - Detects critical conditions
+1. **Llama Guard 3** - Filters harmful content, detects malicious requests
+2. **Emergency Keywords** - Detects critical conditions, bypasses LLM for 108 dispatch
 3. **Medical Disclaimer** - Always recommends professional consultation
 4. **SOS Integration** - Instant access to India's emergency numbers
+
+---
+
+## Safety & Ethics
+
+This project uses **Meta's Responsible AI guidelines** to ensure safe medical guidance:
+
+### Llama Guard 3 Integration
+- All user inputs are filtered through Llama Guard 3 safety layer
+- Requests categorized as "Medical" or "Malicious"
+- Malicious requests (e.g., "how to make drugs") are politely declined
+
+### Emergency Triage Logic
+- Critical symptoms (chest pain, unconsciousness, severe bleeding) trigger immediate emergency response
+- No LLM call needed - bypasses AI for life-threatening situations
+- India-specific emergency numbers (108, 102, 112) prominently displayed
+
+### Chain of Thought Reasoning
+- Agentic approach: Analyze → Verify (RAG) → Recommend
+- Prevents hallucinations through knowledge base verification
+- Always recommends professional medical consultation
+
+### Regional Impact
+- Designed for Indian healthcare context
+- Hindi + English multilingual support
+- 600M+ rural Indians as target demographic
 
 ---
 

@@ -4,7 +4,8 @@ uvicorn
 gradio>=4.0.0
 python-dotenv
 torch
-transformers
+transformers>=4.45.0
 pillow
 accelerate
 huggingface_hub
+openai
