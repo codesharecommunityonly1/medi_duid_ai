@@ -1,4 +1,10 @@
+# MediGuide AI - Meta Llama 3.2 Hackathon Requirements
 fastapi
 uvicorn
-gradio
+gradio>=4.0.0
 python-dotenv
+torch
+transformers
+pillow
+accelerate
+huggingface_hub
