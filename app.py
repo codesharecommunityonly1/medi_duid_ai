@@ -177,14 +177,13 @@ app = FastAPI()
 
 
 @app.get("/", response_class=HTMLResponse)
-async def read_root():
+async def root():
     return """
     <html>
-        <head><title>MED_GUID_AI</title></head>
         <body style="font-family: sans-serif; text-align: center; padding-top: 50px;">
-            <h1 style="color: #0078d4;">🩺 MED_GUID_AI is ONLINE</h1>
+            <h1 style="color: #0078d4;">🩺 MED_GUID_AI IS ONLINE</h1>
             <p>Agent Status: <span style="color: green;">● Running</span></p>
-            <p>Meta OpenEnv Validator: <b>READY</b></p>
+            <p>Validation: <b>Ready for April 10th</b></p>
         </body>
     </html>
     """
