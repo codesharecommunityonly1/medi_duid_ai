@@ -181,10 +181,10 @@ async def read_root():
     return """
     <html>
         <head><title>MED_GUID_AI</title></head>
-        <body style="font-family: sans-serif; text-align: center; padding-top: 100px;">
-            <h1 style="color: #0080ff;">🩺 MED_GUID_AI Online</h1>
-            <p>Status: <span style="color: green;">● Running</span></p>
-            <p>Meta OpenEnv Validator: <b>Connected</b></p>
+        <body style="font-family: sans-serif; text-align: center; padding-top: 50px;">
+            <h1 style="color: #0078d4;">🩺 MED_GUID_AI is ONLINE</h1>
+            <p>Agent Status: <span style="color: green;">● Running</span></p>
+            <p>Meta OpenEnv Validator: <b>READY</b></p>
         </body>
     </html>
     """
