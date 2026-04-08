@@ -169,4 +169,5 @@ with gr.Blocks(title="MediGuide AI") as demo:
     with gr.Accordion("Emergency Numbers", open=False):
         gr.Markdown("**108** - Ambulance | **102** - Medical | **112** - Emergency")
 
-demo.launch(server_name="0.0.0.0", server_port=7860)
+# HF Spaces handles the launch - just expose the app
+app = demo
