@@ -32,8 +32,10 @@ MAX_STEPS = int(os.getenv("MAX_STEPS", "10"))
 SUCCESS_SCORE_THRESHOLD = 0.1
 
 # Import our modules
-from openenv.env import MedicalEnv
-from tools import execute_tool, TOOL_REGISTRY
+try:
+    from openenv.env import MedicalEnv, EnvResult
+except ImportError:
+    from openenv.env import MedicalEnv
 
 
 # ============================================================
@@ -812,11 +814,35 @@ def log_end(success: bool, steps: int, score: float, rewards: List[float]) -> No
 
 def main():
     """Main inference with Llama Stack"""
+    try:
+        from openenv.env import MedicalEnv, EnvResult
+    except ImportError:
+        try:
+            from openenv.env import MedicalEnv
 
-    from openenv.env import MedicalEnv, EnvResult
+            EnvResult = None
+        except Exception as e:
+            print(f"[DEBUG] Import error: {e}", flush=True)
+            print(
+                f"[START] task={TASK_NAME} env={BENCHMARK} model={MODEL_NAME}",
+                flush=True,
+            )
+            print(f"[END] success=false steps=0 score=0.000 rewards=", flush=True)
+            return
 
-    agent = MedicalAgent()
-    env = MedicalEnv()
+    agent = None
+    env = None
+
+    try:
+        agent = MedicalAgent()
+        env = MedicalEnv()
+    except Exception as e:
+        print(f"[DEBUG] Initialization error: {e}", flush=True)
+        print(
+            f"[START] task={TASK_NAME} env={BENCHMARK} model={MODEL_NAME}", flush=True
+        )
+        print(f"[END] success=false steps=0 score=0.000 rewards=", flush=True)
+        return
 
     rewards = []
     steps_taken = 0
@@ -826,7 +852,7 @@ def main():
 
     try:
         result = env.reset()
-        last_obs = result.observation
+        last_obs = result.observation if hasattr(result, "observation") else {}
         last_reward = 0.0
 
         test_cases = [
@@ -850,38 +876,54 @@ def main():
         ]
 
         for step in range(1, MAX_STEPS + 1):
-            case = test_cases[(step - 1) % len(test_cases)]
+            try:
+                case = test_cases[(step - 1) % len(test_cases)]
 
-            result = agent.process(
-                user_text=case["symptoms"], image_base64=case.get("image")
-            )
+                result = agent.process(
+                    user_text=case["symptoms"], image_base64=case.get("image")
+                )
 
-            action_reward = 0.0
-            if result.action_id == "emergency":
-                action_reward = 0.5
-            elif result.action_id == "specialist":
-                action_reward = 0.3
-            elif result.action_id == "guidance":
-                action_reward = 0.2
-            elif result.action_id == "clarify":
-                action_reward = 0.1
-            elif result.action_id == "safety_blocked":
                 action_reward = 0.0
+                if result.action_id == "emergency":
+                    action_reward = 0.5
+                elif result.action_id == "specialist":
+                    action_reward = 0.3
+                elif result.action_id == "guidance":
+                    action_reward = 0.2
+                elif result.action_id == "clarify":
+                    action_reward = 0.1
+                elif result.action_id == "safety_blocked":
+                    action_reward = 0.0
 
-            env_result = env.step(case)
-            step_reward = env_result.reward + action_reward
-            done = env_result.done
+                env_result = env.step(case)
+                step_reward = env_result.reward + action_reward
+                done = env_result.done
 
-            action_str = f"agent({result.action_id})"
-            log_step(
-                step=step, action=action_str, reward=step_reward, done=done, error=None
-            )
+                action_str = f"agent({result.action_id})"
+                log_step(
+                    step=step,
+                    action=action_str,
+                    reward=step_reward,
+                    done=done,
+                    error=None,
+                )
 
-            rewards.append(step_reward)
-            steps_taken = step
-            last_reward = step_reward
+                rewards.append(step_reward)
+                steps_taken = step
+                last_reward = step_reward
 
-            if done:
+                if done:
+                    break
+
+            except Exception as step_error:
+                print(f"[DEBUG] Step {step} error: {step_error}", flush=True)
+                log_step(
+                    step=step,
+                    action=f"error({type(step_error).__name__})",
+                    reward=0.0,
+                    done=True,
+                    error=str(step_error),
+                )
                 break
 
         max_possible = MAX_STEPS * 0.5
@@ -897,10 +939,11 @@ def main():
         rewards = []
 
     finally:
-        try:
-            env.close()
-        except Exception as e:
-            print(f"[DEBUG] env.close() error: {e}", flush=True)
+        if env is not None:
+            try:
+                env.close()
+            except Exception as close_error:
+                print(f"[DEBUG] env.close() error: {close_error}", flush=True)
         log_end(success=success, steps=steps_taken, score=score, rewards=rewards)
 
 
