@@ -4,9 +4,6 @@ Privacy-First Multimodal Medical Assistant
 """
 
 import gradio as gr
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
-import uvicorn
 import os
 
 # Configuration
@@ -145,8 +142,11 @@ def medical_agent(symptoms, language, image=None):
     )
 
 
-# Gradio UI
-with gr.Blocks(title="MediGuide AI") as demo:
+# Build Gradio app
+demo = gr.Blocks(title="MediGuide AI")
+demo.css = """body { background: #0d1117; color: white; }"""
+
+with demo:
     gr.Markdown("# 🏥 MediGuide AI\n## Agentic Multimodal Medical Assistant")
 
     with gr.Row():
@@ -172,32 +172,5 @@ with gr.Blocks(title="MediGuide AI") as demo:
     with gr.Accordion("Emergency Numbers", open=False):
         gr.Markdown("**108** - Ambulance | **102** - Medical | **112** - Emergency")
 
-# FastAPI app with root route
-app = FastAPI()
-
-
-@app.get("/", response_class=HTMLResponse)
-async def root():
-    return """
-    <html>
-        <body style="font-family: sans-serif; text-align: center; padding-top: 50px;">
-            <h1 style="color: #0078d4;">🩺 MED_GUID_AI IS ONLINE</h1>
-            <p>Agent Status: <span style="color: green;">● Running</span></p>
-            <p>Validation: <b>Ready for April 10th</b></p>
-        </body>
-    </html>
-    """
-
-
-@app.get("/health")
-async def health():
-    return {"status": "ready"}
-
-
-# Mount Gradio app
-gr.mount_gradio_app(app, demo, path="/gradio")
-
-# HF Spaces entry point
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 7860))
-    uvicorn.run(app, host="0.0.0.0", port=port)
+# Launch for HF Spaces - direct at root
+app = demo.launch(server_name="0.0.0.0", server_port=7860, share=False)
