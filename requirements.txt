@@ -9,3 +9,5 @@ pillow
 accelerate
 huggingface_hub
 openai
+gymnasium
+pydantic
