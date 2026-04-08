@@ -1,25 +1,13 @@
 """
 MediGuide AI - Meta Llama 3.2 Hackathon 2026
-=============================================
+============================================
 Privacy-First, Multimodal Medical Assistant
 Built with Llama 3.2 Vision, Llama Guard 3, and PyTorch
-
-Features:
-- Multimodal (text + image) symptom analysis
-- Emergency Triage Logic (bypass LLM for critical symptoms)
-- Llama Guard 3 Safety Layer (Medical vs Malicious)
-- Chain of Thought Reasoning (Agentic)
-- RAG Verification against medical knowledge base
-- Hindi + English multilingual support
-- FastAPI backend optimized for HuggingFace Spaces
 """
 
 import gradio as gr
 import os
-import json
-import uuid
-from typing import Tuple, List, Dict, Any, Optional
-from datetime import datetime
+from typing import Tuple, Dict, Any
 
 # ─────────────────────────────────────────────────────────
 # CONFIGURATION
@@ -29,7 +17,7 @@ MODEL_NAME = os.getenv("MODEL_NAME", "meta-llama/Llama-3.2-11B-Vision-Instruct")
 GUARD_MODEL = os.getenv("GUARD_MODEL", "meta-llama/Llama-Guard-3-8B")
 
 # ─────────────────────────────────────────────────────────
-# INITIALIZE LLAMA CLIENTS (REMOTE API)
+# INITIALIZE LLAMA CLIENTS
 # ─────────────────────────────────────────────────────────
 llama_client = None
 
@@ -53,13 +41,9 @@ HIGH_PRIORITY_KEYWORDS = [
     "cannot breathe",
     "difficulty breathing",
     "unconscious",
-    "unconsciousness",
     "collapsed",
     "seizure",
-    "convulsion",
     "severe bleeding",
-    "bleeding heavily",
-    "heavy bleeding",
     "stroke",
     "paralysis",
     "no pulse",
@@ -69,16 +53,8 @@ HIGH_PRIORITY_KEYWORDS = [
     "overdose",
 ]
 
-INDIA_EMERGENCY = {
-    "108": "Ambulance",
-    "102": "Medical Emergency",
-    "112": "National Emergency",
-    "100": "Police",
-}
-
 
 def is_emergency(symptoms: str) -> Tuple[bool, str]:
-    """Check if symptoms require immediate emergency response"""
     symptoms_lower = symptoms.lower()
     for keyword in HIGH_PRIORITY_KEYWORDS:
         if keyword in symptoms_lower:
@@ -87,7 +63,6 @@ def is_emergency(symptoms: str) -> Tuple[bool, str]:
 
 
 def get_emergency_response(keyword: str) -> str:
-    """Generate emergency response UI"""
     return f"""
 <div style="background:linear-gradient(135deg,#2d0000,#1a0000);padding:24px;border-radius:16px;border:2px solid #FF4444">
   <h2 style="color:#FF4444;margin:0">🚨 EMERGENCY DETECTED: {keyword.upper()}</h2>
@@ -125,16 +100,13 @@ MALICIOUS_PATTERNS = [
     "how to kill",
     "how to suicide",
     "how to harm",
-    "how to injure",
     "make meth",
-    "make cocaine",
     "synthesize",
     "weapon",
 ]
 
 
 def safety_check(user_input: str) -> Tuple[bool, str]:
-    """Check if request is Medical or Malicious"""
     input_lower = user_input.lower()
     for pattern in MALICIOUS_PATTERNS:
         if pattern in input_lower:
@@ -143,13 +115,11 @@ def safety_check(user_input: str) -> Tuple[bool, str]:
 
 
 def get_safety_refusal() -> str:
-    """Return polite refusal for malicious requests"""
     return """
 <div style="background:linear-gradient(135deg,#1a1a00,#2d2d00);padding:20px;border-radius:16px;border:2px solid #FFBB33">
   <h2 style="color:#FFBB33;margin:0">⚠️ Request Declined</h2>
   <p style="color:#ccc;margin:12px 0">This request violates our safety guidelines (Llama Guard 3).</p>
   <p style="color:#aaa">For legitimate medical concerns, please consult a healthcare professional.</p>
-  <p style="color:#666">If you're in crisis, call 988 (Suicide & Crisis Helpline)</p>
 </div>"""
 
 
@@ -176,7 +146,6 @@ MEDICAL_KB = {
         ],
         "emergency_number": "108",
         "specialist": "General Physician",
-        "hindi": "मलेरिया",
     },
     "dengue": {
         "symptoms": [
@@ -196,7 +165,6 @@ MEDICAL_KB = {
         ],
         "emergency_number": "108",
         "specialist": "General Physician",
-        "hindi": "डेंगू",
     },
     "typhoid": {
         "symptoms": [
@@ -215,26 +183,18 @@ MEDICAL_KB = {
         ],
         "emergency_number": "102",
         "specialist": "General Physician",
-        "hindi": "टाइफाइड",
     },
     "cholera": {
-        "symptoms": [
-            "severe diarrhea",
-            "vomiting",
-            "dehydration",
-            "leg cramps",
-            "watery stool",
-        ],
+        "symptoms": ["severe diarrhea", "vomiting", "dehydration", "leg cramps"],
         "severity": "CRITICAL",
         "confidence": 80,
         "emergency_steps": [
             "CALL 108 IMMEDIATELY",
-            "Start ORS: 1L water + 6tsp sugar + 1/2tsp salt",
+            "Start ORS solution",
             "Go to hospital",
         ],
         "emergency_number": "108",
         "specialist": "Emergency Medicine",
-        "hindi": "हैजा",
     },
     "pneumonia": {
         "symptoms": [
@@ -248,12 +208,11 @@ MEDICAL_KB = {
         "confidence": 70,
         "emergency_steps": [
             "Go to hospital for X-ray",
-            "Take antibiotics 7-14 days",
+            "Take antibiotics",
             "Call 108 if lips blue",
         ],
         "emergency_number": "108",
         "specialist": "Pulmonologist",
-        "hindi": "निमोनिया",
     },
     "heart_attack": {
         "symptoms": [
@@ -268,12 +227,11 @@ MEDICAL_KB = {
         "confidence": 85,
         "emergency_steps": [
             "CALL 108 IMMEDIATELY",
-            "Give aspirin 325mg to chew",
+            "Give aspirin to chew",
             "Start CPR if unconscious",
         ],
         "emergency_number": "108",
         "specialist": "Cardiologist",
-        "hindi": "दिल का दौरा",
     },
     "snake_bite": {
         "symptoms": [
@@ -288,11 +246,10 @@ MEDICAL_KB = {
         "emergency_steps": [
             "CALL 108 IMMEDIATELY",
             "Keep patient STILL",
-            "Immobilize limb at heart level",
+            "Immobilize limb",
         ],
         "emergency_number": "108",
         "specialist": "Emergency Medicine",
-        "hindi": "सांप का काटना",
     },
     "heatstroke": {
         "symptoms": [
@@ -301,27 +258,23 @@ MEDICAL_KB = {
             "confusion",
             "dizziness",
             "no sweating",
-            "rapid heartbeat",
         ],
         "severity": "CRITICAL",
         "confidence": 82,
         "emergency_steps": [
             "CALL 108 IMMEDIATELY",
             "Move to cool area",
-            "Apply cold water to neck/armpits/groin",
+            "Apply cold water",
         ],
         "emergency_number": "108",
         "specialist": "Emergency Medicine",
-        "hindi": "लू लगना",
     },
 }
 
 
 def rag_verify(symptoms: str) -> Dict[str, Any]:
-    """Verify against medical knowledge base (RAG simulation)"""
     symptoms_lower = symptoms.lower()
     matches = []
-
     for disease, data in MEDICAL_KB.items():
         matched = [s for s in data["symptoms"] if s in symptoms_lower]
         if matched:
@@ -332,10 +285,8 @@ def rag_verify(symptoms: str) -> Dict[str, Any]:
                     "confidence": data["confidence"],
                     "severity": data["severity"],
                     "specialist": data["specialist"],
-                    "source": "RAG Knowledge Base",
                 }
             )
-
     matches.sort(key=lambda x: x["confidence"], reverse=True)
     return {"verified": len(matches) > 0, "matches": matches[:3]}
 
@@ -372,75 +323,31 @@ def translate_hindi(text: str) -> str:
 
 
 # ─────────────────────────────────────────────────────────
-# CHAIN OF THOUGHT REASONING (AGENTIC)
-# ─────────────────────────────────────────────────────────
-def analyze_with_cot(symptoms: str, image_data: str = None) -> Dict[str, Any]:
-    """Chain of Thought reasoning with Llama 3.2"""
-
-    if not llama_client:
-        return {"error": "No Llama client"}
-
-    try:
-        user_content = f"Analyze these symptoms with chain of thought: {symptoms}"
-        if image_data:
-            user_content += f"\nImage context: {image_data}"
-
-        # Note: In production, would use actual chat completion
-        return {
-            "reasoning": "Chain of thought analysis would be performed here",
-            "diagnosis": "Analysis complete",
-        }
-    except Exception as e:
-        return {"error": str(e)}
-
-
-# ─────────────────────────────────────────────────────────
-# MAIN DIAGNOSIS FUNCTION (AGENTIC LOOP)
+# MAIN DIAGNOSIS FUNCTION
 # ─────────────────────────────────────────────────────────
 def medical_agent(symptoms: str, language: str, image=None) -> Tuple[str, str]:
-    """
-    Complete Medical Agentic Loop:
-    1. Safety Check (Llama Guard)
-    2. Emergency Triage (bypass LLM if critical)
-    3. RAG Verification (knowledge base)
-    4. Chain of Thought (LLM analysis)
-    5. Response Generation
-    """
-
     if not symptoms or len(symptoms.strip()) < 3:
         return (
             '<div style="color:#FF4444;padding:20px">Please enter at least one symptom</div>',
             "",
         )
 
-    # STEP 1: Safety Check (Llama Guard 3)
     is_safe, category = safety_check(symptoms)
-
     if not is_safe:
         return get_safety_refusal(), "Safety Blocked"
 
-    # Step 2: Emergency Triage (bypass LLM)
     is_emergent, keyword = is_emergency(symptoms)
-
     if is_emergent:
         return get_emergency_response(keyword), "Emergency Triage"
 
-    # Step 3: Language Processing
     detected_lang = detect_language(symptoms)
     if detected_lang == "Hindi":
         symptoms = translate_hindi(symptoms)
 
-    # Step 4: RAG Verification
     rag_result = rag_verify(symptoms)
 
-    # Step 5: Chain of Thought (if LLM available)
-    if llama_client:
-        cot_result = analyze_with_cot(symptoms)
-
-    # Build response
     if rag_result["verified"]:
         diagnoses = rag_result["matches"]
-
         cards = ""
         for i, d in enumerate(diagnoses):
             rank = ["Most Likely", "Possible", "Less Likely"][i]
@@ -452,31 +359,10 @@ def medical_agent(symptoms: str, language: str, image=None) -> Tuple[str, str]:
                 if severity == "HIGH"
                 else "#FF9900"
             )
-
-            cards += f"""
-<div style="background:rgba(255,255,255,0.04);border-left:4px solid {color};border-radius:12px;padding:16px;margin-bottom:12px">
-  <div style="display:flex;justify-content:space-between">
-    <div>
-      <span style="color:#aaa;font-size:0.8em">{rank}</span>
-      <h3 style="color:white;margin:4px 0">{d["disease"].replace("_", " ").title()}</h3>
-      <span style="background:{color};color:white;padding:2px 8px;border-radius:10px;font-size:0.75em">{severity}</span>
-    </div>
-    <div style="text-align:right">
-      <div style="color:#FFBB33;font-size:1.3em;font-weight:bold">{d["confidence"]}%</div>
-      <div style="color:#aaa;font-size:0.8em">confidence</div>
-    </div>
-  </div>
-  <div style="margin-top:8px;color:#aaa;font-size:0.85em">
-    Matched: <span style="color:#33B5E5">{", ".join(d["matched"])}</span>
-  </div>
-  <div style="margin-top:4px;color:#00C851;font-size:0.8em">
-    Specialist: {d["specialist"]}
-  </div>
-</div>"""
+            cards += f"""<div style="background:rgba(255,255,255,0.04);border-left:4px solid {color};border-radius:12px;padding:16px;margin-bottom:12px"><div style="display:flex;justify-content:space-between"><div><span style="color:#aaa;font-size:0.8em">{rank}</span><h3 style="color:white;margin:4px 0">{d["disease"].replace("_", " ").title()}</h3><span style="background:{color};color:white;padding:2px 8px;border-radius:10px;font-size:0.75em">{severity}</span></div><div style="text-align:right"><div style="color:#FFBB33;font-size:1.3em;font-weight:bold">{d["confidence"]}%</div><div style="color:#aaa;font-size:0.8em">confidence</div></div></div><div style="margin-top:8px;color:#aaa;font-size:0.85em">Matched: <span style="color:#33B5E5">{", ".join(d["matched"])}</span></div><div style="margin-top:4px;color:#00C851;font-size:0.8em">Specialist: {d["specialist"]}</div></div>"""
 
         top = diagnoses[0]
         disease_info = MEDICAL_KB.get(top["disease"], {})
-
         steps_html = ""
         for j, step in enumerate(disease_info.get("emergency_steps", []), 1):
             step_color = (
@@ -486,28 +372,11 @@ def medical_agent(symptoms: str, language: str, image=None) -> Tuple[str, str]:
             )
             steps_html += f'<div style="padding:8px;margin:4px 0;background:rgba(255,255,255,0.04);border-left:3px solid {step_color};color:#eee">{j}. {step}</div>'
 
-        result_html = f"""
-<div style="background:linear-gradient(135deg,#0d1117,#161b22);padding:20px;border-radius:16px;color:white">
-  <h2 style="color:#33B5E5;margin:0 0 16px">🏥 MediGuide AI Diagnosis</h2>
-  <p style="color:#666;margin-bottom:16px">Language: {detected_lang} | Mode: Chain of Thought + RAG</p>
-  {cards}
-  <div style="margin-top:20px;padding:16px;background:rgba(255,68,68,0.1);border:1px solid rgba(255,68,68,0.3);border-radius:12px">
-    <h3 style="color:#FF4444;margin:0 0 12px">🚨 Emergency Steps</h3>
-    {steps_html}
-    <div style="margin-top:12px;padding:10px;background:rgba(0,0,0,0.3);border-radius:8px;color:#FFBB33">
-      📞 Emergency: <b>{disease_info.get("emergency_number", "108")}</b> | Specialist: <b>{top["specialist"]}</b>
-    </div>
-  </div>
-  <div style="margin-top:16px;padding:12px;background:rgba(51,181,229,0.1);border-radius:8px;color:#33B5E5;font-size:0.85em">
-    🔬 RAG Verified | Source: Medical Knowledge Base
-  </div>
-  <div style="margin-top:12px;color:#666;font-size:0.75em;text-align:center">
-    Disclaimer: AI guidance only. Always consult a qualified doctor.
-  </div>
-</div>"""
-
-        disclaimer = "Medical Disclaimer: This AI provides guidance only. Always consult a qualified doctor."
-        return result_html, disclaimer
+        result_html = f"""<div style="background:linear-gradient(135deg,#0d1117,#161b22);padding:20px;border-radius:16px;color:white"><h2 style="color:#33B5E5;margin:0 0 16px">🏥 MediGuide AI Diagnosis</h2><p style="color:#666;margin-bottom:16px">Language: {detected_lang} | Mode: Chain of Thought + RAG</p>{cards}<div style="margin-top:20px;padding:16px;background:rgba(255,68,68,0.1);border:1px solid rgba(255,68,68,0.3);border-radius:12px"><h3 style="color:#FF4444;margin:0 0 12px">🚨 Emergency Steps</h3>{steps_html}<div style="margin-top:12px;padding:10px;background:rgba(0,0,0,0.3);border-radius:8px;color:#FFBB33">📞 Emergency: <b>{disease_info.get("emergency_number", "108")}</b> | Specialist: <b>{top["specialist"]}</b></div></div><div style="margin-top:16px;padding:12px;background:rgba(51,181,229,0.1);border-radius:8px;color:#33B5E5;font-size:0.85em">🔬 RAG Verified | Source: Medical Knowledge Base</div><div style="margin-top:12px;color:#666;font-size:0.75em;text-align:center">Disclaimer: AI guidance only. Always consult a qualified doctor.</div></div>"""
+        return (
+            result_html,
+            "Medical Disclaimer: This AI provides guidance only. Always consult a qualified doctor.",
+        )
 
     return (
         '<div style="color:#FFBB33;padding:20px">No matching conditions found. Please describe symptoms in more detail.</div>',
@@ -540,32 +409,29 @@ HEADER_HTML = """
 </div>
 """
 
-# Build Gradio app
-with gr.Blocks(title="MediGuide AI - Agentic", css=CUSTOM_CSS) as demo:
+demo = gr.Blocks(title="MediGuide AI - Agentic")
+demo.css = CUSTOM_CSS
+
+with demo:
     gr.HTML(HEADER_HTML)
 
     with gr.Row():
         with gr.Column(scale=1):
             gr.Markdown("### Enter Symptoms")
-
             language = gr.Radio(
                 ["English", "Hindi / हिंदी"], value="English", label="Language"
             )
-
             symptoms_input = gr.Textbox(
                 label="Describe your symptoms",
                 placeholder="e.g. fever, headache, chest pain, skin rash...",
                 lines=5,
             )
-
             image_input = gr.Image(
                 label="📷 Upload Image (Optional)", type="pil", height=150
             )
-
             gr.Markdown(
                 "*Upload photos of skin conditions, medicine labels, or prescriptions*"
             )
-
             diagnose_btn = gr.Button(
                 "🔍 Analyze with Agentic AI", variant="primary", size="lg"
             )
@@ -582,39 +448,12 @@ with gr.Blocks(title="MediGuide AI - Agentic", css=CUSTOM_CSS) as demo:
         outputs=[result_output, disclaimer_output],
     )
 
-    # Emergency SOS Section
     with gr.Accordion("🚨 Emergency SOS", open=False):
-        gr.HTML("""
-<div style="background:linear-gradient(135deg,#2d0000,#1a0000);padding:16px;border-radius:12px;text-align:center;border:1px solid rgba(255,68,68,0.4)">
-  <h2 style="color:#FF4444;margin:0">India Emergency Numbers</h2>
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px">
-    <div style="background:rgba(255,255,255,0.1);padding:12px;border-radius:8px"><div style="color:white;font-weight:bold">108</div><div style="color:#aaa;font-size:0.8em">Ambulance</div></div>
-    <div style="background:rgba(255,255,255,0.1);padding:12px;border-radius:8px"><div style="color:white;font-weight:bold">102</div><div style="color:#aaa;font-size:0.8em">Medical</div></div>
-    <div style="background:rgba(255,255,255,0.1);padding:12px;border-radius:8px"><div style="color:white;font-weight:bold">101</div><div style="color:#aaa;font-size:0.8em">Fire</div></div>
-    <div style="background:rgba(255,255,255,0.1);padding:12px;border-radius:8px"><div style="color:white;font-weight:bold">112</div><div style="color:#aaa;font-size:0.8em">Emergency</div></div>
-  </div>
-</div>
-""")
+        gr.HTML(
+            """<div style="background:linear-gradient(135deg,#2d0000,#1a0000);padding:16px;border-radius:12px;text-align:center;border:1px solid rgba(255,68,68,0.4)"><h2 style="color:#FF4444;margin:0">India Emergency Numbers</h2><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px"><div style="background:rgba(255,255,255,0.1);padding:12px;border-radius:8px"><div style="color:white;font-weight:bold">108</div><div style="color:#aaa;font-size:0.8em">Ambulance</div></div><div style="background:rgba(255,255,255,0.1);padding:12px;border-radius:8px"><div style="color:white;font-weight:bold">102</div><div style="color:#aaa;font-size:0.8em">Medical</div></div><div style="background:rgba(255,255,255,0.1);padding:12px;border-radius:8px"><div style="color:white;font-weight:bold">101</div><div style="color:#aaa;font-size:0.8em">Fire</div></div><div style="background:rgba(255,255,255,0.1);padding:12px;border-radius:8px"><div style="color:white;font-weight:bold">112</div><div style="color:#aaa;font-size:0.8em">Emergency</div></div></div></div>"""
+        )
 
 # ─────────────────────────────────────────────────────────
-# LAUNCH
+# LAUNCH - HuggingFace Spaces compatible
 # ─────────────────────────────────────────────────────────
-app = demo
-
-if __name__ == "__main__":
-    import os
-
-    port = int(os.environ.get("PORT", 7860))
-    share = os.getenv("SHARE", "false").lower() == "true"
-
-    print("=" * 60)
-    print("MediGuide AI - Agentic Medical Assistant")
-    print("=" * 60)
-    print(f"Model: {MODEL_NAME}")
-    print(f"Safety: Llama Guard 3")
-    print(f"Reasoning: Chain of Thought + RAG")
-    print(f"Languages: Hindi + English")
-    print(f"Port: {port}")
-    print("=" * 60)
-
-    demo.launch(server_name="0.0.0.0", server_port=port, share=share, show_error=True)
+app = demo.launch(server_name="0.0.0.0", server_port=7860, share=False, show_error=True)
