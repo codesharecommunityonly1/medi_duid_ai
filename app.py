@@ -7,12 +7,11 @@ import gradio as gr
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 import uvicorn
+import os
 
 # Configuration
-HF_TOKEN = __import__("os").getenv("HF_TOKEN", "")
-MODEL_NAME = __import__("os").getenv(
-    "MODEL_NAME", "meta-llama/Llama-3.2-11B-Vision-Instruct"
-)
+HF_TOKEN = os.getenv("HF_TOKEN", "")
+MODEL_NAME = os.getenv("MODEL_NAME", "meta-llama/Llama-3.2-11B-Vision-Instruct")
 
 # Initialize client
 llama_client = None
@@ -173,24 +172,34 @@ with gr.Blocks(title="MediGuide AI") as demo:
     with gr.Accordion("Emergency Numbers", open=False):
         gr.Markdown("**108** - Ambulance | **102** - Medical | **112** - Emergency")
 
-# Create FastAPI app
+# FastAPI app with root route
 app = FastAPI()
 
-# Mount Gradio app
-app = gr.mount_gradio_app(app, demo, path="/")
 
-
-# Root route - HTML response for preview
 @app.get("/", response_class=HTMLResponse)
-async def root():
-    return (
-        "<h1>🩺 MED_GUID_AI is Running!</h1><p>Ready for Meta Hackathon evaluation.</p>"
-    )
+async def read_root():
+    return """
+    <html>
+        <head><title>MED_GUID_AI</title></head>
+        <body style="font-family: Arial, sans-serif; text-align: center; padding: 50px;">
+            <h1 style="color: #0078d4;">🩺 MED_GUID_AI is Online</h1>
+            <p style="font-size: 1.2em;">Agent Status: <span style="color: green;">● Running</span></p>
+            <hr style="width: 50%; margin: 20px auto;">
+            <p>Meta OpenEnv Evaluation Environment is ready.</p>
+        </body>
+    </html>
+    """
 
+
+@app.get("/health")
+async def health_check():
+    return {"status": "ready", "model": "Llama-3.2-Vision"}
+
+
+# Mount Gradio app at /gradio
+app = gr.mount_gradio_app(app, demo, path="/gradio")
 
 # HF Spaces entry point
 if __name__ == "__main__":
-    import os
-
     port = int(os.environ.get("PORT", 7860))
     uvicorn.run(app, host="0.0.0.0", port=port)
