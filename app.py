@@ -4,12 +4,15 @@ Privacy-First Multimodal Medical Assistant
 """
 
 import gradio as gr
-import os
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 import uvicorn
 
 # Configuration
-HF_TOKEN = os.getenv("HF_TOKEN", "")
-MODEL_NAME = os.getenv("MODEL_NAME", "meta-llama/Llama-3.2-11B-Vision-Instruct")
+HF_TOKEN = __import__("os").getenv("HF_TOKEN", "")
+MODEL_NAME = __import__("os").getenv(
+    "MODEL_NAME", "meta-llama/Llama-3.2-11B-Vision-Instruct"
+)
 
 # Initialize client
 llama_client = None
@@ -170,20 +173,24 @@ with gr.Blocks(title="MediGuide AI") as demo:
     with gr.Accordion("Emergency Numbers", open=False):
         gr.Markdown("**108** - Ambulance | **102** - Medical | **112** - Emergency")
 
-# Wrap Gradio app for uvicorn
-app = gr.routes.App.create_app(demo)
+# Create FastAPI app
+app = FastAPI()
+
+# Mount Gradio app
+app = gr.mount_gradio_app(app, demo, path="/")
 
 
-# Root route for HF Spaces preview
-@app.get("/", allow_redirects=False)
+# Root route - HTML response for preview
+@app.get("/", response_class=HTMLResponse)
 async def root():
-    return {
-        "message": "🩺 MED_GUID_AI is Running!",
-        "status": "Ready for Meta Hackathon evaluation",
-    }
+    return (
+        "<h1>🩺 MED_GUID_AI is Running!</h1><p>Ready for Meta Hackathon evaluation.</p>"
+    )
 
 
 # HF Spaces entry point
 if __name__ == "__main__":
+    import os
+
     port = int(os.environ.get("PORT", 7860))
     uvicorn.run(app, host="0.0.0.0", port=port)
