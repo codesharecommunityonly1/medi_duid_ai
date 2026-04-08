@@ -10,16 +10,13 @@ def main():
     print("MediGuide AI - OpenEnv Server")
     print("=" * 50)
 
-    # Initialize environment
     env = MedicalEnv()
 
-    # Reset to initial state
-    state = env.reset()
-    print(f"\n[RESET] Episode: {state['episode_id']}")
-    print(f"  Message: {state['message']}")
-    print(f"  Diseases: {len(state['diseases'])}")
+    result = env.reset()
+    print(f"\n[RESET] Episode: {result.observation.episode_id}")
+    print(f"  Message: {result.observation.message}")
+    print(f"  Diseases: {len(result.observation.diseases)}")
 
-    # Run sample episodes
     test_cases = [
         {"symptoms": "fever chills headache sweating nausea", "query_type": "diagnose"},
         {
@@ -31,22 +28,13 @@ def main():
 
     for i, action in enumerate(test_cases, 1):
         print(f"\n--- Episode {i} ---")
-        observation, reward, done, info = env.step(action)
+        step_result = env.step(action)
 
         print(f"[STEP {i}] Action: {action['symptoms'][:50]}...")
-        print(f"  Diagnoses found: {len(observation['diagnoses'])}")
+        print(f"  Step: {step_result.observation.step_count}")
+        print(f"  Reward: {step_result.reward:.2f}")
+        print(f"  Done: {step_result.done}")
 
-        if observation["diagnoses"]:
-            top = observation["diagnoses"][0]
-            print(
-                f"  Top diagnosis: {top['disease']} ({top['confidence']}%) - {top['severity']}"
-            )
-
-        print(f"  Reward: {reward:.2f}")
-        print(f"  Total reward: {info['total_reward']:.2f}")
-        print(f"  Done: {done}")
-
-    # Final state
     final_state = env.get_state()
     print(f"\n[FINAL STATE]")
     print(f"  Episode: {final_state['episode_id']}")

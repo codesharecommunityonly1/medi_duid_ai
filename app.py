@@ -602,6 +602,9 @@ with gr.Blocks(title="MediGuide AI - Agentic", css=CUSTOM_CSS) as demo:
 app = demo
 
 if __name__ == "__main__":
+    import os
+
+    port = int(os.environ.get("PORT", 7860))
     print("=" * 60)
     print("MediGuide AI - Agentic Medical Assistant")
     print("=" * 60)
@@ -609,5 +612,6 @@ if __name__ == "__main__":
     print(f"Safety: Llama Guard 3")
     print(f"Reasoning: Chain of Thought + RAG")
     print(f"Languages: Hindi + English")
+    print(f"Port: {port}")
     print("=" * 60)
-    demo.launch(server_name="0.0.0.0", server_port=7860)
+    demo.launch(server_name="0.0.0.0", server_port=port)
