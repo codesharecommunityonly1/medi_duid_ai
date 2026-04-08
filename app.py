@@ -5,6 +5,7 @@ Privacy-First Multimodal Medical Assistant
 
 import gradio as gr
 import os
+import uvicorn
 
 # Configuration
 HF_TOKEN = os.getenv("HF_TOKEN", "")
@@ -169,5 +170,20 @@ with gr.Blocks(title="MediGuide AI") as demo:
     with gr.Accordion("Emergency Numbers", open=False):
         gr.Markdown("**108** - Ambulance | **102** - Medical | **112** - Emergency")
 
-# HF Spaces handles the launch - just expose the app
-app = demo
+# Wrap Gradio app for uvicorn
+app = gr.routes.App.create_app(demo)
+
+
+# Root route for HF Spaces preview
+@app.get("/", allow_redirects=False)
+async def root():
+    return {
+        "message": "🩺 MED_GUID_AI is Running!",
+        "status": "Ready for Meta Hackathon evaluation",
+    }
+
+
+# HF Spaces entry point
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 7860))
+    uvicorn.run(app, host="0.0.0.0", port=port)
