@@ -181,23 +181,22 @@ async def read_root():
     return """
     <html>
         <head><title>MED_GUID_AI</title></head>
-        <body style="font-family: Arial, sans-serif; text-align: center; padding: 50px;">
-            <h1 style="color: #0078d4;">🩺 MED_GUID_AI is Online</h1>
-            <p style="font-size: 1.2em;">Agent Status: <span style="color: green;">● Running</span></p>
-            <hr style="width: 50%; margin: 20px auto;">
-            <p>Meta OpenEnv Evaluation Environment is ready.</p>
+        <body style="font-family: sans-serif; text-align: center; padding-top: 100px;">
+            <h1 style="color: #0080ff;">🩺 MED_GUID_AI Online</h1>
+            <p>Status: <span style="color: green;">● Running</span></p>
+            <p>Meta OpenEnv Validator: <b>Connected</b></p>
         </body>
     </html>
     """
 
 
 @app.get("/health")
-async def health_check():
-    return {"status": "ready", "model": "Llama-3.2-Vision"}
+async def health():
+    return {"status": "ready"}
 
 
-# Mount Gradio app at /gradio
-app = gr.mount_gradio_app(app, demo, path="/gradio")
+# Mount Gradio app
+gr.mount_gradio_app(app, demo, path="/gradio")
 
 # HF Spaces entry point
 if __name__ == "__main__":
