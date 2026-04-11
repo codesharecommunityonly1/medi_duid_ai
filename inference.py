@@ -814,21 +814,16 @@ def log_end(success: bool, steps: int, score: float, rewards: List[float]) -> No
 
 def main():
     """Main inference with Llama Stack"""
+    # Defensive import
     try:
-        from openenv.env import MedicalEnv, EnvResult
-    except ImportError:
-        try:
-            from openenv.env import MedicalEnv
-
-            EnvResult = None
-        except Exception as e:
-            print(f"[DEBUG] Import error: {e}", flush=True)
-            print(
-                f"[START] task={TASK_NAME} env={BENCHMARK} model={MODEL_NAME}",
-                flush=True,
-            )
-            print(f"[END] success=false steps=0 score=0.000 rewards=", flush=True)
-            return
+        from openenv.env import MedicalEnv
+    except Exception as e:
+        print(f"[DEBUG] Import error: {e}", flush=True)
+        print(
+            f"[START] task={TASK_NAME} env={BENCHMARK} model={MODEL_NAME}", flush=True
+        )
+        print(f"[END] success=false steps=0 score=0.000 rewards=", flush=True)
+        return
 
     agent = None
     env = None
