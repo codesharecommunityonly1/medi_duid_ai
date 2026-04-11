@@ -172,6 +172,8 @@ with demo:
     with gr.Accordion("Emergency Numbers", open=False):
         gr.Markdown("**108** - Ambulance | **102** - Medical | **112** - Emergency")
 
-# For HF Spaces - just expose the demo object, don't launch here
-# HF Spaces will handle the server automatically
+# For HF Spaces - launch with if __name__ check
 app = demo
+
+if __name__ == "__main__":
+    demo.launch(server_name="0.0.0.0", server_port=7860)
