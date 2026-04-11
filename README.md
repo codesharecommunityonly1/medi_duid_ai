@@ -3,7 +3,7 @@ title: MediGuide AI
 emoji: 🏥
 colorFrom: red
 colorTo: blue
-sdk: gradio
+sdk: docker
 app_port: 7860
 python_version: "3.10"
 short_description: Privacy-First Multimodal Medical Assistant with Llama 3.2
