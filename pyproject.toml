@@ -7,12 +7,7 @@ name = "medi-guide-ai"
 version = "0.1.0"
 description = "AI Medical Guide Deployment"
 dependencies = [
-    "fastapi",
-    "uvicorn",
     "gradio",
-    "python-dotenv"
 ]
 
-[project.scripts]
-# This line solves the "Missing [project.scripts] server entry point" error
-server = "app:app"
+# No server entry point - HF Spaces handles this
