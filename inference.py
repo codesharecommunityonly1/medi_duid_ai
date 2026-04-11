@@ -31,11 +31,13 @@ BENCHMARK = os.getenv("BENCHMARK", "mediguide_ai")
 MAX_STEPS = int(os.getenv("MAX_STEPS", "10"))
 SUCCESS_SCORE_THRESHOLD = 0.1
 
-# Import our modules
+# Import our modules - defensive
 try:
-    from openenv.env import MedicalEnv, EnvResult
-except ImportError:
     from openenv.env import MedicalEnv
+except ImportError:
+
+    class MedicalEnv:
+        pass
 
 
 # ============================================================
