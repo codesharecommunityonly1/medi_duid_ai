@@ -19,95 +19,89 @@ pinned: false
 
 # 🏥 MediGuide AI
 
-**Privacy-First, Multimodal Medical Assistant**
+**Privacy-First, Multimodal Medical Assistant for Rural India**
 
 > Meta + Hugging Face Hackathon 2026 · Healthcare Track
 
 ---
 
-## Built With
+## 🚀 Quick Start
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Run locally
+python app.py
+
+# Run inference evaluation
+python inference.py
+```
+
+---
+
+## 🛠️ Built With
 
 - **Llama 3.2 11B Vision** - Multimodal medical reasoning
-- **Llama Guard 3** - Safety filtering
-- **PyTorch** - Deep learning framework
-- **Gradio** - UI for HuggingFace Spaces
+- **Llama Guard 3** - Safety filtering  
+- **FastAPI + Gradio** - Web serving
+- **OpenEnv** - RL environment for evaluation
 
 ---
 
-## The Problem
+## 🎯 Features
 
-Solving the "Healthcare Desert" in rural India via localized AI. 
-600M+ Indians lack access to doctors - this assistant provides instant 
-medical guidance in Hindi/English with emergency detection.
-
----
-
-## Features
-
-- **Multimodal Analysis** - Text symptoms + image uploads (skin rashes, medicine labels)
-- **Medical Reasoning Chain** - Analyze → Verify (RAG) → Guard (Llama Guard)
-- **Safety Protocol** - Integrated Llama-Stack safety filters to prevent misinformation
-- **Emergency Detection** - Instant SOS with 108, 102, 112 contacts
-- **Hindi + English** - Full multilingual support for Indian demographic
-- **RAG Verification** - Medical knowledge base lookup (Merck Manual simulation)
+| Feature | Description |
+|---------|-------------|
+| Multimodal Analysis | Text + image symptom input |
+| Emergency Detection | Instant 108/102/112 SOS |
+| Safety Protocol | Llama Guard 3 filtering |
+| Hindi/English | Full multilingual support |
+| RAG Verification | Medical knowledge base |
+| Tool Calling | Pharmacy/Hospital lookup APIs |
 
 ---
 
-## Safety Protocol
+## 📁 Project Structure
 
-This AI includes multiple safety layers:
-
-1. **Llama Guard 3** - Filters harmful content, detects malicious requests
-2. **Emergency Keywords** - Detects critical conditions, bypasses LLM for 108 dispatch
-3. **Medical Disclaimer** - Always recommends professional consultation
-4. **SOS Integration** - Instant access to India's emergency numbers
-
----
-
-## Safety & Ethics
-
-This project uses **Meta's Responsible AI guidelines** to ensure safe medical guidance:
-
-### Llama Guard 3 Integration
-- All user inputs are filtered through Llama Guard 3 safety layer
-- Requests categorized as "Medical" or "Malicious"
-- Malicious requests (e.g., "how to make drugs") are politely declined
-
-### Emergency Triage Logic
-- Critical symptoms (chest pain, unconsciousness, severe bleeding) trigger immediate emergency response
-- No LLM call needed - bypasses AI for life-threatening situations
-- India-specific emergency numbers (108, 102, 112) prominently displayed
-
-### Chain of Thought Reasoning
-- Agentic approach: Analyze → Verify (RAG) → Recommend
-- Prevents hallucinations through knowledge base verification
-- Always recommends professional medical consultation
-
-### Regional Impact
-- Designed for Indian healthcare context
-- Hindi + English multilingual support
-- 600M+ rural Indians as target demographic
+```
+.
+├── app.py              # Gradio UI + FastAPI
+├── inference.py        # OpenEnv evaluation script
+├── openenv/
+│   └── env.py        # RL environment
+├── tools.py          # Agentic tools
+├── eval_suite.py     # 50 test cases + Llama-as-a-Judge
+├── requirements.txt  # Dependencies
+└── README.md        # This file
+```
 
 ---
 
-## Usage
+## ⚙️ Environment Variables
 
-1. Enter symptoms in text or upload an image
-2. Select language (English or Hindi)
-3. Click "Analyze with Llama 3.2"
-4. View diagnosis with confidence scores and emergency steps
-
----
-
-## Environment Variables
-
-- `HF_TOKEN` - HuggingFace token for Llama 3.2 API (optional)
-- `MODEL_NAME` - Model to use (default: meta-llama/Llama-3.2-11B-Vision-Instruct)
-- `GUARD_MODEL` - Safety model (default: meta-llama/Llama-Guard-3-8B)
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `HF_TOKEN` | - | HuggingFace API token |
+| `MODEL_NAME` | meta-llama/Llama-3.2-11B-Vision-Instruct | Model to use |
+| `PORT` | 7860 | Server port |
 
 ---
 
-## Disclaimer
+## 🏥 Emergency Numbers (India)
 
-This AI provides guidance only. Always consult a qualified doctor for medical decisions.
-In emergencies, call 108 (India) immediately.
+- **108** - Ambulance
+- **102** - Medical Emergency  
+- **112** - National Emergency
+
+---
+
+## ⚠️ Disclaimer
+
+This AI provides guidance only. Always consult a qualified doctor for medical decisions. In emergencies, call 108 immediately.
+
+---
+
+## 📝 License
+
+MIT License - Meta + Hugging Face Hackathon 2026
