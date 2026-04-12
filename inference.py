@@ -68,7 +68,11 @@ def log_step(step, action, reward, done, error=None):
 
 def log_end(success, steps, rewards):
     r = ",".join(f"{x:.2f}" for x in rewards)
-    print(f"[END] success={str(success).lower()} steps={steps} rewards={r}", flush=True)
+    score = sum(rewards) / len(rewards) if rewards else 0.0
+    print(
+        f"[END] success={str(success).lower()} steps={steps} score={score:.3f} rewards={r}",
+        flush=True,
+    )
 
 
 def run_inference(prompt):
@@ -95,9 +99,11 @@ def main():
     env = None
     try:
         env = MedicalEnv()
-        env.reset()
+        result = env.reset()
     except Exception as e:
         print(f"[DEBUG] Env init error: {e}", flush=True)
+        log_end(False, 0, [])
+        return
 
     rewards = []
     steps_taken = 0
