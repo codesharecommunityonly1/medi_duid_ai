@@ -68,5 +68,12 @@ async def predict(query: UserQuery):
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 7860))
+    port = int(os.environ.get("PORT", 0))
+    if port == 0:
+        # Auto-select available port
+        import socket
+
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.bind(("", 0))
+            port = s.getsockname()[1]
     uvicorn.run("app:app", host="0.0.0.0", port=port, reload=False)
