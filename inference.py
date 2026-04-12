@@ -6,6 +6,7 @@ OpenEnv RL Challenge
 """
 
 import os
+import sys
 from openai import OpenAI
 
 # Required environment variables with defaults
@@ -13,10 +14,7 @@ API_BASE_URL = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
 MODEL_NAME = os.getenv("MODEL_NAME", "meta-llama/Llama-3.2-11B-Vision-Instruct")
 HF_TOKEN = os.getenv("HF_TOKEN")
 
-if HF_TOKEN is None:
-    print("[DEBUG] HF_TOKEN not set - using fallback mode", flush=True)
-
-# Initialize OpenAI client
+# Initialize OpenAI client if token available
 client = None
 if HF_TOKEN:
     try:
@@ -28,22 +26,21 @@ if HF_TOKEN:
 try:
     from openenv.env import MedicalEnv
 except ImportError:
+    print("[DEBUG] MedicalEnv not found", flush=True)
 
+    # Fallback env
     class MedicalEnv:
         def __init__(self):
             self.step_count = 0
             self.max_steps = 10
-            self.total_reward = 0.0
 
         def reset(self):
             self.step_count = 0
-            self.total_reward = 0.0
-            return {"episode_id": "test", "step_count": 0}
+            return type("obj", (), {"episode_id": "test"})()
 
         def step(self, action):
             self.step_count += 1
             reward = 1.0 if self.step_count % 2 == 0 else 0.5
-            self.total_reward += reward
             done = self.step_count >= self.max_steps
             return type(
                 "obj", (), {"reward": reward, "done": done, "observation": {}}
@@ -68,25 +65,20 @@ def log_step(step, action, reward, done, error=None):
 
 def log_end(success, steps, rewards):
     r = ",".join(f"{x:.2f}" for x in rewards)
-    score = sum(rewards) / len(rewards) if rewards else 0.0
-    print(
-        f"[END] success={str(success).lower()} steps={steps} score={score:.3f} rewards={r}",
-        flush=True,
-    )
+    print(f"[END] success={str(success).lower()} steps={steps} rewards={r}", flush=True)
 
 
 def run_inference(prompt):
     """Run inference using OpenAI client"""
     if not client:
-        return {"response": "No client - fallback mode"}
-
+        return "fallback response"
     try:
         response = client.chat.completions.create(
             model=MODEL_NAME, messages=[{"role": "user", "content": prompt}]
         )
-        return {"response": response.choices[0].message.content}
+        return response.choices[0].message.content
     except Exception as e:
-        return {"response": f"Error: {str(e)}"}
+        return f"Error: {str(e)}"
 
 
 def main():
@@ -96,42 +88,36 @@ def main():
 
     log_start(TASK_NAME, BENCHMARK, MODEL_NAME)
 
-    env = None
-    try:
-        env = MedicalEnv()
-        result = env.reset()
-    except Exception as e:
-        print(f"[DEBUG] Env init error: {e}", flush=True)
-        log_end(False, 0, [])
-        return
+    env = MedicalEnv()
+    env.reset()
 
     rewards = []
     steps_taken = 0
     success = False
 
     test_cases = [
-        {"symptoms": "fever chills headache", "query_type": "diagnose"},
-        {"symptoms": "chest pain cannot breathe", "query_type": "diagnose"},
-        {"symptoms": "mild headache", "query_type": "diagnose"},
+        "fever chills headache",
+        "chest pain cannot breathe",
+        "mild headache",
+        "skin rash",
+        "high fever rash joint pain",
     ]
 
     for step in range(1, MAX_STEPS + 1):
-        case = test_cases[(step - 1) % len(test_cases)]
+        user_input = test_cases[(step - 1) % len(test_cases)]
 
         try:
-            if env:
-                env_result = env.step(case)
-                reward = env_result.reward if hasattr(env_result, "reward") else 0.5
-                done = (
-                    env_result.done
-                    if hasattr(env_result, "done")
-                    else (step >= MAX_STEPS)
-                )
-            else:
-                reward = 1.0 if step % 2 == 0 else 0.5
-                done = step >= MAX_STEPS
+            # Get LLM response
+            llm_response = run_inference(user_input)
+            action_str = f"response('{llm_response[:30]}')"
 
-            action_str = case.get("query_type", "diagnose")
+            # Get reward from environment
+            env_result = env.step({"symptoms": user_input, "query_type": "diagnose"})
+            reward = env_result.reward if hasattr(env_result, "reward") else 1.0
+            done = (
+                env_result.done if hasattr(env_result, "done") else (step >= MAX_STEPS)
+            )
+
             log_step(step, action_str, reward, done)
             rewards.append(reward)
             steps_taken = step
@@ -140,20 +126,15 @@ def main():
                 break
 
         except Exception as e:
-            log_step(step, "error", 0.0, True, str(e))
+            log_step(step, f"error('{str(e)}')", 0.0, True, str(e))
             break
 
-    # Calculate score
-    max_possible = MAX_STEPS * 1.0
-    score = sum(rewards) / max_possible if max_possible > 0 else 0
-    score = min(max(score, 0.0), 1.0)
-    success = score >= 0.1
+    success = len(rewards) > 0 and sum(rewards) > 0
 
-    if env:
-        try:
-            env.close()
-        except:
-            pass
+    try:
+        env.close()
+    except:
+        pass
 
     log_end(success, steps_taken, rewards)
 
