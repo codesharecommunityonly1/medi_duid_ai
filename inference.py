@@ -14,40 +14,14 @@ API_BASE_URL = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
 MODEL_NAME = os.getenv("MODEL_NAME", "meta-llama/Llama-3.2-11B-Vision-Instruct")
 HF_TOKEN = os.getenv("HF_TOKEN")
 
-# Initialize OpenAI client if token available
-client = None
-if HF_TOKEN:
-    try:
-        client = OpenAI(base_url=API_BASE_URL, api_key=HF_TOKEN)
-    except Exception as e:
-        print(f"[DEBUG] Client init error: {e}", flush=True)
+if HF_TOKEN is None:
+    raise ValueError("HF_TOKEN environment variable is required")
+
+# Initialize OpenAI client
+client = OpenAI(base_url=API_BASE_URL, api_key=HF_TOKEN)
 
 # Import environment
-try:
-    from openenv.env import MedicalEnv
-except ImportError:
-    print("[DEBUG] MedicalEnv not found", flush=True)
-
-    # Fallback env
-    class MedicalEnv:
-        def __init__(self):
-            self.step_count = 0
-            self.max_steps = 10
-
-        def reset(self):
-            self.step_count = 0
-            return type("obj", (), {"episode_id": "test"})()
-
-        def step(self, action):
-            self.step_count += 1
-            reward = 1.0 if self.step_count % 2 == 0 else 0.5
-            done = self.step_count >= self.max_steps
-            return type(
-                "obj", (), {"reward": reward, "done": done, "observation": {}}
-            )()
-
-        def close(self):
-            pass
+from openenv.env import MedicalEnv
 
 
 # Output functions
@@ -69,16 +43,10 @@ def log_end(success, steps, rewards):
 
 
 def run_inference(prompt):
-    """Run inference using OpenAI client"""
-    if not client:
-        return "fallback response"
-    try:
-        response = client.chat.completions.create(
-            model=MODEL_NAME, messages=[{"role": "user", "content": prompt}]
-        )
-        return response.choices[0].message.content
-    except Exception as e:
-        return f"Error: {str(e)}"
+    response = client.chat.completions.create(
+        model=MODEL_NAME, messages=[{"role": "user", "content": prompt}]
+    )
+    return response.choices[0].message.content
 
 
 def main():
@@ -96,26 +64,30 @@ def main():
     success = False
 
     test_cases = [
-        "fever chills headache",
-        "chest pain cannot breathe",
-        "mild headache",
-        "skin rash",
-        "high fever rash joint pain",
+        {"symptoms": "fever chills headache", "query_type": "diagnose"},
+        {"symptoms": "chest pain cannot breathe", "query_type": "diagnose"},
+        {"symptoms": "mild headache", "query_type": "diagnose"},
     ]
 
     for step in range(1, MAX_STEPS + 1):
-        user_input = test_cases[(step - 1) % len(test_cases)]
+        case = test_cases[(step - 1) % len(test_cases)]
 
         try:
-            # Get LLM response
-            llm_response = run_inference(user_input)
-            action_str = f"response('{llm_response[:30]}')"
+            # Run LLM inference
+            try:
+                llm_response = run_inference(case["symptoms"])
+                action_str = f"'{str(llm_response)[:50]}'"
+            except Exception as llm_err:
+                action_str = f"'{str(llm_err)[:50]}'"
 
-            # Get reward from environment
-            env_result = env.step({"symptoms": user_input, "query_type": "diagnose"})
-            reward = env_result.reward if hasattr(env_result, "reward") else 1.0
+            # Get reward from environment - use actual step result
+            env_result = env.step(case)
+            if hasattr(env_result, "reward"):
+                reward = env_result.reward
+            else:
+                reward = 1.0
             done = (
-                env_result.done if hasattr(env_result, "done") else (step >= MAX_STEPS)
+                hasattr(env_result, "done") and env_result.done or (step >= MAX_STEPS)
             )
 
             log_step(step, action_str, reward, done)
@@ -125,8 +97,11 @@ def main():
             if done:
                 break
 
+        except EnvironmentError as e:
+            log_step(step, "env_error", 0.0, True, str(e))
+            break
         except Exception as e:
-            log_step(step, f"error('{str(e)}')", 0.0, True, str(e))
+            log_step(step, f"'{str(e)[:30]}'", 0.0, True, str(e))
             break
 
     success = len(rewards) > 0 and sum(rewards) > 0
