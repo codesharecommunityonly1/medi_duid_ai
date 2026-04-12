@@ -23,8 +23,15 @@ if HF_TOKEN:
     except Exception:
         pass
 
-# Import environment
-from openenv.env import MedicalEnv
+# Import environment with error handling
+MedicalEnv = None
+try:
+    from openenv.env import MedicalEnv as _MedicalEnv
+
+    MedicalEnv = _MedicalEnv
+except Exception as e:
+    print(f"ERROR: Could not import MedicalEnv: {e}", flush=True)
+    sys.exit(1)
 
 
 # Output functions
@@ -65,8 +72,14 @@ def main():
 
     log_start(TASK_NAME, BENCHMARK, MODEL_NAME)
 
-    env = MedicalEnv()
-    env.reset()
+    # Create environment
+    try:
+        env = MedicalEnv()
+        env.reset()
+    except Exception as e:
+        log_step(1, "env_error", 0.0, True, str(e))
+        log_end(False, 0, [])
+        return
 
     rewards = []
     steps_taken = 0
@@ -89,15 +102,16 @@ def main():
             except Exception as llm_err:
                 action_str = f"'{str(llm_err)[:50]}'"
 
-            # Get reward from environment - use actual step result
-            env_result = env.step(case)
-            if hasattr(env_result, "reward"):
-                reward = env_result.reward
-            else:
-                reward = 1.0
-            done = (
-                hasattr(env_result, "done") and env_result.done or (step >= MAX_STEPS)
-            )
+            # Get reward from environment
+            try:
+                env_result = env.step(case)
+                reward = getattr(env_result, "reward", 1.0)
+                done = getattr(env_result, "done", False) or (step >= MAX_STEPS)
+            except Exception as env_err:
+                reward = 0.0
+                done = True
+                log_step(step, action_str, reward, done, str(env_err))
+                break
 
             log_step(step, action_str, reward, done)
             rewards.append(reward)
@@ -106,9 +120,6 @@ def main():
             if done:
                 break
 
-        except EnvironmentError as e:
-            log_step(step, "env_error", 0.0, True, str(e))
-            break
         except Exception as e:
             log_step(step, f"'{str(e)[:30]}'", 0.0, True, str(e))
             break
