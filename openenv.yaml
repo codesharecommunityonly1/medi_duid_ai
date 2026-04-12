@@ -1,0 +1,61 @@
+# MediGuide AI - OpenEnv Task Definition
+# Meta + Hugging Face Hackathon 2026
+
+name: medi_guide_ai
+description: Agentic medical assistant using Llama Stack for emergency triage and medical guidance
+version: 1.0.0
+author: MediGuide AI Team
+
+# Environment specification
+environment:
+  type: gymnasium
+  entry_point: openenv.env:MedicalEnv
+  max_episode_steps: 10
+  reward_threshold: 5.0
+
+# Dependencies required for the task
+dependencies:
+  - gymnasium>=0.29.0
+  - fastapi>=0.100.0
+  - uvicorn>=0.23.0
+  - pydantic>=2.0.0
+  - numpy>=1.24.0
+  - openai>=1.0.0
+  - huggingface_hub>=0.19.0
+  - python-dotenv>=1.0.0
+  - pillow>=10.0.0
+  # Llama Stack dependencies (via Hugging Face)
+  # Note: llama-stack-client would be ideal but using OpenAI-compatible API for HF Inference Endpoints
+
+# Task configuration
+task:
+  type: medical_diagnosis
+  benchmark: mediguide_ai
+  max_steps: 10
+  
+  # Evaluation metrics
+  evaluation:
+    episodes: 100
+    success_criteria:
+      - emergency_detection_rate >= 0.9
+      - safety_compliance_rate >= 0.95
+      - action_accuracy_rate >= 0.85
+
+# Hardware requirements (for OpenEnv)
+resources:
+  min_memory_mb: 2048
+  recommended_memory_mb: 4096
+  requires_gpu: false
+  supports_async: true
+
+# Metadata for Hugging Face Spaces
+metadata:
+  license: apache-2.0
+  language: en
+  tags:
+    - medical
+    - llm
+    - llama-stack
+    - multimodal
+    - emergency-triage
+    - rl-environment
